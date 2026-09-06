@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package civer.store.v1;
+
+option go_package = "civer/store/v1;storev1";
+option java_package = "com.civer.store.v1";
+option java_multiple_files = true;
+
+// Servicio de transporte y control binario para agentes de IA y clientes remotos
+service CiverTransportBridgeService {
+  // Dispara una compilación en la cola de CI persistente
+  rpc TriggerBuild(TriggerBuildRequest) returns (TriggerBuildResponse);
+
+  // Consulta estadísticas en tiempo real y salud heurística de una app
+  rpc GetAppStats(GetAppStatsRequest) returns (GetAppStatsResponse);
+
+  // Despliega un parche delta OTA sobre una aplicación instalada
+  rpc DeployPatch(DeployPatchRequest) returns (DeployPatchResponse);
+
+  // Sincroniza espejos oficiales F-Droid V2
+  rpc SyncMirrors(SyncMirrorsRequest) returns (SyncMirrorsResponse);
+
+  // Transmisión en tiempo real de eventos del bus agéntico
+  rpc StreamAgentEvents(StreamAgentEventsRequest) returns (stream AgentEvent);
+}
+
+enum BuildPriority {
+  BUILD_PRIORITY_UNSPECIFIED = 0;
+  BUILD_PRIORITY_LOW = 1;
+  BUILD_PRIORITY_NORMAL = 2;
+  BUILD_PRIORITY_HIGH = 3;
+  BUILD_PRIORITY_CRITICAL = 4;
+}
+
+enum PatchType {
+  PATCH_TYPE_UNSPECIFIED = 0;
+  PATCH_TYPE_DELTA_SO = 1;
+  PATCH_TYPE_DEX_OVERLAY = 2;
+  PATCH_TYPE_HOT_FIX = 3;
+}
+
+message TriggerBuildRequest {
+  string app_id = 1;
+  string app_name = 2;
+  string github_url = 3;
+  string gradle_task = 4;
+  BuildPriority priority = 5;
+  string requester_agent_id = 6;
+}
+
+message TriggerBuildResponse {
+  string job_id = 1;
+  string status = 2;
+  int64 queue_position = 3;
+  string estimated_completion_time = 4;
+  string message = 5;
+}
+
+message GetAppStatsRequest {
+  string app_id = 1;
+}
+
+message GetAppStatsResponse {
+  string app_id = 1;
+  string app_name = 2;
+  double health_score = 3;
+  string health_grade = 4;
+  int64 download_count = 5;
+  double user_rating = 6;
+  repeated string supported_archs = 7;
+  bool is_reproducible = 8;
+  int32 trackers_count = 9;
+}
+
+message DeployPatchRequest {
+  string app_id = 1;
+  string version_name = 2;
+  PatchType patch_type = 3;
+  string binary_hash_sha256 = 4;
+  bytes delta_payload = 5;
+  string deployer_agent_id = 6;
+}
+
+message DeployPatchResponse {
+  string patch_id = 1;
+  bool success = 2;
+  string new_version = 3;
+  int64 applied_at_timestamp = 4;
+  string status_message = 5;
+}
+
+message SyncMirrorsRequest {
+  string mirror_id = 1;
+  bool force_full_resync = 2;
+}
+
+message SyncMirrorsResponse {
+  string mirror_id = 1;
+  int32 updated_packages_count = 2;
+  int64 sync_duration_ms = 3;
+  string status = 4;
+}
+
+message StreamAgentEventsRequest {
+  string subscriber_agent_id = 1;
+  repeated string event_filter_categories = 2;
+}
+
+message AgentEvent {
+  string event_id = 1;
+  string category = 2;
+  string sender_agent_id = 3;
+  string summary = 4;
+  string json_payload = 5;
+  int64 timestamp_ms = 6;
+}

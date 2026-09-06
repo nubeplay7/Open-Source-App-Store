@@ -1,0 +1,6 @@
+{
+  "name": "Civer App Store - Android FOSS App Store & Dev Ecosystem",
+  "description": "Tienda de aplicaciones Android FOSS de alto rendimiento, compilador CI integrado, instalador Shizuku y espacio de trabajo colaborativo para desarrolladores estilo Obsidian, Jira y Slack.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

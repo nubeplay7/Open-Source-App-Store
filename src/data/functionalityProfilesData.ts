@@ -1,0 +1,142 @@
+import { FunctionalityProfile, FeatureFlagsConfig } from '../types';
+
+export const ALL_FEATURES_ENABLED: FeatureFlagsConfig = {
+  enableGitHubCompiler: true,
+  enableKeystoreVault: true,
+  enableBuildsHub: true,
+  enableLocalRepoCloning: true,
+  enableShizukuInstaller: true,
+  enableSecurityAudit: true,
+  enableCustomRepoManager: true,
+  enableDeviceDiagnostics: true,
+  enableDeltaPatching: true,
+  enableRepoIndexSync: true,
+  enableWorkspaceCollab: true,
+  enableCommunityProposals: true,
+  enableChangelogLedger: true,
+  enableArchitectureDocs: true,
+  enableCommandPalette: true,
+  enableReviewsAndRatings: true
+};
+
+export const FUNCTIONALITY_PROFILES: FunctionalityProfile[] = [
+  {
+    id: 'FULL_POWER_DEV',
+    name: 'Full Power Dev & DevOps CI/CD',
+    tagline: 'Todas las capacidades habilitadas sin restricciones para ingenieros y arquitectos de software',
+    description: 'Acceso total a terminales ANSI, compilación de workflows GitHub Actions, Bóveda de Llaves de firma v1-v4, clonado local de código, diagnóstico de hardware y espacio colaborativo (Obsidian + Jira + Slack).',
+    icon: 'Terminal',
+    badgeColor: 'emerald',
+    recommendedFor: 'Desarrolladores Android, Ingenieros de Seguridad y Sysadmins',
+    features: { ...ALL_FEATURES_ENABLED }
+  },
+  {
+    id: 'PURIST_FOSS',
+    name: 'Purista FOSS & Cero Rastreadores',
+    tagline: 'Foco exclusivo en libertad de software, repositorios independientes y privacidad estricta',
+    description: 'Desactiva telemetrías y servicios cloud externos no esenciales. Maximiza la auditoría de firmas Ed25519, sincronización de repositorios F-Droid Index V2 descentralizados y verificación de código abierto.',
+    icon: 'ShieldCheck',
+    badgeColor: 'teal',
+    recommendedFor: 'Usuarios de GrapheneOS, CalyxOS y defensores de privacidad',
+    features: {
+      ...ALL_FEATURES_ENABLED,
+      enableGitHubCompiler: false,
+      enableBuildsHub: true,
+      enableKeystoreVault: true,
+      enableLocalRepoCloning: true,
+      enableShizukuInstaller: true,
+      enableSecurityAudit: true,
+      enableCustomRepoManager: true,
+      enableDeviceDiagnostics: false,
+      enableDeltaPatching: true,
+      enableRepoIndexSync: true,
+      enableWorkspaceCollab: true,
+      enableCommunityProposals: true,
+      enableChangelogLedger: true,
+      enableArchitectureDocs: true,
+      enableCommandPalette: true,
+      enableReviewsAndRatings: true
+    }
+  },
+  {
+    id: 'CASUAL_APP_STORE',
+    name: 'Tienda Casual & Modo Simple',
+    tagline: 'Experiencia ultra limpia y amigable orientada a descargar e instalar apps con 1 clic',
+    description: 'Oculta módulos de compilación en terminal y consolas avanzadas, resaltando las tarjetas de apps, reseñas comunitarias, capturas de pantalla, calificaciones y actualización silenciosa.',
+    icon: 'ShoppingBag',
+    badgeColor: 'blue',
+    recommendedFor: 'Usuarios finales que buscan una alternativa rápida y sin anuncios a Google Play',
+    features: {
+      enableGitHubCompiler: false,
+      enableKeystoreVault: false,
+      enableBuildsHub: false,
+      enableLocalRepoCloning: false,
+      enableShizukuInstaller: true,
+      enableSecurityAudit: false,
+      enableCustomRepoManager: true,
+      enableDeviceDiagnostics: false,
+      enableDeltaPatching: true,
+      enableRepoIndexSync: true,
+      enableWorkspaceCollab: false,
+      enableCommunityProposals: true,
+      enableChangelogLedger: true,
+      enableArchitectureDocs: false,
+      enableCommandPalette: true,
+      enableReviewsAndRatings: true
+    }
+  },
+  {
+    id: 'SECURITY_AUDITOR',
+    name: 'Auditor de Ciberseguridad & Sandbox',
+    tagline: 'Inspección de permisos peligrosos, firmas criptográficas y análisis Exodus Privacy',
+    description: 'Enfocado en seguridad de paquetes APK: análisis exhaustivo de rastreadores antes de instalar, comprobación de sumas SHA-256 de binarios, diagnóstico de Play Protect y bóveda de claves.',
+    icon: 'Lock',
+    badgeColor: 'purple',
+    recommendedFor: 'Auditores de seguridad informática y analistas de malware',
+    features: {
+      enableGitHubCompiler: true,
+      enableKeystoreVault: true,
+      enableBuildsHub: true,
+      enableLocalRepoCloning: true,
+      enableShizukuInstaller: true,
+      enableSecurityAudit: true,
+      enableCustomRepoManager: true,
+      enableDeviceDiagnostics: true,
+      enableDeltaPatching: true,
+      enableRepoIndexSync: true,
+      enableWorkspaceCollab: false,
+      enableCommunityProposals: true,
+      enableChangelogLedger: true,
+      enableArchitectureDocs: true,
+      enableCommandPalette: true,
+      enableReviewsAndRatings: false
+    }
+  },
+  {
+    id: 'ULTRA_BATTERY_SAVER',
+    name: 'Ultra Ahorro de Datos y Batería',
+    tagline: 'Minimiza el consumo de red y ciclos de CPU con caché estricta y parches delta',
+    description: 'Prioriza descargas binarias delta de bajo ancho de banda (Zstd/Bsdiff), desactiva verificaciones en segundo plano no solicitadas y optimiza el consumo de energía en dispositivos de gama de entrada.',
+    icon: 'BatteryCharging',
+    badgeColor: 'amber',
+    recommendedFor: 'Dispositivos con batería baja o conexiones de datos móviles limitadas',
+    features: {
+      enableGitHubCompiler: false,
+      enableKeystoreVault: false,
+      enableBuildsHub: false,
+      enableLocalRepoCloning: false,
+      enableShizukuInstaller: true,
+      enableSecurityAudit: false,
+      enableCustomRepoManager: false,
+      enableDeviceDiagnostics: true,
+      enableDeltaPatching: true,
+      enableRepoIndexSync: true,
+      enableWorkspaceCollab: false,
+      enableCommunityProposals: false,
+      enableChangelogLedger: true,
+      enableArchitectureDocs: false,
+      enableCommandPalette: true,
+      enableReviewsAndRatings: true
+    }
+  }
+];
