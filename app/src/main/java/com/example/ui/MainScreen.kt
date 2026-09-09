@@ -63,78 +63,36 @@ fun MainScreen() {
         color = Slate950,
         modifier = Modifier.fillMaxWidth().border(width = 1.dp, color = Slate800)
       ) {
-        Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+        Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp)) {
           // Top Header Row
           Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
           ) {
-            Column(modifier = Modifier.weight(1f)) {
-              Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                  text = "Open Source ",
-                  style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
-                  fontWeight = FontWeight.Light,
-                  color = Slate100
-                )
-                Text(
-                  text = "Android Marketplaces",
-                  style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
-                  fontWeight = FontWeight.Bold,
-                  color = Emerald400
-                )
-              }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+              Icon(
+                imageVector = Icons.Default.Storefront,
+                contentDescription = null,
+                tint = Emerald400,
+                modifier = Modifier.size(22.dp)
+              )
+              Spacer(modifier = Modifier.width(8.dp))
               Text(
-                text = "COMPARATIVE ANALYSIS: SECURITY, PERFORMANCE & REPOSITORY ARCHITECTURE",
-                style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp, letterSpacing = 1.sp),
-                fontWeight = FontWeight.SemiBold,
-                color = Slate500,
-                modifier = Modifier.padding(top = 2.dp)
+                text = "Civer App Store",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = Slate100
               )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-              // KPI Stat 1
-              Column(horizontalAlignment = Alignment.End) {
-                Text(
-                  text = "INDEX SIZE",
-                  style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.sp, letterSpacing = 0.5.sp),
-                  fontWeight = FontWeight.Bold,
-                  color = Slate500
-                )
-                Text(
-                  text = "482,901",
-                  fontFamily = FontFamily.Monospace,
-                  fontSize = 15.sp,
-                  fontWeight = FontWeight.Bold,
-                  color = Emerald400
-                )
-              }
-
-              // KPI Stat 2
-              Column(horizontalAlignment = Alignment.End) {
-                Text(
-                  text = "AVG COLD START",
-                  style = MaterialTheme.typography.labelSmall.copy(fontSize = 8.sp, letterSpacing = 0.5.sp),
-                  fontWeight = FontWeight.Bold,
-                  color = Slate500
-                )
-                Text(
-                  text = "450 ms",
-                  fontFamily = FontFamily.Monospace,
-                  fontSize = 15.sp,
-                  fontWeight = FontWeight.Bold,
-                  color = Emerald400
-                )
-              }
-
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
               // Botón de Actualizaciones OTA Continuas
               val hasOtaUpdate = otaStatus is com.example.ota.OtaStatus.Available
               IconButton(
                 onClick = { showOtaDialog = true },
                 modifier = Modifier
-                  .size(36.dp)
+                  .size(34.dp)
                   .clip(RoundedCornerShape(8.dp))
                   .background(if (hasOtaUpdate) Emerald500.copy(alpha = 0.2f) else Slate900)
                   .border(1.dp, if (hasOtaUpdate) Emerald400 else Slate800, RoundedCornerShape(8.dp))
@@ -143,7 +101,7 @@ fun MainScreen() {
                   imageVector = if (hasOtaUpdate) Icons.Default.SystemUpdate else Icons.Default.CloudSync,
                   contentDescription = "Actualización OTA",
                   tint = if (hasOtaUpdate) Emerald400 else Slate400,
-                  modifier = Modifier.size(18.dp)
+                  modifier = Modifier.size(17.dp)
                 )
               }
 
@@ -151,7 +109,7 @@ fun MainScreen() {
               IconButton(
                 onClick = { showSettingsDialog = true },
                 modifier = Modifier
-                  .size(36.dp)
+                  .size(34.dp)
                   .clip(RoundedCornerShape(8.dp))
                   .background(Slate900)
                   .border(1.dp, Slate800, RoundedCornerShape(8.dp))
@@ -160,14 +118,14 @@ fun MainScreen() {
                   imageVector = Icons.Default.Settings,
                   contentDescription = "Configuración OTA & Shizuku",
                   tint = Cyan400,
-                  modifier = Modifier.size(18.dp)
+                  modifier = Modifier.size(17.dp)
                 )
               }
 
               IconButton(
                 onClick = { showExportModal = true },
                 modifier = Modifier
-                  .size(36.dp)
+                  .size(34.dp)
                   .clip(RoundedCornerShape(8.dp))
                   .background(Slate900)
                   .border(1.dp, Slate800, RoundedCornerShape(8.dp))
@@ -176,24 +134,26 @@ fun MainScreen() {
                   Icons.Default.Download,
                   contentDescription = "Exportar Markdown",
                   tint = Emerald400,
-                  modifier = Modifier.size(18.dp)
+                  modifier = Modifier.size(17.dp)
                 )
               }
             }
           }
 
-          // 4 Mini Tech Specs Badges Grid (visible on tablets/wider screens or scrollable row)
-          Spacer(modifier = Modifier.height(10.dp))
+          // KPI Metrics and Tech Badges in a single horizontal scroll row
+          Spacer(modifier = Modifier.height(6.dp))
           Row(
             modifier = Modifier
               .fillMaxWidth()
               .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
           ) {
-            HeaderMetricBadge("PRIVACY METRIC", "98% No-Tracker Policy", Emerald400)
-            HeaderMetricBadge("TECH STACK STANDARD", "Kotlin / Jetpack Compose", Sky400)
-            HeaderMetricBadge("NETWORK PROTOCOL", "Tor / Orbot Proxy Native", Indigo400)
-            HeaderMetricBadge("COMPLIANCE", "GPL-3.0 / AGPL-3.0 Only", Amber400)
+            HeaderMetricBadge("CATÁLOGO FOSS", "482,901 Apps", Emerald400)
+            HeaderMetricBadge("COLD START", "450 ms", Sky400)
+            HeaderMetricBadge("PRIVACIDAD", "Cero Rastreadores", Emerald400)
+            HeaderMetricBadge("STACK NATIVO", "Kotlin Compose", Sky400)
+            HeaderMetricBadge("MOTOR OTA", "Auto-Update Shizuku", Cyan400)
+            HeaderMetricBadge("LICENCIAS", "GPL-3.0 / AGPL-3.0", Amber400)
           }
         }
       }
