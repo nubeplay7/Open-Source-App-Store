@@ -55,7 +55,7 @@ on:
 
 jobs:
   build-and-dispatch:
-    name: "Compilación Universal FOSS: ${{ inputs.app_name }} (${{ inputs.stack_type }})"
+    name: Compilacion Universal FOSS Android APK
     runs-on: ubuntu-latest
 
     steps:
@@ -207,17 +207,7 @@ jobs:
           FILE_NAME="${{ inputs.app_id }}-v1.0.0.apk"
           RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           
-          CAPTION="✅ *¡Compilación Universal Exitosa!*
-          
-📱 *Aplicación:* \`${{ inputs.app_name }}\`
-⚙️ *Stack:* \`${{ inputs.stack_type }}\`
-📦 *Archivo:* \`$FILE_NAME\`
-⚖️ *Tamaño:* \`${{ env.APK_SIZE_MB }} MB\`
-🔒 *SHA-256:* \`${{ env.APK_SHA256 }}\`
-🧪 *Pruebas & Emulación:* \`PASSED (100% Verificado)\`
-
-_Instala este APK directamente en tu teléfono tocando el archivo recibido._
-🌐 [Ver Ejecución en GitHub Actions]($RUN_URL)"
+          CAPTION="Compilacion Universal Exitosa de ${{ inputs.app_name }} (${{ inputs.app_id }}) - Tamano: ${{ env.APK_SIZE_MB }} MB - SHA256: ${{ env.APK_SHA256 }}"
 
           if [ ${{ env.APK_SIZE_MB }} -le 49 ]; then
             echo "Enviando archivo binario completo vía multipart form..."
@@ -227,18 +217,11 @@ _Instala este APK directamente en tu teléfono tocando el archivo recibido._
               -F "caption=$CAPTION" \
               -F "parse_mode=Markdown" \
               -F "document=@$APK_FILE;filename=$FILE_NAME")
-              
             echo "Telegram HTTP Status: $HTTP_STATUS"
             cat /tmp/tg_response.json
           else
             echo "El archivo excede 50MB. Enviando mensaje con enlace de descarga..."
-            FALLBACK_TEXT="📦 *APK Compilado en GitHub Actions* (${{ env.APK_SIZE_MB }} MB)
-
-Debido al límite de 50MB de Telegram Bot API, tu binario APK compilado está disponible para descarga directa en:
-👉 [Descargar APK desde Artefactos de GitHub]($RUN_URL)"
-
             curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
               -d "chat_id=$CHAT_ID" \
-              -d "text=$FALLBACK_TEXT" \
-              -d "parse_mode=Markdown"
+              -d "text=APK compilado de ${{ inputs.app_name }} (${{ env.APK_SIZE_MB }} MB) disponible en: $RUN_URL"
           fi

@@ -60,7 +60,7 @@ on:
 
 jobs:
   cloud-mobile-testing:
-    name: "Cloud Testing & Screencap: ${{ inputs.app_name }} (Android API ${{ inputs.api_level }})"
+    name: Cloud Mobile Testing & Screencap Suite
     runs-on: ubuntu-latest
 
     steps:
@@ -241,17 +241,7 @@ jobs:
           echo "Enviando resumen y capturas de pantalla a Telegram Chat ID: $CHAT_ID..."
 
           # Mensaje Resumen Inicial
-          SUMMARY_MSG="📸 *¡Captura de Pantalla & Smoke Test en la Nube!*
-          
-📱 *App:* \`${{ inputs.app_name }}\`
-🤖 *Emulador:* \`Android API ${{ inputs.api_level }} (KVM Cloud Runner)\`
-📦 *Package:* \`${{ inputs.package_name }}\`
-🧪 *Tipo de Prueba:* \`${{ inputs.test_type }}\`
-💎 *Health Score:* \`98/100 (Excelente)\`
-✨ *Estado:* \`Actividad Principal Estable - Cero ANR\`
-
-_A continuación se despachan las capturas de la app en ejecución en tiempo real..._
-🌐 [Ver Ejecución en GitHub Actions]($RUN_URL)"
+          SUMMARY_MSG="Smoke Test & Cloud Screencap Completado para $APP_NAME en Android API $API_LEVEL - Estado: Estable"
 
           curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
             -d "chat_id=$CHAT_ID" \
