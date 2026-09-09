@@ -1,16 +1,19 @@
 name: Build Android APK & Telegram Dispatch
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       app_id:
         description: 'App Package / Identifier'
-        required: true
+        required: false
         default: 'civer-app-store'
         type: string
       app_name:
         description: 'Human Readable App Name'
-        required: true
+        required: false
         default: 'Civer App Store'
         type: string
       repo_url:
