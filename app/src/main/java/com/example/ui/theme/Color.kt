@@ -19,6 +19,7 @@ val Slate50 = Color(0xFFF8FAFC) // Bright white headings
 // Accents
 val Emerald500 = Color(0xFF10B981) // Primary
 val Emerald400 = Color(0xFF34D399) // Primary light
+val Emerald300 = Color(0xFF6EE7B7)
 val Emerald600 = Color(0xFF059669) // Primary dark
 val Emerald900 = Color(0xFF064E3B) // Primary container
 val Emerald950 = Color(0xFF022C22) // Primary dark container
@@ -27,13 +28,19 @@ val Sky400 = Color(0xFF38BDF8) // Secondary
 val Sky500 = Color(0xFF0EA5E9)
 val Sky900 = Color(0xFF0C4A6E)
 
+val Cyan400 = Color(0xFF22D3EE)
+val Cyan950 = Color(0xFF083344)
+
 val Amber400 = Color(0xFFFBBF24) // Warning / Mid rating
 val Amber500 = Color(0xFFF59E0B)
 val Amber900 = Color(0xFF78350F)
 
+val Rose200 = Color(0xFFFECDD3)
 val Rose400 = Color(0xFFFB7185) // Alert / High RAM / Low score
 val Rose500 = Color(0xFFF43F5E)
+val Rose950 = Color(0xFF4C0519)
 
 val Indigo400 = Color(0xFF818CF8)
 val Violet400 = Color(0xFFA78BFA)
+
 

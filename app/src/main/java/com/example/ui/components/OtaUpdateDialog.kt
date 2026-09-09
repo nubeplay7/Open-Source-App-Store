@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun OtaUpdateDialog(
     isOpen: Boolean,
-    onClose: () => Unit,
+    onClose: () -> Unit,
     otaManager: OtaUpdateManager,
     currentVersionName: String = "1.0.0",
     currentVersionCode: Int = 1
