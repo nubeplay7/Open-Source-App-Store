@@ -31,6 +31,8 @@ android {
       keyAlias = "upload"
       keyPassword = System.getenv("KEY_PASSWORD")
     }
+  }
+
   buildTypes {
     release {
       isCrunchPngs = false
