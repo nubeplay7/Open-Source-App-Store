@@ -76,10 +76,10 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Gradle
+      - name: Set up Gradle 9.3.1
         uses: gradle/actions/setup-gradle@v3
         with:
-          gradle-version: '8.9'
+          gradle-version: '9.3.1'
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
@@ -100,12 +100,11 @@ jobs:
       - name: Grant Execute Permissions to Gradlew
         run: |
           cd "$WORK_DIR"
-          if [ -f "gradlew" ]; then
-            chmod +x gradlew
-          else
-            gradle wrapper --gradle-version 8.9
-            chmod +x gradlew || true
+          if [ ! -f "gradlew" ]; then
+            echo "Generating Gradle wrapper 9.3.1..."
+            gradle wrapper --gradle-version 9.3.1
           fi
+          chmod +x gradlew || true
 
       - name: Compile APK with Gradle
         run: |
