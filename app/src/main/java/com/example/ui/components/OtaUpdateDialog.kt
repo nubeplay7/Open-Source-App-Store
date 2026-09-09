@@ -191,6 +191,30 @@ fun OtaUpdateDialog(
                         }
                     }
 
+                    is OtaStatus.InstallingSilently -> {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 20.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            CircularProgressIndicator(color = Emerald400, strokeWidth = 3.dp)
+                            Spacer(modifier = Modifier.height(12.dp))
+                            Text(
+                                text = "Instalando desatendidamente con Shizuku...",
+                                color = Emerald300,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 13.sp
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = "La aplicación se actualizará sin interrupciones.",
+                                color = Slate400,
+                                fontSize = 11.sp
+                            )
+                        }
+                    }
+
                     is OtaStatus.ReadyToInstall -> {
                         val file = currentStatus.file
                         val update = currentStatus.update
