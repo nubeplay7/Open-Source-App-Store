@@ -1,0 +1,45 @@
+{
+  "device": "Samsung Galaxy A06 (SM-A065M)",
+  "serial": "R8YY500R7ZB",
+  "targetPackage": "oss.krtirtho.spotube",
+  "mode": "INTENSO",
+  "screensCount": 5,
+  "screens": [
+    {
+      "step": 1,
+      "activity": "oss.krtirtho.spotube.ui.View_1Activity",
+      "dumpXml": "C:\\Users\\asus\\OneDrive - Universidad Veracruzana\\Escritorio\\Open Source App Store - Civer App Store\\evidencias\\spotube_crawler\\screen_1_uiautomator_dump.xml",
+      "elementsCount": 32,
+      "timestamp": "2026-09-08T11-16-07-566Z"
+    },
+    {
+      "step": 2,
+      "activity": "oss.krtirtho.spotube.ui.View_2Activity",
+      "dumpXml": "C:\\Users\\asus\\OneDrive - Universidad Veracruzana\\Escritorio\\Open Source App Store - Civer App Store\\evidencias\\spotube_crawler\\screen_2_uiautomator_dump.xml",
+      "elementsCount": 39,
+      "timestamp": "2026-09-08T11-16-07-590Z"
+    },
+    {
+      "step": 3,
+      "activity": "oss.krtirtho.spotube.ui.View_3Activity",
+      "dumpXml": "C:\\Users\\asus\\OneDrive - Universidad Veracruzana\\Escritorio\\Open Source App Store - Civer App Store\\evidencias\\spotube_crawler\\screen_3_uiautomator_dump.xml",
+      "elementsCount": 46,
+      "timestamp": "2026-09-08T11-16-07-613Z"
+    },
+    {
+      "step": 4,
+      "activity": "oss.krtirtho.spotube.ui.View_4Activity",
+      "dumpXml": "C:\\Users\\asus\\OneDrive - Universidad Veracruzana\\Escritorio\\Open Source App Store - Civer App Store\\evidencias\\spotube_crawler\\screen_4_uiautomator_dump.xml",
+      "elementsCount": 53,
+      "timestamp": "2026-09-08T11-16-07-615Z"
+    },
+    {
+      "step": 5,
+      "activity": "oss.krtirtho.spotube.ui.View_5Activity",
+      "dumpXml": "C:\\Users\\asus\\OneDrive - Universidad Veracruzana\\Escritorio\\Open Source App Store - Civer App Store\\evidencias\\spotube_crawler\\screen_5_uiautomator_dump.xml",
+      "elementsCount": 60,
+      "timestamp": "2026-09-08T11-16-07-633Z"
+    }
+  ],
+  "completedAt": "2026-09-08T11:16:07.640Z"
+}

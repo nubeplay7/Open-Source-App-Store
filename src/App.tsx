@@ -47,6 +47,10 @@ import { ExportModal } from './components/ExportModal';
 import { PlayStoreView } from './components/PlayStoreView';
 import { AppStoreView } from './components/AppStoreView';
 import { CiberDevWorkspaceView } from './components/CiberDevWorkspaceView';
+import { ConnectedDevicesView } from './components/ConnectedDevicesView';
+import { AndroidAppEcosystemView } from './components/AndroidAppEcosystemView';
+import { AndroidInstallModal } from './components/AndroidInstallModal';
+import { OfflineIndicator } from './components/OfflineIndicator';
 import { DeveloperSidebar } from './components/DeveloperSidebar';
 import { GitHubCompilerModal } from './components/GitHubCompilerModal';
 import { BuildsHubView } from './components/BuildsHubView';
@@ -105,6 +109,13 @@ import { AgentAPIExplorerModal } from './components/AgentAPIExplorerModal';
 import { useResponsiveLayout } from './hooks/useResponsiveLayout';
 import { ResponsiveViewportToolbar, PresetViewport } from './components/ResponsiveViewportToolbar';
 import { MobileBottomDock } from './components/MobileBottomDock';
+import { SourceCodeUploadModal } from './components/SourceCodeUploadModal';
+import { CloudMobileTestingStudioModal } from './components/CloudMobileTestingStudioModal';
+import { sourceUploadService } from './services/sourceUploadService';
+import { AdminAuthModal } from './components/AdminAuthModal';
+import { AdminMasterCatalogView } from './components/AdminMasterCatalogView';
+import { OtaReleaseManagementModal } from './components/OtaReleaseManagementModal';
+import { CiCdEvidenceMatrixModal } from './components/CiCdEvidenceMatrixModal';
 
 export const App: React.FC = () => {
 
@@ -194,6 +205,30 @@ export const App: React.FC = () => {
   const [catalog, setCatalog] = useState<AppCatalogItem[]>(APPS_CATALOG);
   const [buildHistory, setBuildHistory] = useState<GitHubBuildRun[]>(INITIAL_BUILD_RUNS);
   const [installedAppIds, setInstalledAppIds] = useState<string[]>(['droid-ify', 'obtainium']);
+  const [isSourceUploadOpen, setIsSourceUploadOpen] = useState(false);
+  const [isCloudTestingOpen, setIsCloudTestingOpen] = useState(false);
+  const [cloudTestingTargetApp, setCloudTestingTargetApp] = useState<AppCatalogItem | null>(null);
+
+  const handleOpenCloudTesting = (app?: AppCatalogItem) => {
+    setCloudTestingTargetApp(app || null);
+    setIsCloudTestingOpen(true);
+  };
+
+  // Initialize user uploaded apps or seed OmniComm Hub sample from downloads
+  useEffect(() => {
+    const savedUserApps = sourceUploadService.getUserUploadedApps();
+    if (savedUserApps.length > 0) {
+      setCatalog((prev) => {
+        const ids = new Set(prev.map((a) => a.id));
+        const newApps = savedUserApps.filter((a) => !ids.has(a.id));
+        return [...newApps, ...prev];
+      });
+    } else {
+      const sample = sourceUploadService.getSampleOmniCommHubApp();
+      sourceUploadService.saveUserUploadedApp(sample);
+      setCatalog((prev) => [sample, ...prev]);
+    }
+  }, []);
 
   // Keystore Vault & Cloned Repos State
   const [keystores, setKeystores] = useState<KeystoreEntry[]>(INITIAL_KEYSTORES);
@@ -204,6 +239,7 @@ export const App: React.FC = () => {
   // Global Toast Notifications & Command Palette
   const [toasts, setToasts] = useState<ToastNotification[]>([]);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isAndroidInstallModalOpen, setIsAndroidInstallModalOpen] = useState(false);
 
   const handleAddToast = (newToast: Omit<ToastNotification, 'id' | 'timestamp'> & { timestamp?: string }) => {
     const toastItem: ToastNotification = {
@@ -212,6 +248,84 @@ export const App: React.FC = () => {
       id: `toast-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`
     };
     setToasts((prev) => [toastItem, ...prev]);
+  };
+
+  // Admin Root Access & Scraped Apps State
+  const [isAdminAuthModalOpen, setIsAdminAuthModalOpen] = useState(false);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => {
+    return typeof window !== 'undefined' && sessionStorage.getItem('civer_admin_auth') === 'true';
+  });
+
+  // Load scraped apps from localStorage on boot
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('civer_admin_scraped_apps');
+      if (raw) {
+        const scraped: AppCatalogItem[] = JSON.parse(raw);
+        if (Array.isArray(scraped) && scraped.length > 0) {
+          setCatalog(prev => {
+            const ids = new Set(prev.map(a => a.id));
+            const fresh = scraped.filter(a => !ids.has(a.id));
+            return [...fresh, ...prev];
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Error cargando apps escaneadas de localStorage:', e);
+    }
+  }, []);
+
+  const handleAddScrapedApp = (newApp: AppCatalogItem) => {
+    setCatalog(prev => {
+      const filtered = prev.filter(a => a.id !== newApp.id);
+      const updated = [newApp, ...filtered];
+      try {
+        const existingRaw = localStorage.getItem('civer_admin_scraped_apps');
+        const existing: AppCatalogItem[] = existingRaw ? JSON.parse(existingRaw) : [];
+        const nextList = [newApp, ...existing.filter(a => a.id !== newApp.id)];
+        localStorage.setItem('civer_admin_scraped_apps', JSON.stringify(nextList));
+      } catch (err) {
+        console.warn('Error guardando app escaneada en localStorage:', err);
+      }
+      return updated;
+    });
+
+    handleAddToast({
+      title: 'Aplicación Integrada en DB',
+      message: `${newApp.name} (${newApp.version}) agregada al catálogo maestro de Civer App Store.`,
+      type: 'success'
+    });
+  };
+
+  const handleOpenAdminPanel = () => {
+    if (isAdminAuthenticated) {
+      setUiMode('admin_catalog_matrix');
+    } else {
+      setIsAdminAuthModalOpen(true);
+    }
+  };
+
+  const handleAdminAuthenticated = () => {
+    setIsAdminAuthenticated(true);
+    sessionStorage.setItem('civer_admin_auth', 'true');
+    setIsAdminAuthModalOpen(false);
+    setUiMode('admin_catalog_matrix');
+    handleAddToast({
+      title: 'Acceso de Administrador Concedido',
+      message: 'Autenticado con éxito con credenciales Root/Maintainer.',
+      type: 'success'
+    });
+  };
+
+  const handleLogoutAdmin = () => {
+    setIsAdminAuthenticated(false);
+    sessionStorage.removeItem('civer_admin_auth');
+    setUiMode('ciber_store');
+    handleAddToast({
+      title: 'Sesión Admin Cerrada',
+      message: 'Has salido del modo administrador.',
+      type: 'info'
+    });
   };
 
   const handleCloseToast = (id: string) => {
@@ -362,6 +476,8 @@ export const App: React.FC = () => {
   const [isRepoManagerOpen, setIsRepoManagerOpen] = useState(false);
   const [isDiagnosticsOpen, setIsDiagnosticsOpen] = useState(false);
   const [isKeystoreVaultOpen, setIsKeystoreVaultOpen] = useState(false);
+  const [isOtaModalOpen, setIsOtaModalOpen] = useState(false);
+  const [isCiCdEvidenceOpen, setIsCiCdEvidenceOpen] = useState(false);
 
   // Design & Theme Profiles (8 Palettes, Density, Radius - Non-Destructive)
   const [designSettings, setDesignSettings] = useState<DesignSystemSettings>(() => {
@@ -534,6 +650,19 @@ export const App: React.FC = () => {
 
   const handleAppPublished = (newApp: AppCatalogItem) => {
     setCatalog((prev) => [newApp, ...prev]);
+  };
+
+  const handleAppRegisteredFromSource = (newApp: AppCatalogItem, autoCompile?: boolean) => {
+    setCatalog((prev) => [newApp, ...prev.filter(a => a.id !== newApp.id)]);
+    handleAddToast({
+      title: 'Proyecto Open Source Registrado',
+      message: `${newApp.name} (${newApp.packageName}) añadido con éxito a "Mis Aplicaciones".`,
+      type: 'success'
+    });
+
+    if (autoCompile) {
+      handleTriggerCompile(newApp);
+    }
   };
 
   // Local Repository Cloning
@@ -720,6 +849,7 @@ export const App: React.FC = () => {
         onOpenDiagnostics={() => setIsDiagnosticsOpen(true)}
         onOpenBuildsHub={() => setIsBuildsHubModalOpen(true)}
         onOpenKeystoreVault={() => setIsKeystoreVaultOpen(true)}
+        onOpenOtaReleases={() => setIsOtaModalOpen(true)}
         onOpenDesignProfiles={() => setIsDesignProfilesOpen(true)}
         onOpenFunctionalityProfiles={() => setIsFunctionalityProfilesOpen(true)}
         onOpenDexDecompiler={() => setIsDexDecompilerOpen(true)}
@@ -888,6 +1018,7 @@ export const App: React.FC = () => {
             onOpenArchitectureDocs={() => setIsArchitectureDocsOpen(true)}
             onOpenRepoSync={() => setIsRepoSyncOpen(true)}
             onOpenWorkspace={() => setUiMode('dev_workspace')}
+            onOpenAdminPanel={handleOpenAdminPanel}
             onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
             onOpenSecurityAudit={() => {
               setSecurityAuditApp(null);
@@ -919,6 +1050,9 @@ export const App: React.FC = () => {
               setIsSocialChatOpen(true);
             }}
             onOpenCollabStudio={() => setIsCollabStudioOpen(true)}
+            onOpenSourceUpload={() => setIsSourceUploadOpen(true)}
+            onOpenCloudTesting={handleOpenCloudTesting}
+            onOpenCiCdEvidence={() => setIsCiCdEvidenceOpen(true)}
           />
         )}
 
@@ -952,6 +1086,7 @@ export const App: React.FC = () => {
             onOpenAgentOrchestrator={() => setIsAgentOrchestratorOpen(true)}
             onOpenAgentAcademy={() => setIsAgentAcademyOpen(true)}
             onOpenBlueprint={() => setIsArchitectureBlueprintOpen(true)}
+            onOpenCiCdEvidence={() => setIsCiCdEvidenceOpen(true)}
           />
         )}
 
@@ -983,6 +1118,7 @@ export const App: React.FC = () => {
               onOpenProposals={() => setIsProposalsOpen(true)}
               onOpenArchitectureDocs={() => setIsArchitectureDocsOpen(true)}
               onOpenWorkspace={() => setUiMode('dev_workspace')}
+              onOpenAdminPanel={handleOpenAdminPanel}
               isOfflineMode={isOfflineMode}
               onToggleOfflineMode={() => setIsOfflineMode(prev => !prev)}
               onOpenNetworkTraffic={() => {
@@ -1010,6 +1146,8 @@ export const App: React.FC = () => {
               onOpenAgentAcademy={() => setIsAgentAcademyOpen(true)}
               onOpenBlueprint={() => setIsArchitectureBlueprintOpen(true)}
               onOpenAgentAPIExplorer={() => setIsAgentAPIExplorerOpen(true)}
+              onOpenCiCdEvidence={() => setIsCiCdEvidenceOpen(true)}
+              onOpenAndroidInstall={() => setIsAndroidInstallModalOpen(true)}
             />
 
             {/* Main Tab Content */}
@@ -1090,11 +1228,63 @@ export const App: React.FC = () => {
           </footer>
         </>
       )}
+
+      {/* 5. MASTER ADMIN CATALOG MATRIX & SCRAPER VIEW */}
+      {uiMode === 'admin_catalog_matrix' && (
+        <AdminMasterCatalogView
+          catalog={catalog}
+          onAddScrapedApp={handleAddScrapedApp}
+          onBackToStore={() => setUiMode('ciber_store')}
+          onLogoutAdmin={handleLogoutAdmin}
+          onSelectAppDetail={handleSelectApp}
+          onCompileAppVersion={(app, version) => {
+            setCompilerApp({ ...app, version });
+            setIsCompilerOpen(true);
+          }}
+          onInstallAdbOnDevice={(app, version) => {
+            handleAddToast({
+              title: 'Instalación ADB en Samsung Galaxy A06',
+              message: `Desplegando ${app.name} (${version}) en el dispositivo físico mediante el Gateway ThinkPad.`,
+              type: 'info'
+            });
+          }}
+        />
+      )}
+
+      {/* 5. DEDICATED ANDROID ECOSYSTEM & NATIVE APP VIEW (WebAPK • TWA • Fleet • Remote Install) */}
+      {uiMode === 'android_ecosystem' && (
+        <AndroidAppEcosystemView
+          userProfile={userProfile}
+          catalog={catalog}
+          onSwitchUiMode={setUiMode}
+          onSelectApp={handleSelectApp}
+          onTriggerInstall={handleTriggerInstall}
+          onOpenAccountDrawer={() => setIsAccountDrawerOpen(true)}
+          onAddToast={handleAddToast}
+        />
+      )}
+
+      {/* 6. MIS DISPOSITIVOS & APP NATIVA ANDROID (Fleet & Remote Deployment) */}
+      {uiMode === 'connected_devices' && (
+        <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto w-full">
+          <ConnectedDevicesView
+            catalogApps={catalog}
+            onSelectApp={handleSelectApp}
+          />
+        </main>
+      )}
       </div>
 
       {/* ======================================================== */}
       {/* GLOBAL MODALS & DRAWERS */}
       {/* ======================================================== */}
+
+      {/* Admin PIN Authentication Modal */}
+      <AdminAuthModal
+        isOpen={isAdminAuthModalOpen}
+        onClose={() => setIsAdminAuthModalOpen(false)}
+        onAuthenticated={handleAdminAuthenticated}
+      />
 
       {/* 1. GitHub Actions Compiler & Live CI Terminal Modal */}
       <GitHubCompilerModal
@@ -1118,6 +1308,8 @@ export const App: React.FC = () => {
         clonedRepos={clonedRepos}
         onCloneRepoLocally={handleCloneRepoLocally}
         onSyncClonedRepo={handleSyncClonedRepo}
+        telegramChatId={userProfile.telegramChatId}
+        onOpenCloudTesting={handleOpenCloudTesting}
       />
 
       {/* 1.1 Dedicated Builds & CI Artifacts Management Hub Modal */}
@@ -1190,6 +1382,13 @@ export const App: React.FC = () => {
           setIsPublisherOpen(false);
           handleTriggerCompile(app);
         }}
+      />
+
+      {/* 3.1 Source Code Upload & Ingestion Modal */}
+      <SourceCodeUploadModal
+        isOpen={isSourceUploadOpen}
+        onClose={() => setIsSourceUploadOpen(false)}
+        onAppRegistered={handleAppRegisteredFromSource}
       />
 
       {/* 4. Google Play / Account & Telemetry Settings Drawer */}
@@ -1276,6 +1475,7 @@ export const App: React.FC = () => {
           setIsSocialChatOpen(true);
         }}
         onOpenCollabStudio={() => setIsCollabStudioOpen(true)}
+        onOpenCloudTesting={handleOpenCloudTesting}
       />
 
       {/* 6. System Changelog Ledger Modal */}
@@ -1387,6 +1587,23 @@ export const App: React.FC = () => {
         onOpenWebAuthnHsm={() => setIsWebAuthnHsmOpen(true)}
       />
 
+      {/* 14b. Panel de Publicación y Auto-Actualización Móvil OTA */}
+      <OtaReleaseManagementModal
+        isOpen={isOtaModalOpen}
+        onClose={() => setIsOtaModalOpen(false)}
+      />
+
+      {/* 14c. Mega-Matriz de Certificación y Evidencias CI/CD */}
+      <CiCdEvidenceMatrixModal
+        isOpen={isCiCdEvidenceOpen}
+        onClose={() => setIsCiCdEvidenceOpen(false)}
+        onOpenOtaModal={() => setIsOtaModalOpen(true)}
+        onOpenCompiler={() => {
+          setCompilerApp(null);
+          setIsCompilerOpen(true);
+        }}
+      />
+
       {/* 15. Legacy Store Detail Modal */}
       <StoreDetailModal
         store={selectedStoreForDetail}
@@ -1423,6 +1640,7 @@ export const App: React.FC = () => {
         onOpenRepoManager={() => setIsRepoManagerOpen(true)}
         onOpenDiagnostics={() => setIsDiagnosticsOpen(true)}
         onOpenKeystoreVault={() => setIsKeystoreVaultOpen(true)}
+        onOpenOtaReleases={() => setIsOtaModalOpen(true)}
         onOpenBuildsHub={() => setIsBuildsHubModalOpen(true)}
         onOpenDesignProfiles={() => setIsDesignProfilesOpen(true)}
         onOpenFunctionalityProfiles={() => setIsFunctionalityProfilesOpen(true)}
@@ -2120,6 +2338,26 @@ export const App: React.FC = () => {
           });
         }}
       />
+
+      {/* 54. Laboratorio de Pruebas Móviles en la Nube & Captura de Pantallas Modal */}
+      <CloudMobileTestingStudioModal
+        isOpen={isCloudTestingOpen}
+        onClose={() => setIsCloudTestingOpen(false)}
+        selectedApp={cloudTestingTargetApp}
+        catalogApps={catalog}
+        userProfile={userProfile}
+        onAddToast={handleAddToast}
+      />
+
+      {/* 55. Android Native & PWA Installation Modal */}
+      <AndroidInstallModal
+        isOpen={isAndroidInstallModalOpen}
+        onClose={() => setIsAndroidInstallModalOpen(false)}
+        onAddToast={handleAddToast}
+      />
+
+      {/* Persistent Offline Status Indicator */}
+      <OfflineIndicator />
 
     </div>
   );

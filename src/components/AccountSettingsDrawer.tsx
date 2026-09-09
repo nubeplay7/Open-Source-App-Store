@@ -26,9 +26,13 @@ import {
   Palette,
   Sliders,
   MessageSquare,
-  Code2
+  Code2,
+  Send,
+  Bot,
+  ExternalLink
 } from 'lucide-react';
 import { DeviceTelemetry, StoreUiMode, UserProfile } from '../types';
+import { telegramBotService, DEFAULT_BOT_USERNAME, DEFAULT_BOT_URL } from '../services/telegramBotService';
 
 interface AccountSettingsDrawerProps {
   isOpen: boolean;
@@ -74,12 +78,44 @@ export const AccountSettingsDrawer: React.FC<AccountSettingsDrawerProps> = ({
 
   const [tokenInput, setTokenInput] = useState(userProfile.githubPat || '');
   const [showTokenSaved, setShowTokenSaved] = useState(false);
-  const [activeSection, setActiveSection] = useState<'MAIN' | 'DEVICE' | 'GITHUB_TOKEN' | 'UI_THEME'>('MAIN');
+  const [telegramChatIdInput, setTelegramChatIdInput] = useState(userProfile.telegramChatId || '');
+  const [autoSendTelegram, setAutoSendTelegram] = useState(userProfile.autoSendApkToTelegram ?? true);
+  const [showTelegramSaved, setShowTelegramSaved] = useState(false);
+  const [pingStatus, setPingStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [pingMessage, setPingMessage] = useState('');
+  const [activeSection, setActiveSection] = useState<'MAIN' | 'DEVICE' | 'GITHUB_TOKEN' | 'TELEGRAM' | 'UI_THEME'>('MAIN');
 
   const handleSaveToken = () => {
     onUpdateProfile({ githubPat: tokenInput });
     setShowTokenSaved(true);
     setTimeout(() => setShowTokenSaved(false), 2000);
+  };
+
+  const handleSaveTelegram = () => {
+    onUpdateProfile({ 
+      telegramChatId: telegramChatIdInput.trim(),
+      autoSendApkToTelegram: autoSendTelegram
+    });
+    setShowTelegramSaved(true);
+    setTimeout(() => setShowTelegramSaved(false), 2000);
+  };
+
+  const handleTestTelegramPing = async () => {
+    if (!telegramChatIdInput.trim()) {
+      setPingStatus('error');
+      setPingMessage('Por favor ingresa tu Telegram Chat ID');
+      return;
+    }
+    setPingStatus('sending');
+    setPingMessage('Enviando mensaje de prueba...');
+    const res = await telegramBotService.sendTestPing(telegramChatIdInput.trim());
+    if (res.success) {
+      setPingStatus('success');
+      setPingMessage('¡Mensaje enviado con éxito! Revisa tu Telegram.');
+    } else {
+      setPingStatus('error');
+      setPingMessage(res.error || 'Asegúrate de haber presionado /start en @' + DEFAULT_BOT_USERNAME);
+    }
   };
 
   if (!isOpen) return null;
@@ -368,6 +404,108 @@ export const AccountSettingsDrawer: React.FC<AccountSettingsDrawerProps> = ({
                       <span>{showTokenSaved ? '¡Guardado!' : 'Guardar Token'}</span>
                     </button>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Telegram Bot Integration (@EnviodeApkCompiladaBot) */}
+            <button
+              type="button"
+              onClick={() => setActiveSection(activeSection === 'TELEGRAM' ? 'MAIN' : 'TELEGRAM')}
+              className="w-full p-3.5 flex items-center justify-between hover:bg-slate-900 transition text-left"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-sky-400">
+                  <Send className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="font-medium text-slate-200 flex items-center gap-2">
+                    <span>Bot de Telegram (@{DEFAULT_BOT_USERNAME})</span>
+                    <span className="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-1.5 py-0.5 rounded-full font-medium">En línea</span>
+                  </div>
+                  <div className="text-[10px] text-slate-400">
+                    {userProfile.telegramChatId ? `Chat ID: ${userProfile.telegramChatId} • Entrega Directa Activa` : 'Vincular cuenta de Telegram para recibir APKs'}
+                  </div>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-slate-500" />
+            </button>
+
+            {activeSection === 'TELEGRAM' && (
+              <div className="p-3.5 bg-slate-900/90 space-y-3 border-t border-b border-slate-800">
+                <div className="text-[11px] text-slate-300 leading-relaxed">
+                  Recibe automáticamente los archivos <code className="text-emerald-400">.apk</code> firmados directamente en tu móvil tras cada compilación de GitHub Actions.
+                </div>
+
+                <div className="bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-[11px] text-slate-400 space-y-1">
+                  <div className="flex items-center justify-between text-slate-300 font-medium">
+                    <span>Paso 1: Inicia el bot</span>
+                    <a 
+                      href={DEFAULT_BOT_URL} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="text-sky-400 hover:text-sky-300 flex items-center gap-1 text-[10px]"
+                    >
+                      <span>Abrir @{DEFAULT_BOT_USERNAME}</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                  <div>Presiona <b className="text-slate-200">/start</b> en Telegram para registrar tu sesión.</div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[11px] text-slate-400 font-medium">Tu Telegram Chat ID:</label>
+                  <input
+                    type="text"
+                    placeholder="Ej. 123456789 (obtenlo con /myid en el bot)"
+                    value={telegramChatIdInput}
+                    onChange={(e) => setTelegramChatIdInput(e.target.value)}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:ring-1 focus:ring-sky-500"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between p-2 rounded-xl bg-slate-950 border border-slate-800/80">
+                  <div className="text-[11px] text-slate-300">
+                    <div className="font-medium">Auto-enviar APK al compilar</div>
+                    <div className="text-[10px] text-slate-500">Enviar el archivo .apk a Telegram sin pasos manuales</div>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={autoSendTelegram}
+                    onChange={(e) => setAutoSendTelegram(e.target.checked)}
+                    className="w-4 h-4 rounded text-sky-500 focus:ring-sky-400 bg-slate-900 border-slate-700 cursor-pointer"
+                  />
+                </div>
+
+                {pingMessage && (
+                  <div className={`p-2 rounded-lg text-[11px] ${
+                    pingStatus === 'success' ? 'bg-emerald-950/80 border border-emerald-800 text-emerald-300' :
+                    pingStatus === 'error' ? 'bg-rose-950/80 border border-rose-800 text-rose-300' :
+                    'bg-slate-950 border border-slate-800 text-slate-300'
+                  }`}>
+                    {pingMessage}
+                  </div>
+                )}
+
+                <div className="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    onClick={handleTestTelegramPing}
+                    disabled={pingStatus === 'sending'}
+                    className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium flex items-center gap-1.5 transition disabled:opacity-50"
+                  >
+                    <Send className="w-3.5 h-3.5 text-sky-400" />
+                    <span>{pingStatus === 'sending' ? 'Enviando...' : 'Probar Envío a Telegram'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleSaveTelegram}
+                    className="px-4 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold flex items-center gap-1 transition"
+                  >
+                    {showTelegramSaved ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Send className="w-3.5 h-3.5" />}
+                    <span>{showTelegramSaved ? '¡Guardado!' : 'Guardar Configuración'}</span>
+                  </button>
                 </div>
               </div>
             )}

@@ -90,7 +90,8 @@ export const DeveloperPublishModal: React.FC<DeveloperPublishModalProps> = ({
       gradleTask: formData.gradleTask,
       recentReleaseDate: 'Hoy',
       changelogSummary: 'Versión inicial publicada en FOSS Store Matrix Hub.',
-      isFeatured: false
+      isFeatured: false,
+      isUserApp: true
     };
 
     setTimeout(() => {

@@ -1,0 +1,19 @@
+﻿{
+    "updatedAt":  "2026-09-08T09:11:12Z",
+    "releases":  {
+                     "civer-app-store":  {
+                                             "minSupportedVersion":  1,
+                                             "downloadUrl":  "https://appstore.civer.cloud/downloads/com.civer.appstore-v1.0.1-release.apk",
+                                             "appId":  "com.civer.appstore",
+                                             "sha256Checksum":  "4a4941baddbf897f0a458d870ca18afdd46818a705525329f7b5961639028c40",
+                                             "releaseNotes":  "🚀 Civer App Store Mobile v1.0.1: Integración con motor de auto-actualización OTA continua, catálogo FOSS sincronizado y soporte HTTPS universal vía Cloudflare.",
+                                             "fallbackDownloadUrl":  "http://appstore.civer.cloud:3000/downloads/com.civer.appstore-v1.0.1-release.apk",
+                                             "versionCode":  2,
+                                             "publishedAt":  "2026-09-08T09:11:12Z",
+                                             "fileSizeMb":  13.1,
+                                             "versionName":  "1.0.1",
+                                             "appName":  "Civer App Store Mobile"
+                                         }
+                 },
+    "manifestVersion":  "1.0"
+}

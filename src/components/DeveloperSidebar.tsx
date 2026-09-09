@@ -63,6 +63,7 @@ interface DeveloperSidebarProps {
   onOpenDiagnostics?: () => void;
   onOpenBuildsHub?: () => void;
   onOpenKeystoreVault?: () => void;
+  onOpenOtaReleases?: () => void;
   onOpenDesignProfiles?: () => void;
   onOpenFunctionalityProfiles?: () => void;
   onOpenDexDecompiler?: () => void;
@@ -119,6 +120,7 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
   onOpenDiagnostics,
   onOpenBuildsHub,
   onOpenKeystoreVault,
+  onOpenOtaReleases,
   onOpenDesignProfiles,
   onOpenFunctionalityProfiles,
   onOpenDexDecompiler,
@@ -488,29 +490,31 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
           </div>
         )}
 
-        {/* 0.1 Sincronización Multi-Dispositivo */}
-        {onOpenCrossDeviceSync && (
-          <button
-            onClick={onOpenCrossDeviceSync}
-            title={isCollapsed ? 'Sincronización Multi-Dispositivo (Play Store / App Store Fleet)' : undefined}
-            className="w-full rounded-xl p-2.5 text-left transition flex items-center gap-3 bg-teal-950/40 hover:bg-teal-900/60 text-teal-300 hover:text-white group border border-teal-800/50 hover:border-teal-500 mb-1"
-          >
-            <div className="p-1.5 rounded-lg bg-teal-900/80 border border-teal-700/60 text-teal-300 shrink-0 group-hover:scale-105 transition">
-              <Smartphone className="w-4 h-4" />
-            </div>
-            {!isCollapsed && (
-              <div className="flex-1 truncate">
-                <div className="text-xs font-bold text-white flex items-center justify-between">
-                  <span>Mis Dispositivos</span>
-                  <span className="px-1.5 py-0.2 rounded text-[8px] font-mono bg-teal-900 text-teal-200 border border-teal-700">
-                    Sync
-                  </span>
-                </div>
-                <p className="text-[10px] text-teal-300/80 truncate">Flota conectada & Installs remotas</p>
+        {/* 0.1 Sincronización Multi-Dispositivo & App Nativa */}
+        <button
+          onClick={() => onSwitchMode('connected_devices')}
+          title={isCollapsed ? 'Mis Dispositivos & App Nativa (Flota Conectada & Descargas)' : undefined}
+          className={`w-full rounded-xl p-2.5 text-left transition flex items-center gap-3 group border mb-1 ${
+            currentMode === 'connected_devices'
+              ? 'bg-teal-900/80 text-white border-teal-500 shadow-md'
+              : 'bg-teal-950/40 hover:bg-teal-900/60 text-teal-300 hover:text-white border-teal-800/50 hover:border-teal-500'
+          }`}
+        >
+          <div className="p-1.5 rounded-lg bg-teal-900/80 border border-teal-700/60 text-teal-300 shrink-0 group-hover:scale-105 transition">
+            <Smartphone className="w-4 h-4" />
+          </div>
+          {!isCollapsed && (
+            <div className="flex-1 truncate">
+              <div className="text-xs font-bold text-white flex items-center justify-between">
+                <span>Mis Dispositivos</span>
+                <span className="px-1.5 py-0.2 rounded text-[8px] font-mono bg-teal-900 text-teal-200 border border-teal-700">
+                  Sync
+                </span>
               </div>
-            )}
-          </button>
-        )}
+              <p className="text-[10px] text-teal-300/80 truncate">Flota conectada & Installs remotas</p>
+            </div>
+          )}
+        </button>
 
         {/* 0.2 Comunidad & Chat Social Interno */}
         {onOpenSocialChat && (
@@ -652,7 +656,24 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
           </button>
         )}
 
-        {/* 2. Shizuku Live Installer */}
+        {/* 1.3 Panel de Auto-Actualización Móvil OTA */}
+        {onOpenOtaReleases && (
+          <button
+            onClick={onOpenOtaReleases}
+            title={isCollapsed ? 'Panel de Auto-Actualización Móvil OTA' : undefined}
+            className="w-full rounded-xl p-2.5 text-left transition flex items-center gap-3 text-slate-400 hover:text-slate-100 hover:bg-slate-900/60 group border border-transparent hover:border-slate-800"
+          >
+            <div className="p-1.5 rounded-lg bg-emerald-950/80 border border-emerald-800/60 text-emerald-400 shrink-0 group-hover:scale-105 transition">
+              <Smartphone className="w-4 h-4" />
+            </div>
+            {!isCollapsed && (
+              <div className="flex-1 truncate">
+                <div className="text-xs font-bold text-slate-200">Releases Móviles OTA</div>
+                <p className="text-[10px] text-slate-400 truncate">Auto-Update Continuo</p>
+              </div>
+            )}
+          </button>
+        )}
         <button
           onClick={onOpenShizukuInstaller}
           title={isCollapsed ? 'Instalador Silencioso Shizuku' : undefined}

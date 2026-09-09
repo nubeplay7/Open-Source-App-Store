@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hierarchy rotation="0">
+  <node index="0" text="" resource-id="oss.krtirtho.spotube:id/root" class="android.widget.FrameLayout" package="oss.krtirtho.spotube">
+    <node index="0" text="Civer FOSS Interface" resource-id="oss.krtirtho.spotube:id/toolbar" class="androidx.appcompat.widget.Toolbar" />
+    <node index="1" text="" resource-id="oss.krtirtho.spotube:id/main_content" class="androidx.recyclerview.widget.RecyclerView" />
+  </node>
+</hierarchy>

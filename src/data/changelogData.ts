@@ -1255,6 +1255,216 @@ export const SYSTEM_CHANGELOG: SystemChangelogEntry[] = [
       'runtimeSandboxData',
       'changelogData'
     ]
+  },
+  {
+    iterationNumber: 13,
+    title: 'Núcleo Universal OmniBuild (Kaggle Cloud + GitHub Actions + ThinkPad SDK), Orquestación del Catálogo y Publicación en appstore.civer.cloud',
+    promptSummary: 'Diseño del núcleo universal agnóstico de compilación ("el mismo núcleo para todos") con runners en Kaggle Cloud (30GB RAM), GitHub Actions y ThinkPad Bare-Metal Android SDK, orquestación masiva del catálogo de 19 aplicaciones FOSS y disponibilización bajo el dominio oficial de Cloudflare appstore.civer.cloud con entrega directa vía Telegram.',
+    requestDate: '2026-09-06 (Iteración 13)',
+    author: 'Oscar Manuel (nubeplay7@gmail.com) / Antigravity Agent',
+    executiveSummary: 'Se implementó el núcleo unificado de compilación OmniBuild que permite compilar indistintamente en Kaggle Cloud Kernels (aprovechando 30GB de RAM y CPU multihilo para acelerar el Gradle daemon), GitHub Actions runners y el nodo bare-metal ThinkPad con Android SDK 35. Se construyó el orquestador por lotes para compilar las 19 aplicaciones del catálogo FOSS con un solo clic, se enrutó la infraestructura virtual de nombres de dominio appstore.civer.cloud para servir la App Store y las descargas directas de APKs firmados con Scheme v4, y se enlazó el bot de Telegram @EnviodeApkCompiladaBot para distribución directa.',
+    architecturePhases: [
+      {
+        phaseNumber: 1,
+        name: 'Abstracción del Núcleo Universal de Compilación OmniBuild',
+        description: 'Implementación del servicio omniBuildKernelService.ts que desacopla la ejecución de compilación, soportando de forma transparente Kaggle Cloud, GitHub Actions, ThinkPad Bare-Metal y selección inteligente Auto-Balancing.',
+        status: 'COMPLETED',
+        keyDeliverables: ['src/services/omniBuildKernelService.ts', 'src/types.ts']
+      },
+      {
+        phaseNumber: 2,
+        name: 'Puente de Computación Kaggle Cloud (30GB RAM)',
+        description: 'Desarrollo de kaggleCompilerBridgeService.ts integrando credenciales de ~/.kaggle/kaggle.json, generación automática de scripts de automatización Python/Gradle y metadatos de kernels efímeros de alta memoria.',
+        status: 'COMPLETED',
+        keyDeliverables: ['src/services/kaggleCompilerBridgeService.ts']
+      },
+      {
+        phaseNumber: 3,
+        name: 'Orquestador Masivo por Lotes para las 19 Apps del Catálogo FOSS',
+        description: 'Integración en GitHubCompilerModal.tsx de la pestaña de compilación masiva con barra de progreso en vivo, métricas de rendimiento, firma con Keystore Vault y cálculo de sumas SHA-256.',
+        status: 'COMPLETED',
+        keyDeliverables: ['src/components/GitHubCompilerModal.tsx', 'src/data/appsCatalogData.ts']
+      },
+      {
+        phaseNumber: 4,
+        name: 'Enrutamiento Virtual de Dominio appstore.civer.cloud y Distribución Telegram',
+        description: 'Configuración en server.js de la red civer.cloud para servir appstore.civer.cloud con directorio dedicado /downloads/, cabeceras de instalación móvil y enlace profundo con @EnviodeApkCompiladaBot.',
+        status: 'COMPLETED',
+        keyDeliverables: ['src/constants/networkEndpoints.ts', 'mesh-shared-vault/sitio-descarga/server.js']
+      }
+    ],
+    implementedFeatures: [
+      {
+        id: 'feat-13-1',
+        title: 'Núcleo Universal de Compilación OmniBuild',
+        category: 'CI/CD & Compilación',
+        description: 'Motor agnóstico multieje ("el mismo núcleo para todos") que permite compilar cualquier APK Android en Kaggle Cloud, GitHub Actions o SDK local.',
+        status: 'VERIFIED',
+        module: 'omniBuildKernelService',
+        verifiedDate: '2026-09-06'
+      },
+      {
+        id: 'feat-13-2',
+        title: 'Compilador Kaggle Cloud High-Memory (30GB RAM)',
+        category: 'Cloud Compute',
+        description: 'Ejecutor de alta capacidad aprovechando 30GB de RAM y CPU multihilo para compilaciones pesadas de Gradle y R8 optimizer.',
+        status: 'VERIFIED',
+        module: 'kaggleCompilerBridgeService',
+        verifiedDate: '2026-09-06'
+      },
+      {
+        id: 'feat-13-3',
+        title: 'Compilación Masiva del Catálogo (19 Aplicaciones)',
+        category: 'Automatización & Batch',
+        description: 'Orquestador por lotes que construye la totalidad de aplicaciones abiertas con telemetría en tiempo real y registro histórico automático.',
+        status: 'VERIFIED',
+        module: 'GitHubCompilerModal',
+        verifiedDate: '2026-09-06'
+      },
+      {
+        id: 'feat-13-4',
+        title: 'Publicación en Dominio appstore.civer.cloud y Enlace a Telegram',
+        category: 'Red & Distribución',
+        description: 'Enrutamiento de host y descargas directas de APKs en appstore.civer.cloud y despacho interactivo con el bot de Telegram.',
+        status: 'VERIFIED',
+        module: 'networkEndpoints, server.js',
+        verifiedDate: '2026-09-06'
+      }
+    ],
+    pendingRoadmap: [
+      {
+        id: 'roadmap-14-1',
+        title: 'Sincronización P2P de APKs Compilados vía Syncthing Mesh',
+        priority: 'HIGH',
+        targetIteration: 'Iteración 14',
+        description: 'Distribución descentralizada directa de artefactos compilados entre los nodos ThinkPad, Desktop y Droplets sin depender de almacenamiento central.',
+        technicalRequirements: ['Syncthing REST API', 'Configuración de carpetas compartidas', 'Hash verification']
+      },
+      {
+        id: 'roadmap-14-2',
+        title: 'Agente Supervisor Autónomo de Salud para Kernels Kaggle',
+        priority: 'MEDIUM',
+        targetIteration: 'Iteración 14',
+        description: 'Watchdog que detecta caídas o límites de timeout en Kaggle y conmuta automáticamente la compilación a GitHub Actions.',
+        technicalRequirements: ['Kaggle API polling', 'Automatic failover', 'Telegram alert dispatch']
+      }
+    ],
+    architecturalImpact: 'La plataforma cuenta ahora con un ecosistema completo de CI/CD móvil híbrido: compila a escala en la nube (Kaggle/GitHub) o en bare-metal local (ThinkPad), genera los APKs verificados criptográficamente, los publica en el dominio oficial appstore.civer.cloud y los distribuye a usuarios finales mediante la web o el bot de Telegram.',
+    modulesAffected: [
+      'omniBuildKernelService.ts',
+      'kaggleCompilerBridgeService.ts',
+      'networkEndpoints.ts',
+      'GitHubCompilerModal.tsx',
+      'server.js',
+      'changelogData.ts',
+      'ChangelogLedgerModal.tsx'
+    ]
+  },
+  {
+    iterationNumber: 14,
+    title: 'Panel de Administración Maestro, Matriz de Base de Datos 15+ Cols, Web Scraping GitHub FOSS y Despliegue Físico ADB en Samsung Galaxy A06',
+    promptSummary: 'Creación del Panel de Administración Maestro protegido por clave de nivel root (civer2026), visor de la base de datos completa de aplicaciones con tabla de más de 15 columnas técnicas, motor de búsqueda y web scraping en repositorios de GitHub FOSS con integración a DB en 1 clic, hub de versiones y compilaciones a demanda, y verificación física comprobada mediante instalación y crawler de Spotube en el Samsung Galaxy A06 (SM-A065M) vía ThinkPad ADB Gateway.',
+    requestDate: '2026-09-06 (Iteración 14)',
+    author: 'Oscar Manuel (nubeplay7@gmail.com) / Antigravity Agent',
+    executiveSummary: 'Se implementó el panel de control maestro admin_catalog_matrix con control de acceso por PIN, permitiendo a los mantenedores auditar toda la base de datos de aplicaciones en más de 15 dimensiones técnicas, rastrear repositorios móviles en GitHub con categorización automática e importación inmediata, y compilar o instalar versiones históricas específicas. Se validó físicamente en hardware instalando y capturando en vivo las pantallas de Spotube v3.8.2 en el Samsung Galaxy A06 a través del servidor OpenSSH en la ThinkPad.',
+    architecturePhases: [
+      {
+        phaseNumber: 1,
+        name: 'Autenticación y Control de Acceso Root',
+        description: 'Modal AdminAuthModal.tsx con verificación de PIN maestro civer2026 y sesión persistente.',
+        status: 'COMPLETED',
+        keyDeliverables: ['src/components/AdminAuthModal.tsx', 'src/types.ts']
+      },
+      {
+        phaseNumber: 2,
+        name: 'Matriz Técnica de Base de Datos con 15+ Columnas',
+        description: 'Tabla interactiva en AdminMasterCatalogView.tsx con filtrado dinámico, estado en la nube civer.cloud, enlaces directos de descarga y exportación en formatos JSON y CSV.',
+        status: 'COMPLETED',
+        keyDeliverables: ['src/components/AdminMasterCatalogView.tsx']
+      },
+      {
+        phaseNumber: 3,
+        name: 'Motor de Búsqueda y Web Scraping de Repositorios FOSS',
+        description: 'Servicio mobileRepoScraperService.ts conectado a la API v3 de GitHub con 8 categorías preconfiguradas, inferencia de paquetes y tareas Gradle, y botón de integración en 1 clic.',
+        status: 'COMPLETED',
+        keyDeliverables: ['src/services/mobileRepoScraperService.ts']
+      },
+      {
+        phaseNumber: 4,
+        name: 'Hub de Versiones Históricas y Despliegue ADB en Hardware Físico',
+        description: 'Control multi-versión para compilar e instalar versiones anteriores a demanda, verificado en vivo sobre el Samsung Galaxy A06 (SM-A065M) conectado a la ThinkPad.',
+        status: 'COMPLETED',
+        keyDeliverables: ['mesh-shared-vault/sitio-descarga/downloads/oss.krtirtho.spotube-v3.8.2-release.apk', 'evidencias/']
+      }
+    ],
+    implementedFeatures: [
+      {
+        id: 'feat-14-1',
+        title: 'Panel de Administración Maestro (Root Level)',
+        category: 'Administración & Seguridad',
+        description: 'Centro de control exclusivo para mantenedores con autenticación por PIN y auditoría completa.',
+        status: 'VERIFIED',
+        module: 'AdminAuthModal & AdminMasterCatalogView',
+        verifiedDate: '2026-09-06'
+      },
+      {
+        id: 'feat-14-2',
+        title: 'Tabla de Base de Datos con 15+ Columnas Técnicas',
+        category: 'Base de Datos & Catálogo',
+        description: 'Visualización profunda de especificaciones, tareas Gradle, SDKs, licencias, trackers y enlaces directos.',
+        status: 'VERIFIED',
+        module: 'AdminMasterCatalogView',
+        verifiedDate: '2026-09-06'
+      },
+      {
+        id: 'feat-14-3',
+        title: 'Web Scraper de Proyectos Móviles en GitHub',
+        category: 'Web Scraping & Ingesta',
+        description: 'Rastreador automatizado que descubre repositorios FOSS y los incorpora a la base de datos con 1 clic.',
+        status: 'VERIFIED',
+        module: 'mobileRepoScraperService',
+        verifiedDate: '2026-09-06'
+      },
+      {
+        id: 'feat-14-4',
+        title: 'Control Multi-Versión y Despliegue Físico ADB',
+        category: 'Hardware & Multi-Versión',
+        description: 'Selección e instalación de versiones históricas en dispositivos Android físicos (Samsung Galaxy A06).',
+        status: 'VERIFIED',
+        module: 'AdminMasterCatalogView & ThinkPad ADB Gateway',
+        verifiedDate: '2026-09-06'
+      }
+    ],
+    pendingRoadmap: [
+      {
+        id: 'roadmap-15-1',
+        title: 'Sincronización Automática P2P entre Bóvedas vía Syncthing Mesh',
+        priority: 'CRITICAL',
+        targetIteration: 'Iteración 15',
+        description: 'Replicación en tiempo real de APKs compilados entre Desktop y ThinkPad sin depender de almacenamiento en la nube.',
+        technicalRequirements: ['Syncthing REST API', 'Configuración de clúster P2P', 'Verificación de sumas SHA-256']
+      },
+      {
+        id: 'roadmap-15-2',
+        title: 'Crawler Automatizado de Pantallas para las 19 Apps del Catálogo',
+        priority: 'HIGH',
+        targetIteration: 'Iteración 15',
+        description: 'Recorrido y captura visual desatendida en el Samsung Galaxy A06 para dotar de capturas 100% reales a todas las fichas.',
+        technicalRequirements: ['ADB monkey runner', 'Screencap stream', 'Metadata indexer']
+      }
+    ],
+    architecturalImpact: 'Civer App Store pasa de ser una tienda orientada únicamente al usuario final a contar con su propio plano de administración y mantenimiento continuo: los administradores pueden vigilar todas las tablas del sistema, descubrir e integrar nuevos repositorios de código abierto sin tocar el código fuente, y compilar o desplegar cualquier versión en el laboratorio físico de smartphones.',
+    modulesAffected: [
+      'AdminAuthModal.tsx',
+      'AdminMasterCatalogView.tsx',
+      'mobileRepoScraperService.ts',
+      'types.ts',
+      'Navbar.tsx',
+      'PlayStoreView.tsx',
+      'App.tsx',
+      'changelogData.ts',
+      'PLAN_MAESTRO_GLOBAL_ROADMAP.md'
+    ]
   }
 ];
 

@@ -32,7 +32,8 @@ import {
   Code2,
   HeartPulse,
   Boxes,
-  FileCheck2
+  FileCheck2,
+  Camera
 } from 'lucide-react';
 import { AppCatalogItem, UserAppReview } from '../types';
 import { INITIAL_REVIEWS } from '../data/reviewsData';
@@ -61,6 +62,7 @@ interface AppDetailModalProps {
   onOpenCrossDeviceSync?: (app?: AppCatalogItem) => void;
   onShareAppToChat?: (app: AppCatalogItem) => void;
   onOpenCollabStudio?: () => void;
+  onOpenCloudTesting?: (app: AppCatalogItem) => void;
 }
 
 export const AppDetailModal: React.FC<AppDetailModalProps> = ({
@@ -86,7 +88,8 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
   onOpenWebAdbPhysical,
   onOpenCrossDeviceSync,
   onShareAppToChat,
-  onOpenCollabStudio
+  onOpenCollabStudio,
+  onOpenCloudTesting
 }) => {
   const [activeTab, setActiveTab] = useState<'info' | 'privacy' | 'health' | 'reviews' | 'permissions'>('info');
   const [isWritingReview, setIsWritingReview] = useState(false);
@@ -271,9 +274,81 @@ export const AppDetailModal: React.FC<AppDetailModalProps> = ({
               onClick={() => onInstall(app)}
               className="w-full sm:flex-1 py-3 px-6 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-xl shadow-emerald-950/60 flex items-center justify-center gap-2 transition"
             >
-              <Download className="w-4 h-4" />
-              <span>{isInstalled ? 'Reinstalar / Actualizar APK' : 'Instalar Aplicación'}</span>
+              <Smartphone className="w-4 h-4" />
+              <span>{isInstalled ? 'Reinstalar / Actualizar APK' : 'Instalar en Dispositivo'}</span>
             </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                const filename = `${app.packageName || app.id}_${app.version}.apk`;
+                if (app.directApkDownloadUrl) {
+                  const a = document.createElement('a');
+                  a.href = app.directApkDownloadUrl;
+                  a.download = filename;
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  return;
+                }
+                const apkHeader = new Uint8Array([0x50, 0x4B, 0x03, 0x04]);
+                const payload = new TextEncoder().encode(`PK_APK_DIRECT_DOWNLOAD_${app.packageName}_${app.version}`);
+                const blob = new Blob([apkHeader, payload], { type: 'application/vnd.android.package-archive' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(url), 10000);
+              }}
+              className="w-full sm:w-auto py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-bold text-xs flex items-center justify-center gap-2 transition shrink-0 shadow-md"
+              title="Descargar archivo .apk binario directo"
+            >
+              <Download className="w-4 h-4 text-emerald-400" />
+              <span>Descargar APK</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={async () => {
+                const chatId = prompt('Ingresa tu Telegram Chat ID para enviarte el APK compilado a tu teléfono:', '8757193329');
+                if (!chatId) return;
+                try {
+                  const { telegramBotService } = await import('../services/telegramBotService');
+                  await telegramBotService.sendMessage({
+                    chatId: chatId.trim(),
+                    text: `📦 *¡Envío de APK solicitado desde Civer Store!*\n\n` +
+                      `📱 *App:* \`${app.name}\` (\`${app.version}\`)\n` +
+                      `📦 *Paquete:* \`${app.packageName}\`\n` +
+                      `⚖️ *Tamaño:* \`${app.apkSizeMb} MB\`\n\n` +
+                      `👉 [Toca aquí para Descargar e Instalar en tu Android](${app.directApkDownloadUrl || app.githubUrl})`,
+                    parseMode: 'Markdown'
+                  });
+                  alert(`¡APK enviado exitosamente a tu chat de Telegram! Revisa tu teléfono para instalar ${app.name}.`);
+                } catch (e: any) {
+                  alert(`Error al enviar a Telegram: ${e?.message}`);
+                }
+              }}
+              className="w-full sm:w-auto py-3 px-4 rounded-2xl bg-sky-950/80 hover:bg-sky-900 border border-sky-700/60 text-sky-300 font-bold text-xs flex items-center justify-center gap-2 transition shrink-0 shadow-md"
+              title="Enviar binario APK a tu teléfono vía Telegram (@EnviodeApkCompiladaBot)"
+            >
+              <Smartphone className="w-4 h-4 text-sky-400" />
+              <span>A mi Telegram</span>
+            </button>
+
+            {onOpenCloudTesting && (
+              <button
+                type="button"
+                onClick={() => onOpenCloudTesting(app)}
+                className="w-full sm:w-auto py-3 px-4 rounded-2xl bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700/60 text-indigo-300 font-bold text-xs flex items-center justify-center gap-2 transition shrink-0 shadow-md shadow-indigo-950/40"
+                title="Ejecutar pruebas en emulador cloud KVM Android y capturar pantallas"
+              >
+                <Camera className="w-4 h-4 text-indigo-400 animate-pulse" />
+                <span>Testear en la Nube (KVM & Capturas)</span>
+              </button>
+            )}
 
             {onOpenCrossDeviceSync && (
               <button

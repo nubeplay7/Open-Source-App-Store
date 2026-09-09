@@ -43,6 +43,16 @@ fun MainScreen() {
   var selectedStoreForDetail by remember { mutableStateOf<AppStoreInfo?>(null) }
   var comparedStores by remember { mutableStateOf<List<AppStoreInfo>>(emptyList()) }
   var showExportModal by remember { mutableStateOf(false) }
+  var showOtaDialog by remember { mutableStateOf(false) }
+  var showSettingsDialog by remember { mutableStateOf(false) }
+
+  val context = androidx.compose.ui.platform.LocalContext.current
+  val otaManager = remember { com.example.ota.OtaUpdateManager(context) }
+  val otaStatus by otaManager.status.collectAsState()
+
+  LaunchedEffect(Unit) {
+    otaManager.checkForUpdates(currentVersionCode = 1, isManual = false)
+  }
 
   val stores = StoreCatalogData.stores
 
@@ -116,6 +126,41 @@ fun MainScreen() {
                   fontSize = 15.sp,
                   fontWeight = FontWeight.Bold,
                   color = Emerald400
+                )
+              }
+
+              // Botón de Actualizaciones OTA Continuas
+              val hasOtaUpdate = otaStatus is com.example.ota.OtaStatus.Available
+              IconButton(
+                onClick = { showOtaDialog = true },
+                modifier = Modifier
+                  .size(36.dp)
+                  .clip(RoundedCornerShape(8.dp))
+                  .background(if (hasOtaUpdate) Emerald500.copy(alpha = 0.2f) else Slate900)
+                  .border(1.dp, if (hasOtaUpdate) Emerald400 else Slate800, RoundedCornerShape(8.dp))
+              ) {
+                Icon(
+                  imageVector = if (hasOtaUpdate) Icons.Default.SystemUpdate else Icons.Default.CloudSync,
+                  contentDescription = "Actualización OTA",
+                  tint = if (hasOtaUpdate) Emerald400 else Slate400,
+                  modifier = Modifier.size(18.dp)
+                )
+              }
+
+              // Botón de Configuración de Actualizaciones (Shizuku & OTA)
+              IconButton(
+                onClick = { showSettingsDialog = true },
+                modifier = Modifier
+                  .size(36.dp)
+                  .clip(RoundedCornerShape(8.dp))
+                  .background(Slate900)
+                  .border(1.dp, Slate800, RoundedCornerShape(8.dp))
+              ) {
+                Icon(
+                  imageVector = Icons.Default.Settings,
+                  contentDescription = "Configuración OTA & Shizuku",
+                  tint = Cyan400,
+                  modifier = Modifier.size(18.dp)
                 )
               }
 
@@ -479,6 +524,28 @@ fun MainScreen() {
     ExportModal(
       stores = stores,
       onDismiss = { showExportModal = false }
+    )
+  }
+
+  // Modal de Auto-Actualización Continua OTA
+  if (showOtaDialog) {
+    OtaUpdateDialog(
+      isOpen = showOtaDialog,
+      onClose = { showOtaDialog = false },
+      otaManager = otaManager,
+      currentVersionName = "1.0.0",
+      currentVersionCode = 1
+    )
+  }
+
+  // Modal de Configuración OTA y Shizuku (Actualización a demanda y silenciosa)
+  if (showSettingsDialog) {
+    OtaSettingsDialog(
+      isOpen = showSettingsDialog,
+      onClose = { showSettingsDialog = false },
+      otaManager = otaManager,
+      currentVersionName = "1.0.0",
+      currentVersionCode = 1
     )
   }
 }

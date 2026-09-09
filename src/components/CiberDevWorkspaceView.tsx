@@ -40,7 +40,12 @@ import {
   BarChart3,
   GripVertical,
   Terminal,
-  X
+  X,
+  GitBranch,
+  Users,
+  Copy,
+  ExternalLink,
+  Play
 } from 'lucide-react';
 import { 
   NotebookDocument, 
@@ -58,6 +63,9 @@ import {
 import { MarkdownDocEditor } from './MarkdownDocEditor';
 import { CiCdPerformanceSummary } from './CiCdPerformanceSummary';
 import { INITIAL_BUILD_RUNS } from '../data/buildHistoryData';
+import { APPS_CATALOG } from '../data/appsCatalogData';
+import { telegramBotService, DEFAULT_BOT_USERNAME, DEFAULT_BOT_URL } from '../services/telegramBotService';
+import { triggerRealGitHubBuild } from '../services/githubCiService';
 
 interface CiberDevWorkspaceViewProps {
   userProfile: UserProfile;
@@ -77,7 +85,7 @@ interface CiberDevWorkspaceViewProps {
   onOpenCommandPalette?: () => void;
 }
 
-type WorkspaceTab = 'NOTEBOOK' | 'KANBAN' | 'SLACK' | 'VISION' | 'CHANGELOG_SYNC' | 'CICD_PERF';
+type WorkspaceTab = 'NOTEBOOK' | 'KANBAN' | 'SLACK' | 'VISION' | 'CHANGELOG_SYNC' | 'CICD_PERF' | 'FOSS_FORK_HUB';
 
 export const CiberDevWorkspaceView: React.FC<CiberDevWorkspaceViewProps> = ({
   userProfile,
@@ -125,6 +133,42 @@ export const CiberDevWorkspaceView: React.FC<CiberDevWorkspaceViewProps> = ({
   const [isCodeSnippetOpen, setIsCodeSnippetOpen] = useState(false);
   const [codeSnippetLang, setCodeSnippetLang] = useState('bash');
   const [codeSnippetText, setCodeSnippetText] = useState('');
+
+  // FOSS Fork Hub & Collaboration State
+  const [forkedAppsList, setForkedAppsList] = useState<Array<{
+    id: string;
+    name: string;
+    packageName: string;
+    branch: string;
+    commitsCount: number;
+    collaborators: Array<{ name: string; role: 'OWNER' | 'MAINTAINER' | 'CONTRIBUTOR'; avatarLetter: string }>;
+    files: Record<string, string>;
+  }>>([
+    {
+      id: 'civer-app-store',
+      name: 'Civer App Store Matrix (Mi Versión)',
+      packageName: 'com.civer.store',
+      branch: 'main',
+      commitsCount: 18,
+      collaborators: [
+        { name: userProfile.name || 'Mi Cuenta', role: 'OWNER', avatarLetter: userProfile.avatarLetter || 'C' },
+        { name: 'Alice Romero', role: 'MAINTAINER', avatarLetter: 'A' },
+        { name: 'Dev Community Bot', role: 'CONTRIBUTOR', avatarLetter: '🤖' }
+      ],
+      files: {
+        'build.gradle.kts': `// Configuración Gradle de Civer App Store\nplugins {\n  alias(libs.plugins.android.application)\n  alias(libs.plugins.kotlin.compose)\n}\n\nandroid {\n  namespace = "com.civer.store"\n  compileSdk = 36\n\n  defaultConfig {\n    applicationId = "com.civer.store"\n    minSdk = 24\n    targetSdk = 36\n    versionCode = 42\n    versionName = "4.2.0-custom"\n  }\n}`,
+        'AndroidManifest.xml': `<?xml version="1.0" encoding="utf-8"?>\n<manifest xmlns:android="http://schemas.android.com/apk/res/android">\n    <uses-permission android:name="android.permission.INTERNET" />\n    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />\n    <application\n        android:label="Civer Store"\n        android:theme="@style/Theme.Civer">\n    </application>\n</manifest>`,
+        'MainActivity.kt': `package com.civer.store\n\nimport android.os.Bundle\nimport androidx.activity.ComponentActivity\nimport androidx.activity.compose.setContent\n\nclass MainActivity : ComponentActivity() {\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContent {\n            // UI nativa de Civer App Store con integración OTA\n        }\n    }\n}`
+      }
+    }
+  ]);
+  const [selectedForkId, setSelectedForkId] = useState('civer-app-store');
+  const [activeFileKey, setActiveFileKey] = useState('build.gradle.kts');
+  const [forkBuildStatus, setForkBuildStatus] = useState<string>('');
+  const [newCollabName, setNewCollabName] = useState('');
+  const [newCollabRole, setNewCollabRole] = useState<'MAINTAINER' | 'CONTRIBUTOR'>('CONTRIBUTOR');
+  const [isForkModalOpen, setIsForkModalOpen] = useState(false);
+  const [selectedAppToFork, setSelectedAppToFork] = useState(APPS_CATALOG[0]?.id || 'aurora-store');
 
   const selectedDoc = notebookDocs.find((d) => d.id === selectedDocId) || notebookDocs[0];
   const activeChannel = channels.find((c) => c.id === selectedChannelId) || channels[0];
@@ -440,6 +484,21 @@ export const CiberDevWorkspaceView: React.FC<CiberDevWorkspaceViewProps> = ({
             <span>Rendimiento CI/CD</span>
             <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-cyan-900/60 text-cyan-200 font-mono">
               GitHub Actions
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('FOSS_FORK_HUB')}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition whitespace-nowrap ${
+              activeTab === 'FOSS_FORK_HUB'
+                ? 'bg-emerald-950/90 text-emerald-300 border border-emerald-700/80 shadow-sm'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+            }`}
+          >
+            <GitBranch className="w-4 h-4 text-emerald-400" />
+            <span>Hub Colaborativo FOSS</span>
+            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-900 text-emerald-200 font-mono font-bold">
+              GitHub Interno ({forkedAppsList.length})
             </span>
           </button>
         </div>
@@ -1006,11 +1065,362 @@ export const CiberDevWorkspaceView: React.FC<CiberDevWorkspaceViewProps> = ({
             />
           </div>
         )}
+
+        {/* ========================================================= */}
+        {/* 7. FOSS FORK HUB (GITHUB INTERNO DE APPS & COLABORADORES) */}
+        {/* ========================================================= */}
+        {activeTab === 'FOSS_FORK_HUB' && (
+          <div className="flex-1 flex flex-col overflow-hidden bg-[#0d1117]">
+            {/* Top Hub Banner */}
+            <div className="p-4 bg-[#161b22] border-b border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                  <GitBranch className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-sm font-bold text-white">Hub de Código FOSS Colaborativo</h3>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-800 font-mono">
+                      GitHub Interno
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-400">
+                    Crea tu versión, clona código, invita colaboradores y compila APKs que se envían directo a Telegram.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 flex-wrap">
+                {/* Telegram Bot Link Badge */}
+                <a
+                  href={DEFAULT_BOT_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3 py-1.5 rounded-xl bg-sky-950/70 border border-sky-800/80 text-sky-300 text-xs font-semibold flex items-center gap-1.5 hover:bg-sky-900 transition"
+                >
+                  <Send className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Bot: @{DEFAULT_BOT_USERNAME}</span>
+                  {userProfile.telegramChatId && (
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  )}
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => setIsForkModalOpen(true)}
+                  className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-emerald-950"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Forkear App del Catálogo</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Main Content Layout: Left list of forked apps, Right Code Editor & Collaborators */}
+            <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
+              {/* Left Sidebar: My Forked Repos */}
+              <div className="w-full lg:w-72 bg-[#161b22]/60 border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto p-3 space-y-2">
+                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-2 pt-1 flex items-center justify-between">
+                  <span>Mis Repositorios ({forkedAppsList.length})</span>
+                  <span className="text-[10px] text-emerald-400 font-mono">En Vivo</span>
+                </div>
+
+                {forkedAppsList.map((fork) => (
+                  <div
+                    key={fork.id}
+                    onClick={() => {
+                      setSelectedForkId(fork.id);
+                      setActiveFileKey(Object.keys(fork.files)[0] || 'build.gradle.kts');
+                    }}
+                    className={`p-3 rounded-2xl border transition cursor-pointer space-y-1.5 ${
+                      selectedForkId === fork.id
+                        ? 'bg-emerald-950/40 border-emerald-600/70 text-white shadow-sm'
+                        : 'bg-slate-900/60 border-slate-800/80 text-slate-300 hover:border-slate-700'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-bold text-xs truncate">{fork.name}</h4>
+                      <span className="text-[10px] font-mono bg-slate-800 text-slate-300 px-1.5 py-0.2 rounded">
+                        {fork.branch}
+                      </span>
+                    </div>
+                    <div className="text-[10px] text-slate-400 font-mono truncate">{fork.packageName}</div>
+                    <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-slate-800/60">
+                      <span className="flex items-center gap-1">
+                        <Users className="w-3 h-3 text-sky-400" />
+                        {fork.collaborators.length} Colaboradores
+                      </span>
+                      <span>{fork.commitsCount} commits</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Center: File Explorer & Code Editor */}
+              {selectedForkId && (() => {
+                const activeFork = forkedAppsList.find(f => f.id === selectedForkId) || forkedAppsList[0];
+                return (
+                  <div className="flex-1 flex flex-col overflow-hidden">
+                    {/* File Tabs & Actions */}
+                    <div className="bg-[#161b22] border-b border-slate-800 px-4 py-2 flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex items-center gap-1.5 overflow-x-auto">
+                        {Object.keys(activeFork.files).map((fileName) => (
+                          <button
+                            key={fileName}
+                            onClick={() => setActiveFileKey(fileName)}
+                            className={`px-3 py-1.5 rounded-xl text-xs font-mono font-medium flex items-center gap-1.5 transition ${
+                              activeFileKey === fileName
+                                ? 'bg-slate-800 text-emerald-400 border border-slate-700'
+                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                            }`}
+                          >
+                            <Code2 className="w-3.5 h-3.5" />
+                            <span>{fileName}</span>
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setForkBuildStatus('Guardando cambios en rama ' + activeFork.branch + '...');
+                            setTimeout(() => setForkBuildStatus('¡Cambios guardados con éxito!'), 1000);
+                          }}
+                          className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition"
+                        >
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>Guardar Archivo</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onOpenCompiler();
+                          }}
+                          className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md transition"
+                        >
+                          <Play className="w-3.5 h-3.5" />
+                          <span>Compilar en Cloud CI</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Code Editor Body */}
+                    <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+                      <div className="flex-1 bg-[#090d13] p-4 font-mono text-xs text-slate-200 overflow-y-auto select-text border-r border-slate-800/80">
+                        <div className="text-[11px] text-slate-500 pb-2 border-b border-slate-800/80 mb-3 flex items-center justify-between">
+                          <span>Archivo: <b>{activeFileKey}</b> • Formato UTF-8 • Branch: <b>{activeFork.branch}</b></span>
+                          <span className="text-[10px] bg-slate-900 px-2 py-0.5 rounded text-emerald-400">Editor en Vivo</span>
+                        </div>
+                        <textarea
+                          value={activeFork.files[activeFileKey] || ''}
+                          onChange={(e) => {
+                            const newContent = e.target.value;
+                            setForkedAppsList(prev => prev.map(f => {
+                              if (f.id === activeFork.id) {
+                                return {
+                                  ...f,
+                                  files: {
+                                    ...f.files,
+                                    [activeFileKey]: newContent
+                                  }
+                                };
+                              }
+                              return f;
+                            }));
+                          }}
+                          rows={20}
+                          className="w-full h-[360px] bg-transparent text-emerald-300 font-mono text-xs border-none outline-none resize-none leading-relaxed"
+                          spellCheck={false}
+                        />
+
+                        {forkBuildStatus && (
+                          <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-emerald-400 font-sans mt-2">
+                            {forkBuildStatus}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Right Panel: Collaborators & Telegram Push */}
+                      <div className="w-full md:w-80 bg-[#161b22] p-4 flex flex-col justify-between space-y-4 overflow-y-auto">
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-xs font-bold text-white flex items-center gap-1.5">
+                              <Users className="w-4 h-4 text-sky-400" />
+                              <span>Colaboradores ({activeFork.collaborators.length})</span>
+                            </h4>
+                          </div>
+
+                          <div className="space-y-2">
+                            {activeFork.collaborators.map((c, i) => (
+                              <div key={i} className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-xs">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center text-[10px]">
+                                    {c.avatarLetter}
+                                  </div>
+                                  <div>
+                                    <div className="font-semibold text-slate-200">{c.name}</div>
+                                    <div className="text-[10px] text-slate-500 font-mono">{c.role}</div>
+                                  </div>
+                                </div>
+                                <span className={`text-[10px] px-2 py-0.5 rounded-md font-bold font-mono ${
+                                  c.role === 'OWNER' ? 'bg-amber-950 text-amber-400 border border-amber-800' :
+                                  c.role === 'MAINTAINER' ? 'bg-sky-950 text-sky-400 border border-sky-800' :
+                                  'bg-slate-800 text-slate-400'
+                                }`}>
+                                  {c.role}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Invite collaborator form */}
+                          <div className="pt-2 border-t border-slate-800 space-y-2">
+                            <label className="text-[11px] font-semibold text-slate-400">Invitar Colaborador al Repositorio:</label>
+                            <div className="flex items-center gap-1.5">
+                              <input
+                                type="text"
+                                placeholder="Nombre o usuario"
+                                value={newCollabName}
+                                onChange={(e) => setNewCollabName(e.target.value)}
+                                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-slate-200"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (!newCollabName.trim()) return;
+                                  setForkedAppsList(prev => prev.map(f => {
+                                    if (f.id === activeFork.id) {
+                                      return {
+                                        ...f,
+                                        collaborators: [
+                                          ...f.collaborators,
+                                          {
+                                            name: newCollabName.trim(),
+                                            role: newCollabRole,
+                                            avatarLetter: newCollabName.trim().charAt(0).toUpperCase()
+                                          }
+                                        ]
+                                      };
+                                    }
+                                    return f;
+                                  }));
+                                  setNewCollabName('');
+                                }}
+                                className="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold"
+                              >
+                                Invitar
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Telegram Direct Dispatch Card */}
+                        <div className="p-3.5 rounded-2xl bg-gradient-to-br from-sky-950/60 to-indigo-950/60 border border-sky-800/60 space-y-2">
+                          <div className="flex items-center justify-between text-xs">
+                            <div className="font-bold text-sky-300 flex items-center gap-1.5">
+                              <Send className="w-3.5 h-3.5 text-sky-400" />
+                              <span>Entrega a Telegram</span>
+                            </div>
+                            <span className="text-[10px] bg-emerald-950 text-emerald-400 px-1.5 py-0.2 rounded font-mono">
+                              EnviodeApkCompiladaBot
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-slate-300 leading-tight">
+                            Cada vez que compiles tu versión modificada, el APK firmado se enviará directo a tu teléfono vía Telegram.
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              onOpenCompiler();
+                            }}
+                            className="w-full py-2 px-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-sm"
+                          >
+                            <Play className="w-3.5 h-3.5" />
+                            <span>Compilar y Enviar APK a Telegram</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
+        )}
       </main>
 
       {/* ========================================================= */}
-      {/* MODALS: NEW DOC & NEW TASK */}
+      {/* MODALS: NEW DOC, NEW TASK & FORK APP */}
       {/* ========================================================= */}
+
+      {/* Fork App Modal */}
+      {isForkModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+          <div className="bg-[#161b22] border border-slate-800 rounded-3xl w-full max-w-md p-6 space-y-4 shadow-2xl">
+            <h3 className="text-base font-bold text-white flex items-center gap-2">
+              <GitBranch className="w-5 h-5 text-emerald-400" />
+              <span>Forkear Aplicación a tu Cuenta</span>
+            </h3>
+            <p className="text-xs text-slate-300">
+              Crea tu copia personal del código fuente para hacer ajustes, invitar a tu equipo y generar tu APK propia.
+            </p>
+
+            <div className="space-y-2">
+              <label className="text-xs font-semibold text-slate-400">Seleccionar App del Catálogo:</label>
+              <select
+                value={selectedAppToFork}
+                onChange={(e) => setSelectedAppToFork(e.target.value)}
+                className="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-xl px-3 py-2 text-xs"
+              >
+                {APPS_CATALOG.map((app) => (
+                  <option key={app.id} value={app.id}>
+                    {app.name} ({app.packageName})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setIsForkModalOpen(false)}
+                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const target = APPS_CATALOG.find(a => a.id === selectedAppToFork) || APPS_CATALOG[0];
+                  const newFork = {
+                    id: `${target.id}-fork-${Date.now().toString().slice(-4)}`,
+                    name: `${target.name} (Mi Fork)`,
+                    packageName: target.packageName,
+                    branch: 'main',
+                    commitsCount: 1,
+                    collaborators: [
+                      { name: userProfile.name || 'Mi Cuenta', role: 'OWNER' as const, avatarLetter: userProfile.avatarLetter || 'C' }
+                    ],
+                    files: {
+                      'build.gradle.kts': `// Fork de ${target.name}\nplugins {\n  alias(libs.plugins.android.application)\n}\n\nandroid {\n  namespace = "${target.packageName}"\n  compileSdk = 36\n  defaultConfig {\n    versionName = "${target.version}-custom"\n  }\n}`,
+                      'AndroidManifest.xml': `<?xml version="1.0" encoding="utf-8"?>\n<manifest xmlns:android="http://schemas.android.com/apk/res/android">\n    <application android:label="${target.name} (Fork)">\n    </application>\n</manifest>`,
+                      'MainActivity.kt': `package ${target.packageName}\n\n// Código base del fork personalizado de ${target.name}`
+                    }
+                  };
+                  setForkedAppsList(prev => [...prev, newFork]);
+                  setSelectedForkId(newFork.id);
+                  setIsForkModalOpen(false);
+                }}
+                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold"
+              >
+                Crear Fork
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* New Doc Modal */}
       {isNewDocModalOpen && (

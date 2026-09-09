@@ -228,6 +228,67 @@ export type AppCatalogCategory =
   | 'CUSTOMIZATION'
   | 'FINANCE';
 
+export type AppStackType = 
+  | 'ANDROID_NATIVE' 
+  | 'FLUTTER' 
+  | 'REACT_NATIVE' 
+  | 'CAPACITOR_PWA' 
+  | 'WEB_PWA';
+
+export type CatalogOwnershipFilter = 'ALL' | 'MY_APPS' | 'COMMUNITY';
+
+export interface StackInfo {
+  label: string;
+  badgeBg: string;
+  badgeText: string;
+  badgeBorder: string;
+  compilerCommand: string;
+  buildTimeAvg: string;
+}
+
+export const STACK_DETAILS: Record<AppStackType, StackInfo> = {
+  ANDROID_NATIVE: {
+    label: 'Android Nativo (Kotlin/Java)',
+    badgeBg: 'bg-emerald-950/80',
+    badgeText: 'text-emerald-400',
+    badgeBorder: 'border-emerald-700/60',
+    compilerCommand: './gradlew assembleRelease',
+    buildTimeAvg: '2m 15s'
+  },
+  FLUTTER: {
+    label: 'Flutter (Dart Engine)',
+    badgeBg: 'bg-sky-950/80',
+    badgeText: 'text-sky-400',
+    badgeBorder: 'border-sky-700/60',
+    compilerCommand: 'flutter build apk --release',
+    buildTimeAvg: '3m 40s'
+  },
+  REACT_NATIVE: {
+    label: 'React Native / Expo',
+    badgeBg: 'bg-cyan-950/80',
+    badgeText: 'text-cyan-400',
+    badgeBorder: 'border-cyan-700/60',
+    compilerCommand: 'npx react-native build-android --mode=release',
+    buildTimeAvg: '4m 10s'
+  },
+  CAPACITOR_PWA: {
+    label: 'Capacitor / Ionic Web',
+    badgeBg: 'bg-indigo-950/80',
+    badgeText: 'text-indigo-400',
+    badgeBorder: 'border-indigo-700/60',
+    compilerCommand: 'npx cap sync android && ./gradlew assembleRelease',
+    buildTimeAvg: '2m 50s'
+  },
+  WEB_PWA: {
+    label: 'PWA Web-to-APK (TWA/Bubblewrap)',
+    badgeBg: 'bg-purple-950/80',
+    badgeText: 'text-purple-400',
+    badgeBorder: 'border-purple-700/60',
+    compilerCommand: 'npx @bubblewrap/cli build',
+    buildTimeAvg: '1m 45s'
+  }
+};
+
 export interface DeveloperInfo {
   name: string;
   website?: string;
@@ -276,6 +337,44 @@ export interface AppCatalogItem {
   securityAuditStatus?: 'VERIFIED_CLEAN' | 'REPRODUCIBLE_AUDITED' | 'ZERO_TRACKERS' | 'COMMUNITY_SIGNED';
   healthScore?: number;
   healthGrade?: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F';
+  // FOSS Ingestion, Ownership & Multi-Stack Properties
+  isUserApp?: boolean;
+  stackType?: AppStackType;
+  directApkDownloadUrl?: string;
+  compiledArtifactSha256?: string;
+  sha256Checksum?: string;
+  sourceZipName?: string;
+  emulationTestStatus?: 'PASSED' | 'FAILED' | 'PENDING' | 'SKIPPED';
+  emulationLogs?: string[];
+  historicalVersions?: string[];
+  cloudBuildAvailable?: boolean;
+  isScraped?: boolean;
+  // Extended CI/CD, Physical Hardware & Crawler Audit Properties
+  buildNodeEnvironment?: string;
+  ciCdVerifiedDownloadUrl?: string;
+  gdriveBackupDownloadUrl?: string;
+  gdriveFileId?: string;
+  ciCdDownloadStatus?: 'VERIFIED_IMMORTAL' | 'ACTIVE_MIRROR' | 'LOCAL_VAULT_SYNCED';
+  androidPhysicalInstallStatus?: 'INSTALLED_VERIFIED' | 'PENDING_DEPLOY' | 'COMPATIBLE_QUEUED' | 'UPDATABLE' | 'ENLACE_ADB_DISPONIBLE';
+  androidInstalledPackageName?: string;
+  crawlerDepthMode?: 'MODERADO' | 'INTENSO';
+  crawlerScreenCount?: number;
+  crawlerScreens?: AppCrawlerScreenAudit[];
+}
+
+export interface AppCrawlerScreenAudit {
+  screenId: string;
+  screenName: string;
+  activityPath: string;
+  category: 'WELCOME_AUTH' | 'MAIN_DASHBOARD' | 'EXPLORER_VIEW' | 'PLAYER_VIEWER' | 'SETTINGS_CONFIG' | 'SEARCH_FILTER' | 'MODAL_DRAWER' | 'NETWORK_SYNC';
+  capturedTimestamp: string;
+  resolution: string;
+  uiHierarchyNodesCount: number;
+  crawlerDepth: 'MODERADO' | 'INTENSO';
+  evidenceUrl: string;
+  thumbnailUrl?: string;
+  statusBadge: 'VERIFICADO_ESTABLE' | 'OPTIMIZADO' | 'REVISADO';
+  detectedElements?: string[];
 }
 
 // -------------------------------------------------------------
@@ -320,6 +419,13 @@ export interface ClonedAppRepo {
   syncStatus: 'synced' | 'pending' | 'syncing';
   uncommittedChangesCount: number;
   networkPreference: 'WIFI_ONLY' | 'CELLULAR_AND_WIFI';
+  isFork?: boolean;
+  forkOwner?: string;
+  collaborators?: Array<{
+    name: string;
+    role: 'OWNER' | 'MAINTAINER' | 'CONTRIBUTOR';
+    avatarLetter: string;
+  }>;
 }
 
 export interface GitHubBuildRun {
@@ -351,6 +457,15 @@ export interface GitHubBuildRun {
   signingKeyFingerprint?: string;
   signingAlgorithm?: string;
   schemeV4?: boolean;
+  isRealCloudBuild?: boolean;
+  telegramDeliveryStatus?: 'PENDING' | 'SENT' | 'FAILED' | 'SKIPPED';
+  telegramRecipientChatId?: string;
+  otaManifestPublished?: boolean;
+  githubRunUrl?: string;
+  buildEngine?: 'KAGGLE_CLOUD' | 'GITHUB_ACTIONS' | 'THINKPAD_SDK' | 'AUTO';
+  buildNodeName?: string;
+  domainDownloadUrl?: string;
+  kaggleKernelUrl?: string;
 }
 
 // -------------------------------------------------------------
@@ -373,7 +488,7 @@ export interface DeviceTelemetry {
   connectionSpeedKbps: number;
 }
 
-export type StoreUiMode = 'ciber_store' | 'play_store' | 'app_store' | 'matrix_pro' | 'dev_workspace';
+export type StoreUiMode = 'ciber_store' | 'play_store' | 'app_store' | 'matrix_pro' | 'dev_workspace' | 'admin_catalog_matrix' | 'connected_devices' | 'android_ecosystem';
 
 // -------------------------------------------------------------
 // CIBER DEV WORKSPACE (OBSIDIAN + JIRA + SLACK + CHANGELOG SYNC)
@@ -462,6 +577,34 @@ export interface UserProfile {
   customRepos: string[];
   wishlist: string[];
   installedAppIds: string[];
+  telegramChatId?: string;
+  telegramBotToken?: string;
+  autoSendApkToTelegram?: boolean;
+  forkedApps?: Record<string, ClonedAppRepo>;
+}
+
+export interface OtaReleaseItem {
+  appId: string;
+  appName: string;
+  packageName: string;
+  versionName: string;
+  versionCode: number;
+  releaseDate: string;
+  sha256Checksum: string;
+  downloadUrl: string;
+  fileSizeBytes: number;
+  fileSizeMb: number;
+  releaseNotes: string;
+  minSdk: number;
+  targetSdk: number;
+  signatureScheme: string;
+}
+
+export interface OtaUpdateManifest {
+  storeVersion: string;
+  lastUpdated: string;
+  channel: 'stable' | 'beta' | 'nightly';
+  releases: Record<string, OtaReleaseItem>;
 }
 
 export interface DeveloperAppSubmission {
@@ -1213,4 +1356,137 @@ export interface FaultPreventionSummary {
   activeRecommendations: string[];
   indexedDbSizeKb: number;
   lastSyncedAt: string;
+}
+
+// -------------------------------------------------------------
+// CLOUD MOBILE TESTING & SCREEN CAPTURE TYPES (AGENT SUITE)
+// -------------------------------------------------------------
+
+export type CloudTestType = 
+  | 'SMOKE' 
+  | 'FULL' 
+  | 'MONKEY_CHAOS' 
+  | 'SCREENSHOT_ONLY' 
+  | 'UI_AUTOMATOR';
+
+export type CloudTestSessionStatus = 
+  | 'QUEUED' 
+  | 'BOOTING_AVD' 
+  | 'INSTALLING_APK' 
+  | 'RUNNING_TESTS' 
+  | 'CAPTURING_SCREENS' 
+  | 'ANALYZING_VISION' 
+  | 'COMPLETED' 
+  | 'FAILED';
+
+export type AndroidDeviceFrameType = 
+  | 'PIXEL_8_PRO' 
+  | 'GALAXY_S24' 
+  | 'SAMSUNG_A06_REAL'
+  | 'TABLET_10';
+
+export type TestExecutionTarget = 
+  | 'KVM_CLOUD_RUNNER' 
+  | 'THINKPAD_SAMSUNG_USB' 
+  | 'HONOR_X8_MESH';
+
+export interface PhysicalDeviceTelemetry {
+  serial: string;
+  model: string;
+  brand: string;
+  androidRelease: string;
+  sdkLevel: number;
+  batteryPercent: number;
+  isCharging: boolean;
+  batteryHealth: string;
+  batteryVoltageMv: number;
+  screenResolution: string;
+  foregroundApp: string;
+  connectionMode: 'USB' | 'WIFI_TCPIP' | 'TAILSCALE_MESH';
+  ipAddress?: string;
+  lastPingMs: number;
+  isAuthorized: boolean;
+  cpuArchitecture: string;
+  ramFreeMb: number;
+}
+
+export interface UiAutomatorNode {
+  id: string;
+  text: string;
+  resourceId: string;
+  className: string;
+  packageName: string;
+  contentDesc: string;
+  clickable: boolean;
+  bounds: [number, number, number, number]; // [x1, y1, x2, y2]
+}
+
+export interface MobileCapturedScreen {
+  id: string;
+  label: string; // ej: "01. Splash / Arranque", "02. Pantalla Principal", "03. Interacción / Menú", "04. Modo Horizontal"
+  stage: 'LAUNCH' | 'MAIN' | 'INTERACTION' | 'LANDSCAPE' | 'CHAOS';
+  timestamp: string;
+  dataUrl: string; // Base64 o URL directa
+  width: number;
+  height: number;
+  orientation: 'PORTRAIT' | 'LANDSCAPE';
+  uiElementsDetected: number;
+  clickableNodesCount: number;
+  anrDetected: boolean;
+  contrastScore: number; // 0-100%
+  agentVisionNotes: string;
+  boundingBoxes?: Array<{
+    id: string;
+    text?: string;
+    bounds: [number, number, number, number]; // [x1, y1, x2, y2]
+    clickable: boolean;
+    className: string;
+  }>;
+}
+
+export interface AgentCloudTestVerdict {
+  passed: boolean;
+  healthScore: number; // 0-100%
+  executionDurationSeconds: number;
+  testsPassed: number;
+  testsTotal: number;
+  crashesCount: number;
+  anrCount: number;
+  peakRamMb: number;
+  avgCpuPercent: number;
+  findings: Array<{
+    severity: 'INFO' | 'WARNING' | 'CRITICAL';
+    title: string;
+    description: string;
+    suggestedFix?: string;
+  }>;
+  agentSummaryComment: string;
+}
+
+export interface CloudMobileTestSession {
+  id: string;
+  appId: string;
+  appName: string;
+  packageName: string;
+  stackType: AppStackType;
+  testType: CloudTestType;
+  apiLevel: number;
+  status: CloudTestSessionStatus;
+  progressPercent: number;
+  currentStepMessage: string;
+  startedAt: string;
+  completedAt?: string;
+  githubRunId?: string;
+  githubRunUrl?: string;
+  executionTarget?: TestExecutionTarget;
+  deviceTelemetry?: PhysicalDeviceTelemetry;
+  capturedScreens: MobileCapturedScreen[];
+  telemetryLogs: Array<{
+    timestamp: string;
+    level: 'INFO' | 'WARN' | 'ERROR' | 'ADB' | 'AGENT';
+    message: string;
+  }>;
+  verdict?: AgentCloudTestVerdict;
+  telegramDispatchStatus?: 'PENDING' | 'SENT' | 'FAILED';
+  telegramSentCount?: number;
 }

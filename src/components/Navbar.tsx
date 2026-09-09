@@ -77,6 +77,9 @@ interface NavbarProps {
   onOpenAgentAcademy?: () => void;
   onOpenBlueprint?: () => void;
   onOpenAgentAPIExplorer?: () => void;
+  onOpenAdminPanel?: () => void;
+  onOpenCiCdEvidence?: () => void;
+  onOpenAndroidInstall?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -118,7 +121,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenAgentOrchestrator,
   onOpenAgentAcademy,
   onOpenBlueprint,
-  onOpenAgentAPIExplorer
+  onOpenAgentAPIExplorer,
+  onOpenAdminPanel,
+  onOpenCiCdEvidence,
+  onOpenAndroidInstall
 }) => {
   const tabs = [
     { id: 'table' as TabType, label: 'Matriz Técnica', icon: Table2 },
@@ -214,6 +220,51 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Table2 className="w-3.5 h-3.5 text-cyan-400" />
               <span className="hidden sm:inline">Matrix Pro</span>
+            </button>
+
+            <button
+              onClick={() => {
+                if (onOpenAdminPanel) {
+                  onOpenAdminPanel();
+                } else {
+                  onSelectUiMode('admin_catalog_matrix');
+                }
+              }}
+              className={`px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition font-medium ${
+                uiMode === 'admin_catalog_matrix'
+                  ? 'bg-amber-950 text-amber-300 border border-amber-600/50 shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+              title="Panel de Administración Maestro (Base de Datos, Scraping y Compilaciones)"
+            >
+              <Database className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden sm:inline">Panel Admin</span>
+            </button>
+
+            <button
+              onClick={() => onSelectUiMode('android_ecosystem')}
+              className={`px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition font-medium ${
+                uiMode === 'android_ecosystem'
+                  ? 'bg-sky-950 text-sky-300 border border-sky-600/50 shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+              title="Ecosistema Android: WebAPK, APKs, Flota & Instalación Remota"
+            >
+              <Smartphone className="w-3.5 h-3.5 text-sky-400" />
+              <span className="hidden sm:inline">App Android</span>
+            </button>
+
+            <button
+              onClick={() => onSelectUiMode('connected_devices')}
+              className={`px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition font-medium ${
+                uiMode === 'connected_devices'
+                  ? 'bg-emerald-950 text-emerald-300 border border-emerald-600/50 shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+              title="Mis Dispositivos & ADB Enlace Directo Samsung Galaxy A06"
+            >
+              <Zap className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="hidden sm:inline">Mis Dispositivos</span>
             </button>
           </div>
 
@@ -431,6 +482,33 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Layers className="w-3.5 h-3.5 text-sky-400" />
               <span className="hidden xl:inline">Grafo D3</span>
+            </button>
+          )}
+
+          {/* Direct Button to Mis Dispositivos & App Nativa Android */}
+          <button
+            onClick={() => onSelectUiMode('connected_devices')}
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold shadow-md transition border ${
+              uiMode === 'connected_devices'
+                ? 'bg-emerald-600 text-white border-emerald-400 shadow-emerald-950/50'
+                : 'bg-emerald-700/80 hover:bg-emerald-600 text-white border-emerald-500/40 shadow-emerald-950/30'
+            }`}
+            title="Sección Exclusiva: Mis Dispositivos & App Nativa Android"
+          >
+            <Smartphone className="w-3.5 h-3.5 text-emerald-200" />
+            <span className="hidden sm:inline">Instalar en Android</span>
+            <span className="sm:hidden">App Móvil</span>
+          </button>
+
+          {/* Mega-Matriz de Evidencias CI/CD Button */}
+          {onOpenCiCdEvidence && (
+            <button
+              onClick={onOpenCiCdEvidence}
+              className="flex items-center space-x-1.5 bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 px-2.5 py-1.5 rounded-lg text-xs font-semibold shadow-sm transition"
+              title="Ver Mega-Matriz de Certificación y Evidencias CI/CD en Vivo"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="hidden sm:inline">Evidencias CI/CD</span>
             </button>
           )}
 

@@ -36,7 +36,9 @@ export const ChangelogLedgerModal: React.FC<ChangelogLedgerModalProps> = ({
   onOpenProposals,
   onOpenArchitectureDocs
 }) => {
-  const [selectedIterationNumber, setSelectedIterationNumber] = useState<number>(3);
+  const [selectedIterationNumber, setSelectedIterationNumber] = useState<number>(
+    SYSTEM_CHANGELOG[SYSTEM_CHANGELOG.length - 1]?.iterationNumber || 13
+  );
   const [searchFilter, setSearchFilter] = useState<string>('');
   const [activeTab, setActiveTab] = useState<'all' | 'phases' | 'implemented' | 'pending' | 'modules'>('all');
   const [expandedPhases, setExpandedPhases] = useState<Record<number, boolean>>({ 1: true, 2: true, 3: true, 4: true });

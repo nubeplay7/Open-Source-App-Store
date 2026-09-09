@@ -60,6 +60,7 @@ export interface CommandPaletteProps {
   onOpenRepoManager?: () => void;
   onOpenDiagnostics?: () => void;
   onOpenKeystoreVault?: () => void;
+  onOpenOtaReleases?: () => void;
   onOpenBuildsHub?: () => void;
   onOpenDesignProfiles?: () => void;
   onOpenFunctionalityProfiles?: () => void;
@@ -115,6 +116,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   onOpenRepoManager,
   onOpenDiagnostics,
   onOpenKeystoreVault,
+  onOpenOtaReleases,
   onOpenBuildsHub,
   onOpenDesignProfiles,
   onOpenFunctionalityProfiles,
@@ -524,6 +526,18 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       shortcut: 'K',
       action: () => {
         if (onOpenKeystoreVault) onOpenKeystoreVault();
+      }
+    },
+    {
+      id: 'cmd-ota-releases',
+      category: 'BUILD',
+      name: 'Panel de Auto-Actualizaciones Móviles OTA (Civer Engine)',
+      command: 'ota:releases',
+      description: 'Publica y sincroniza actualizaciones continuas de la app móvil Android hacia https://appstore.civer.cloud',
+      icon: 'Smartphone',
+      shortcut: 'O',
+      action: () => {
+        if (onOpenOtaReleases) onOpenOtaReleases();
       }
     },
     {

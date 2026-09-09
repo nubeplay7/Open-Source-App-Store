@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-09-07T01:39:38.464Z",
+  "telemetry": [
+    {
+      "url": "http://appstore.civer.cloud/downloads/com.looker.droidify-v0.6.9-release.apk",
+      "status": 200,
+      "latencyMs": 381,
+      "bytesReceived": 12369689,
+      "contentType": "application/vnd.android.package-archive"
+    },
+    {
+      "url": "http://127.0.0.1:3000/downloads/com.looker.droidify-v0.6.9-release.apk",
+      "status": 200,
+      "latencyMs": 146,
+      "bytesReceived": 12369689,
+      "contentType": "application/vnd.android.package-archive"
+    },
+    {
+      "url": "https://deaf-folder-estimated-circumstances.trycloudflare.com/downloads/com.looker.droidify-v0.6.9-release.apk",
+      "status": 200,
+      "latencyMs": 1676,
+      "bytesReceived": 12369689,
+      "contentType": "application/vnd.android.package-archive"
+    }
+  ]
+}

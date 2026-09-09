@@ -1,0 +1,230 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Civer App Store - Plan Maestro Global (Word)</title>
+<!--[if gte mso 9]>
+<xml>
+ <w:WordDocument>
+  <w:View>Print</w:View>
+  <w:Zoom>100</w:Zoom>
+  <w:DoNotOptimizeForBrowser/>
+ </w:WordDocument>
+</xml>
+<![endif]-->
+<style>
+@page Section1 {
+  size: 595.3pt 841.9pt;
+  margin: 54.0pt 45.0pt 54.0pt 45.0pt;
+  mso-header-margin: 35.4pt;
+  mso-footer-margin: 35.4pt;
+  mso-paper-source: 0;
+}
+div.Section1 { page: Section1; }
+body {
+  font-family: 'Calibri', 'Arial', sans-serif;
+  font-size: 11.0pt;
+  line-height: 1.4;
+  color: #1a1a1a;
+}
+h1 {
+  font-size: 20.0pt;
+  color: #0f172a;
+  border-bottom: 2pt solid #2563eb;
+  padding-bottom: 4pt;
+  page-break-before: always;
+}
+h2 {
+  font-size: 15.0pt;
+  color: #1e293b;
+  border-left: 3pt solid #2563eb;
+  padding-left: 6pt;
+}
+h3 {
+  font-size: 12.5pt;
+  color: #334155;
+}
+pre {
+  font-family: 'Consolas', monospace;
+  font-size: 8.5pt;
+  background-color: #f1f5f9;
+  border: 1pt solid #cbd5e1;
+  padding: 6pt;
+}
+p {
+  margin-bottom: 6pt;
+  text-align: justify;
+}
+.badge {
+  font-weight: bold;
+  padding: 1pt 4pt;
+}
+</style>
+</head>
+<body>
+<div class="Section1">
+  <div style="text-align: center; margin-bottom: 30pt; page-break-after: always;">
+    <p style="font-size: 12pt; color: #2563eb; font-weight: bold; letter-spacing: 2pt;">MANUAL CORPORATIVO Y PLAN MAESTRO GLOBAL</p>
+    <h1 style="font-size: 28pt; color: #0f172a; border: none; margin-top: 10pt;">CIVER APP STORE</h1>
+    <p style="font-size: 14pt; color: #64748b;">Roadmap Hiperdimensional de 50 Fases, Directorio de Tablas y Guía Operativa FOSS</p>
+    <br><br>
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%; border-color: #cbd5e1;">
+      <tr style="background-color: #f8fafc;"><td><strong>Organización</strong></td><td>Enjambre Autónomo Bené & Civer Cloud</td></tr>
+      <tr><td><strong>Versión</strong></td><td>3.0.0 (Edición Microsoft Word)</td></tr>
+      <tr style="background-color: #f8fafc;"><td><strong>Dominio</strong></td><td>appstore.civer.cloud</td></tr>
+      <tr><td><strong>Fecha</strong></td><td>Septiembre 2026</td></tr>
+    </table>
+  </div>
+
+  <h1 class="chapter-title">CIVER APP STORE — MANUAL CORPORATIVO, PLAN MAESTRO GLOBAL &amp; ROADMAP HIPERDIMENSIONAL (50 FASES)</h1>
+
+<div class="callout-box"><strong>Documento Oficial de Dirección y Arquitectura Estratégica</strong>  </div>
+<div class="callout-box"><strong>Organización:</strong> Enjambre Autónomo Bené App &amp; Civer Cloud Systems  </div>
+<div class="callout-box"><strong>Versión del Documento:</strong> 3.0.0 (Edición Completa Corporativa para Impresión y Estudio Fuera de Pantalla)  </div>
+<div class="callout-box"><strong>Fecha de Emisión Oficial:</strong> 06 de Septiembre de 2026  </div>
+<div class="callout-box"><strong>Dominio de Producción:</strong> <code class="inline-code">http://appstore.civer.cloud</code> • <code class="inline-code">http://appstore.civer.cloud:3000</code>  </div>
+<div class="callout-box"><strong>Arquitectura:</strong> Electron + React 19 + TypeScript + Tailwind CSS v4 + Node.js High-Throughput HTTP/WS Gateway  </div>
+<div class="callout-box"><strong>Nodos de Malla Físicos:</strong> Desktop ASUS (Master Node), Laptop ThinkPad T480s (<code class="inline-code">100.96.218.12</code>), Samsung Galaxy A06 (<code class="inline-code">SM-A065M</code>), Droplet DigitalOcean, Edge Cloudflare Global  </div>
+<div class="callout-box"><strong>Clasificación:</strong> Instructivo Técnico-Operativo de Acceso Libre (FOSS Sovereign Enterprise)</div>
+
+<hr class="section-divider" />
+
+<h2 class="section-title">📑 ÍNDICE GENERAL DEL MANUAL CORPORATIVO</h2>
+<li class="numbered-item"><span class="list-num">1.</span> <strong>Capítulo 1: Manifiesto y Filosofía Fundacional de Civer App Store</strong></li>
+<li class="numbered-item"><span class="list-num">2.</span> <strong>Capítulo 2: Topología de Infraestructura Multi-Nodo y Hardware Físico</strong></li>
+<li class="numbered-item"><span class="list-num">3.</span> <strong>Capítulo 3: Directorio Exhaustivo de Tablas y Almacenes de Datos del Ecosistema (15 Tablas)</strong></li>
+<li class="numbered-item"><span class="list-num">4.</span> <strong>Capítulo 4: Roadmap Hiperdimensional de 50 Fases de Desarrollo e Innovación</strong></li>
+<li class="bullet-item"><em>Macro-Etapa I: Fundamentos, Catálogo Libre y Vistas Duales (Fases 01 a 10)</em></li>
+<li class="bullet-item"><em>Macro-Etapa II: Hardware Físico, Administración Root y Cloudflare Edge (Fases 11 a 20)</em></li>
+<li class="bullet-item"><em>Macro-Etapa III: Descentralización P2P, Malla Syncthing y Compilación Masiva (Fases 21 a 30)</em></li>
+<li class="bullet-item"><em>Macro-Etapa IV: Seguridad Criptográfica, Sandbox DEX y Privacidad Absoluta (Fases 31 a 40)</em></li>
+<li class="bullet-item"><em>Macro-Etapa V: Escala Planetaria, Economía Lightning y Federación Autónoma (Fases 41 a 50)</em></li>
+<li class="numbered-item"><span class="list-num">5.</span> <strong>Capítulo 5: Procedimientos Operativos Estándar de la Empresa (SOPs)</strong></li>
+<li class="bullet-item"><em>SOP-01: Prospección, Scraping e Integración de Apps Libres</em></li>
+<li class="bullet-item"><em>SOP-02: Compilación y Despliegue Físico por ADB en Samsung Galaxy A06</em></li>
+<li class="bullet-item"><em>SOP-03: Auditoría Estática de Privacidad (Exodus) y Certificados (APKSigner)</em></li>
+<li class="bullet-item"><em>SOP-04: Resiliencia, Auto-Sanación y Protocolos de Recuperación ante Desastres</em></li>
+<li class="bullet-item"><em>SOP-05: Generación y Distribución de Parches Delta Binarios</em></li>
+<li class="numbered-item"><span class="list-num">6.</span> <strong>Capítulo 6: Protocolos de Lectura e Impresión Física (Edición en Papel A4)</strong></li>
+
+<hr class="section-divider" />
+
+<h1 class="chapter-title">CAPÍTULO 1: MANIFIESTO Y FILOSOFÍA FUNDACIONAL</h1>
+
+<h3 class="subsection-title">1.1 Nuestra Razón de Ser</h3>
+El ecosistema digital contemporáneo de distribución de software móvil padece de una asfixiante centralización. Las tiendas comerciales dominantes imponen comisiones extractivas, practican la censura arbitraria de herramientas de privacidad, rastrean obsesivamente la conducta del usuario mediante telemetría opaca y forzan obsolescencia programada.
+
+<p class="body-paragraph"><strong>Civer App Store</strong> nace como la respuesta definitiva y soberana: una plataforma de distribución y compilación de aplicaciones móviles 100% de Código Abierto (FOSS), diseñada para operar con la misma fluidez y elegancia estética que las tiendas comerciales líderes (Google Play Store y Apple App Store), pero construida sobre cimientos innegociables de libertad, privacidad sin concesiones y soberanía técnica.</p>
+
+<h3 class="subsection-title">1.2 Principios Rectores Innegociables</h3>
+<li class="numbered-item"><span class="list-num">1.</span> <strong>Cero Telemetría Oculta:</strong> Cada aplicación listada en el catálogo es auditada estáticamente para garantizar 0 rastreadores publicitarios y 0 analíticas comerciales encubiertas.</li>
+<li class="numbered-item"><span class="list-num">2.</span> <strong>Soberanía y No Dependencia:</strong> El sistema puede operar en red local (LAN), mediante redes privadas (Tailscale/Syncthing) o a través de la red global de Cloudflare, sin depender de un único proveedor en la nube.</li>
+<li class="numbered-item"><span class="list-num">3.</span> <strong>Código Abierto y Licenciamiento Claro:</strong> Todo el software distribuido y el código de la tienda misma poseen licencias libres reconocidas (GPL, Apache, MIT, AGPL, Mozilla).</li>
+<li class="numbered-item"><span class="list-num">4.</span> <strong>Verificabilidad Criptográfica:</strong> Cada binario cuenta con su suma de comprobación criptográfica SHA-256 inmutable y validación de firma APK v1 a v4.</li>
+<li class="numbered-item"><span class="list-num">5.</span> <strong>Coexistencia Pacífica y No Destructiva:</strong> Nuevas características se introducen mediante Feature Flags y capas de compatibilidad, preservando intactas las implementaciones funcionales previas.</li>
+
+<hr class="section-divider" />
+
+<h1 class="chapter-title">CAPÍTULO 2: TOPOLOGÍA DE INFRAESTRUCTURA MULTI-NODO Y HARDWARE FÍSICO</h1>
+
+<p class="body-paragraph">El funcionamiento de Civer App Store y el Enjambre Bené se sustenta en una malla interconectada de nodos de cómputo físicos y virtuales:</p>
+
+<p class="body-paragraph">``<code class="inline-code">plaintext<br/>+-------------------------------------------------------------------------------------------------------+<br/>|                                    CIVER CLOUD GLOBAL EDGE (Cloudflare)                               |<br/>|                                       https://appstore.civer.cloud                                    |<br/>|                                     (Zero Trust Tunnel - Token Activo)                                |<br/>+---------------------------------------------------+---------------------------------------------------+<br/>                                                    |<br/>                                                    v<br/>+---------------------------------------------------+---------------------------------------------------+<br/>| NODO MAESTRO 1: ASUS ROG ZEPHYRUS / DESKTOP       | NODO DE CAMPO 2: THINKPAD T480s                   |<br/>| - IP Tailscale: 100.x.x.x                         | - IP Tailscale: 100.96.218.12 (SSH Port 22)       |<br/>| - Rol: Host Central de Desarrollo, Vite DevServer | - Rol: Host Gateway ADB Físico, Relay de Red      |<br/>| - Puertos Activos: 80, 3000 (Dual HTTP/WS Server) | - Almacén Syncthing de Sincronización APKs        |<br/>| - Almacén Local: mesh-shared-vault/sitio-descarga | - Acceso por Llave: id_rsa_antigravity            |<br/>+---------------------------------------------------+---------------------------------------------------+<br/>                                                    | (Cable USB OTG - ADB Interface)<br/>                                                    v<br/>                                +---------------------------------------------------+<br/>                                | NODO DISPOSITIVO FÍSICO 3: SAMSUNG GALAXY A06     |<br/>                                | - Modelo: SM-A065M | Serial: R8YY500R7ZB          |<br/>                                | - SO: Android 14 (One UI Core 6.0)                |<br/>                                | - Rol: Banco de Pruebas Físicas Reales, Sideload  |<br/>                                | - Estado: Spotube v3.8.2 Instalado y Operativo    |<br/>                                +---------------------------------------------------+<br/>                                                    |<br/>                                                    v<br/>+---------------------------------------------------+---------------------------------------------------+<br/>| NODO DE COMPILACIÓN NUBE: KAGGLE CLUSTER          | NODO DE ALMACENAMIENTO PERPETUO: GDRIVE &amp; QDRANT  |<br/>| - 30 GB RAM, GPUs Duales T4 / CPUs Multihilo      | - Google Drive Vault: Backups RAW &amp; Binarios      |<br/>| - Rol: Compilación Masiva de APKs / Gradle / Rust | - Qdrant Cloud: Memoria Vectorial y RAG           |<br/>+---------------------------------------------------+---------------------------------------------------+<br/></code>`<code class="inline-code"></p>
+
+<hr class="section-divider" />
+
+<h1 class="chapter-title">CAPÍTULO 3: DIRECTORIO EXHAUSTIVO DE TABLAS Y BASES DE DATOS (15 TABLAS)</h1>
+
+<p class="body-paragraph">A continuación se documentan de forma pormenorizada las 15 tablas que vertebran la base de conocimiento y el estado reactivo de la plataforma:</p>
+
+<p class="body-paragraph"></code>`<code class="inline-code">plaintext<br/>+----+---------------------------------------+---------------------------------------+-----------------------------+<br/>| #  | Nombre de la Tabla / Almacén          | Archivo Fuente / Persistencia         | Función Principal           |<br/>+----+---------------------------------------+---------------------------------------+-----------------------------+<br/>| 01 | Catálogo Central FOSS (APPS_CATALOG)  | src/data/appsCatalogData.ts           | Catálogo de apps auditadas  |<br/>| 02 | Matriz Técnica Tiendas (STORES_DATA)  | src/data/stores.ts                    | Comparativa multi-tienda    |<br/>| 03 | Registro de Cambios (SYSTEM_CHANGELOG)| src/data/changelogData.ts             | Bitácora inmutable oficial  |<br/>| 04 | Tablero Ágil Jira (INITIAL_JIRA_TASKS)| src/data/workspaceData.ts             | Tareas Kanban de desarrollo |<br/>| 05 | Bóveda Obsidian (NOTEBOOK_DOCS)       | src/data/workspaceData.ts             | Cuadernos ADR y protocolos  |<br/>| 06 | Canales Slack (INITIAL_CHANNELS)      | src/data/workspaceData.ts             | Mensajería inter-ingeniería |<br/>| 07 | Hub de Propuestas RFC (PROPOSALS)     | src/data/proposalsData.ts             | Sistema de gobernanza PRD   |<br/>| 08 | Inventario Pantallas (SCREENS)        | src/data/appScreensInventory.ts       | Mapeo visual y rutas UI     |<br/>| 09 | Historial Builds (BUILD_RUNS)         | src/data/buildHistoryData.ts          | Trazabilidad CI/CD en nube  |<br/>| 10 | Bóveda Keystore (KEYSTORES)           | src/data/keystoresData.ts             | Certificados de firma APK   |<br/>| 11 | Matriz Feature Flags (PROFILES)       | src/data/functionalityProfilesData.ts | 16 Interruptores modulares  |<br/>| 12 | Perfiles de Tema Visual (THEMES)      | src/data/themeProfilesData.ts         | 8 Paletas cromáticas        |<br/>| 13 | Bóveda de Descargas APK               | mesh-shared-vault/sitio-descarga/     | Almacén binario en disco    |<br/>| 14 | Base Dinámica Scrapeada (LOCAL_APPS)  | localStorage['civer_admin_scraped']   | Apps descubiertas en GitHub |<br/>| 15 | Matriz 15+ Columnas Admin (ADMIN_VIEW)| src/components/AdminMasterCatalogView  | Consola técnica unificada   |<br/>+----+---------------------------------------+---------------------------------------+-----------------------------+<br/></code>`<code class="inline-code"></p>
+
+<h3 class="subsection-title">3.1 Detalle Técnico de la Matriz de 15+ Columnas de Administración (Tabla 15)</h3>
+Diseñada para dar control granular y absoluto al operador de la tienda:
+<li class="numbered-item"><span class="list-num">1.</span> <strong>ID Único:</strong> Identificador canónico (</code>spotube<code class="inline-code">, </code>droidify<code class="inline-code">, etc.).</li>
+<li class="numbered-item"><span class="list-num">2.</span> <strong>Nombre de la App:</strong> Denominación pública oficial.</li>
+<li class="numbered-item"><span class="list-num">3.</span> <strong>Package Name:</strong> Identificador único de Android (</code>com.spottube.app<code class="inline-code">).</li>
+<li class="numbered-item"><span class="list-num">4.</span> <strong>Versión Canónica:</strong> Etiqueta semántica de release (</code>v3.9.0<code class="inline-code">).</li>
+<li class="numbered-item"><span class="list-num">5.</span> <strong>Hash Criptográfico SHA-256:</strong> Huella matemática contra manipulación de binarios.</li>
+<li class="numbered-item"><span class="list-num">6.</span> <strong>Tamaño del Archivo:</strong> Peso en MB del binario descargable.</li>
+<li class="numbered-item"><span class="list-num">7.</span> <strong>Licencia SPDX:</strong> Norma de licenciamiento libre (</code>GPL-3.0<code class="inline-code">, </code>Apache-2.0<code class="inline-code">, etc.).</li>
+<li class="numbered-item"><span class="list-num">8.</span> <strong>Categoría Temática:</strong> Música, Privacidad, Navegadores, Utilidades, Desarrollo.</li>
+<li class="numbered-item"><span class="list-num">9.</span> <strong>Repositorio Git Oficial:</strong> URL canónica hacia el código fuente público.</li>
+<li class="numbered-item"><span class="list-num">10.</span> <strong>Fecha de Release:</strong> Momento exacto de liberación por el autor original.</li>
+<li class="numbered-item"><span class="list-num">11.</span> <strong>Arquitecturas Compatibles:</strong> </code>arm64-v8a<code class="inline-code">, </code>armeabi-v7a<code class="inline-code">, </code>x86_64<code class="inline-code">, </code>universal<code class="inline-code">.</li>
+<li class="numbered-item"><span class="list-num">12.</span> <strong>Nivel Mínimo de SDK Android:</strong> API mínima requerida (ej. Android 8.0+).</li>
+<li class="numbered-item"><span class="list-num">13.</span> <strong>Estado de Disponibilidad en Red:</strong> </code>ONLINE_LOCAL<code class="inline-code">, </code>CLOUDFLARE_EDGE<code class="inline-code">, </code>PENDING_BUILD<code class="inline-code">.</li>
+<li class="numbered-item"><span class="list-num">14.</span> <strong>Enlace de Descarga Segura:</strong> Enlace directo de alta velocidad vía CDN.</li>
+<li class="numbered-item"><span class="list-num">15.</span> <strong>Acciones de Despliegue Físico:</strong> Botones de instalación directa vía ADB, verificación de firmas y exportación.</li>
+
+<hr class="section-divider" />
+
+<h1 class="chapter-title">CAPÍTULO 4: ROADMAP HIPERDIMENSIONAL DE 50 FASES</h1>
+
+<p class="body-paragraph">Este roadmap representa la carta náutica de ingeniería para convertir a Civer App Store en la red de distribución libre más avanzada del planeta.</p>
+
+<p class="body-paragraph"></code>`<code class="inline-code">plaintext<br/>+-------+----------------------------------------------------+------------+--------------------------------------------+-----------+<br/>| Fase  | Título y Especialidad de Ingeniería                | Objetivo   | Entregables Técnicos Principales           | Estado    |<br/>+-------+----------------------------------------------------+------------+--------------------------------------------+-----------+<br/>| 01    | Génesis: Matriz FOSS y Benchmarks de Rendimiento   | Catálogo   | Matriz 10 Tiendas, Benchmarks RAM, Quiz    | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 02    | Vistas Duales: Material 3 Expressive &amp; Cupertino   | UI/UX      | Play Store View, App Store View, Filtros   | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 03    | Compilador Cloud y Actualizaciones Delta BSDiff    | CI/CD      | GitHub Actions Runner, Parches Delta       | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 04    | Civer Dev Workspace: Obsidian, Jira y Slack        | DevOps     | Tablero Kanban, Markdown Docs, Mensajería  | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 05    | Bóveda Keystore y Verificación de Firmas v1-v4     | Seguridad  | Certificados RSA 4096 / ECDSA, apksigner   | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 06    | Motor de Temas Cromáticos y 16 Feature Flags       | Resiliencia| 8 Paletas de Color, Flags no destructivos  | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 07    | Descompilador DEX Smali y Sandbox de Seguridad     | Análisis   | Visor de Manifiesto XML, Jadx Sandbox      | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 08    | Transferencia Local Nearby P2P y Hub Innovación    | Red Local  | WebRTC DataChannels, Hub de RFCs / PRDs    | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 09    | Telemetría Forense IndexedDB y Failover Mesh       | Telemetría | Logs de Auditoría, Recuperación en caída   | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 10    | Plugins WebAssembly (WASM) y Auditor Anti-Feature  | Extensión  | Workers WASM, Detector de Trackers FOSS    | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 11    | Modo Offline PWA Completo y Zero-Knowledge Vault   | Privacidad | Service Workers, Cifrado PBKDF2/AES-GCM    | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 12    | Agent Academy, Blueprints de Red y OpenAPI Hub     | Pedagogía  | Manuales de Arquitectura, OpenAPI Spec     | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 13    | OmniBuild Universal Kaggle 30GB &amp; Cloudflare Edge  | Nube       | Kernel Kaggle 30GB, appstore.civer.cloud   | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 14    | Consola de Administración Maestro y Scraper GitHub | Operaciones| Tabla 15+ Cols, Scraper GitHub, ADB A06    | <span class="badge badge-complete">COMPLETO</span>  |<br/>| 15    | Sincronización Syncthing Mesh P2P entre Bóvedas    | Malla      | Sincronización continua Desktop-ThinkPad   | <span class="badge badge-in-progress">EN CURSO</span>  |<br/>| 16    | Crawler de Pantallas Automático en Samsung Galaxy  | QA Visual  | UIAutomator Dump, Screenshots en hardware  | <span class="badge badge-in-progress">EN CURSO</span>  |<br/>| 17    | Generador Universal de Documentos Imprimibles A4   | Publicación| Compilador Markdown a HTML/A4 y Word (.doc)| <span class="badge badge-in-progress">EN CURSO</span>  |<br/>| 18    | Pasarela de Micro-Donaciones Lightning Network     | Finanzas   | WebLN, Facturas BOLT11, Soporte Satoshis   | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 19    | Ingesta Reactiva del Índice F-Droid v2 por Chunks  | Catálogo   | Streaming Parser de index-v2.json          | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 20    | Balanceador Dinámico de Carga en Puertos Duales    | Red        | Failover transparente entre puertos 80/3000| <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 21    | Red de Distribución BitTorrent P2P Descentralizada | P2P        | Creación de .torrent y magnet links de APKs | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 22    | Servidor WebRTC Local para Compartir sin Internet  | Red Local  | Servidor de señalización local para LAN    | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 23    | Granja de Compilación Distribuida Multi-Arquitectura| CI/CD     | Builds simultáneos x86_64, arm64, armeabi  | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 24    | Verificador Automático de Reproducibilidad (Diff)  | Seguridad  | Chequeo bit a bit entre builds distintos   | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 25    | Integración Shizuku Manager para Instalación Muda  | Android    | Instalación sin root ni confirmación manual | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 26    | Agente Autónomo de Monitoreo de Releases en GitHub | Scraping   | Cron job que detecta nuevas versiones 24/7 | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 27    | Generador de Changelogs Automatizados con IA       | Documentos | Resumen de commits de Git a lenguaje humano| <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 28    | Bóveda de Respaldo Descentralizada IPFS / Filecoin  | Storage    | Pines permanentes de APKs en red IPFS       | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 29    | Motor de Búsqueda Semántica Vectorial en Qdrant    | Búsqueda   | Búsqueda por lenguaje natural ("música libre")| <span class="badge badge-planned">PLANIFIC.</span>|<br/>| 30    | Despliegue Multi-Dispositivo Simultáneo por ADB    | Hardware   | Sideload en paralelo: Samsung + Honor + Tab| <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 31    | Monitor de Consumo de Batería y CPU por App        | Benchmarks | Profiling en hardware físico con dumpsys   | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 32    | Escudo de Red con Proxy Tor / Orbot Integrado      | Privacidad | Enrutamiento de descargas por red Onion     | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 33    | Sistema de Reputación y Reseñas Criptográficas PGP | Comunidad  | Reseñas firmadas con llave PGP comunitaria  | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 34    | Sandbox de Emulación Android en Contenedores Docker| QA Virtual | Pruebas automáticas en imágenes x86_64     | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 35    | Portal de Autoservicio para Desarrolladores FOSS   | Portal Dev | Subida de apps y vinculación de repositorios| <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 36    | Sistema de Notificaciones Push Descentralizadas    | Notif.     | UnifiedPush / WebPush sin Google Services  | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 37    | Conversor Automático de WebApps a APKs Nativos     | Empaquetado| TWA (Trusted Web Activities) generador      | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 38    | Auditoría Continua de Vulnerabilidades en Código   | Seguridad  | Análisis Semgrep y SonarQube en repos FOSS | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 39    | Malla de Servidores Espejo (Mirrors) Comunitarios  | Red Global | Balanceo DNS Geo-IP entre mirrors globales | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 40    | Soporte de Extensiones Modulares de Terceros       | Plugins    | API pública de extensiones para la tienda  | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 41    | Interfaz de Voz Accesible mediante Web Speech API  | Accesib.   | Navegación y descarga mediante comandos voz| <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 42    | Integración con Home Assistant y Dispositivos IoT  | SmartHome  | Instalación de APKs en Android TV y SmartTV | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 43    | Sincronización de Colecciones de Apps entre Equipos| Usuarios   | Copia de respaldo cifrada de apps favoritas| <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 44    | Depuración Remota en Vivo con ADB sobre WebSocket  | Debugging  | Consola Logcat interactiva en panel admin  | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 45    | Sistema de Detección de Desviación de Dependencias | Seguridad  | Alerta de librerías desactualizadas en APKs| <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 46    | Pasarela Civer Cloud a F-Droid Client Nativo       | Ecosistema | Emisión de repositorio compatible con F-Droid| <span class="badge badge-planned">PLANIFIC.</span>|<br/>| 47    | Optimizador de Densidad Gráfica y Temas Vectoriales| UI/UX      | Soporte para pantallas e-Ink y OLED puro   | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 48    | Enjambre de Agentes de Prueba End-to-End Continuos | Automatiz. | Puppeteer corriendo 100 pruebas diarias    | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 49    | Bóveda de Soberanía Absoluta Offline USB           | Disaster   | Script de exportación de la tienda a USB   | <span class="badge badge-planned">PLANIFIC.</span> |<br/>| 50    | Autonomía Plena: Gobernanza Descentralizada DAO    | Futuro     | Votación criptográfica del roadmap por FOSS| <span class="badge badge-planned">PLANIFIC.</span> |<br/>+-------+----------------------------------------------------+------------+--------------------------------------------+-----------+<br/></code>`<code class="inline-code"></p>
+
+<hr class="section-divider" />
+
+<h1 class="chapter-title">CAPÍTULO 5: PROCEDIMIENTOS OPERATIVOS ESTÁNDAR (SOPs)</h1>
+
+<h3 class="subsection-title">SOP-01: Prospección, Scraping e Integración de Nuevas Apps</h3>
+<li class="numbered-item"><span class="list-num">1.</span> <strong>Acceso al Panel:</strong> Ingresar a </code>http://appstore.civer.cloud<code class="inline-code">, pulsar <em>"Consola de Catálogo Maestro"</em> en el menú superior y autenticarse con el PIN root (</code>civer2026<code class="inline-code">).</li>
+<li class="numbered-item"><span class="list-num">2.</span> <strong>Pestaña de Scraping:</strong> Seleccionar la pestaña <em>"Explorador &amp; Web Scraper GitHub FOSS"</em>.</li>
+<li class="numbered-item"><span class="list-num">3.</span> <strong>Selección o Búsqueda:</strong> Elegir un preset (e.g. <em>Reproductores Multimedia FOSS</em>) o escribir términos libres.</li>
+<li class="numbered-item"><span class="list-num">4.</span> <strong>Integración:</strong> En la tarjeta de la app deseada, presionar el botón verde <em>"Integrar a Base de Datos"</em>.</li>
+<li class="numbered-item"><span class="list-num">5.</span> <strong>Verificación:</strong> Regresar a la pestaña <em>"Matriz de Base de Datos (15+ Columnas)"</em> para confirmar la presencia del nuevo registro.</li>
+
+<h3 class="subsection-title">SOP-02: Compilación y Despliegue Físico en Samsung Galaxy A06</h3>
+<li class="numbered-item"><span class="list-num">1.</span> <strong>Comprobar Enlace Físico:</strong> En la ThinkPad conectada al A06, verificar que </code>adb devices<code class="inline-code"> liste el serial </code>R8YY500R7ZB<code class="inline-code">.</li>
+<li class="numbered-item"><span class="list-num">2.</span> <strong>Ejecutar Despliegue:</strong></li>
+   </code>`<code class="inline-code">bash
+   adb -s R8YY500R7ZB install -r -d -g downloads/apks/&lt;app&gt;/&lt;version&gt;/app-release.apk
+   </code>`<code class="inline-code">
+<li class="numbered-item"><span class="list-num">3.</span> <strong>Lanzamiento:</strong></li>
+   </code>`<code class="inline-code">bash
+   adb -s R8YY500R7ZB shell monkey -p &lt;package_name&gt; -c android.intent.category.LAUNCHER 1
+   </code>`<code class="inline-code">
+<li class="numbered-item"><span class="list-num">4.</span> <strong>Captura de Evidencia:</strong></li>
+   </code>`<code class="inline-code">bash
+   adb -s R8YY500R7ZB shell screencap -p /sdcard/screen.png
+   adb -s R8YY500R7ZB pull /sdcard/screen.png ./evidencias/
+   </code>`<code class="inline-code">
+
+<h3 class="subsection-title">SOP-03: Auditoría Estática de Privacidad y Certificados</h3>
+<li class="numbered-item"><span class="list-num">1.</span> <strong>Firma Digital:</strong> Ejecutar </code>apksigner verify --verbose --print-certs &lt;archivo.apk&gt;<code class="inline-code">. Confirmar firma v2/v3 activa.</li>
+<li class="numbered-item"><span class="list-num">2.</span> <strong>Trackers:</strong> Inspeccionar los paquetes DEX con la base de Exodus Privacy. Si el número de trackers es mayor a 0, añadir etiqueta de advertencia en la ficha técnica.</li>
+
+<h3 class="subsection-title">SOP-04: Recuperación ante Caídas y Auto-Sanación</h3>
+<li class="numbered-item"><span class="list-num">1.</span> Si el servidor deja de responder en </code>appstore.civer.cloud<code class="inline-code">:</li>
+<li class="bullet-item">Verificar si el túnel Cloudflare está activo: </code>tasklist | findstr cloudflared<code class="inline-code">.</li>
+<li class="bullet-item">Si no está activo, reiniciar con el token permanente.</li>
+<li class="bullet-item">Ejecutar </code>node mesh-shared-vault/sitio-descarga/server.js<code class="inline-code"> en segundo plano o mediante el watchdog inmortal.</li>
+
+<h3 class="subsection-title">SOP-05: Generación y Aplicación de Parches Delta</h3>
+<li class="numbered-item"><span class="list-num">1.</span> Para actualizar una app de versión </code>v1.apk<code class="inline-code"> a </code>v2.apk<code class="inline-code">:</li>
+   </code>`<code class="inline-code">bash
+   bsdiff v1.apk v2.apk delta.patch
+   zstd -19 delta.patch -o delta.patch.zst
+   </code>`<code class="inline-code">
+<li class="numbered-item"><span class="list-num">2.</span> En el cliente receptor:</li>
+   </code>`<code class="inline-code">bash
+   unzstd delta.patch.zst -o delta.patch
+   bspatch v1.apk v2_reconstructed.apk delta.patch
+   </code>`<code class="inline-code">
+<li class="numbered-item"><span class="list-num">3.</span> Confirmar que el hash SHA-256 de </code>v2_reconstructed.apk<code class="inline-code"> coincide exactamente con el release oficial antes de invocar </code>pm install<code class="inline-code">.</li>
+
+<hr class="section-divider" />
+
+<h1 class="chapter-title">CAPÍTULO 6: PROTOCOLOS DE LECTURA E IMPRESIÓN FÍSICA</h1>
+
+<p class="body-paragraph">Este documento ha sido maquetado bajo estándares editoriales de ingeniería de alta dirección. Para una lectura cómoda y descansada fuera de la pantalla de la computadora:<br/><li class="numbered-item"><span class="list-num">1.</span> <strong>Ubicación de Archivos Listos para Impresión:</strong> En la carpeta </code>docs/imprimibles/<code class="inline-code"> se encuentran:</li><br/><li class="bullet-item"></code>PLAN_MAESTRO_GLOBAL_ROADMAP_A4_IMPRIMIBLE.html<code class="inline-code">: Documento HTML optimizado con estilos </code>@media print<code class="inline-code"> para papel A4, tipografía ejecutiva de 10.5pt, cabeceras formales, numeración automática y saltos de página limpios.</li><br/><li class="bullet-item"></code>PLAN_MAESTRO_GLOBAL_ROADMAP_WORD.doc<code class="inline-code">: Archivo encapsulado listo para abrir, editar o imprimir directamente desde Microsoft Word o LibreOffice Writer.</li><br/><li class="numbered-item"><span class="list-num">2.</span> <strong>Instrucciones de Impresión Rápida:</strong></li><br/><li class="bullet-item">Abrir </code>PLAN_MAESTRO_GLOBAL_ROADMAP_A4_IMPRIMIBLE.html<code class="inline-code"> en Google Chrome o Microsoft Edge.</li><br/><li class="bullet-item">Presionar </code>Ctrl + P` (Imprimir).</li><br/><li class="bullet-item">En <em>Destino</em>, seleccionar <strong>Guardar como PDF</strong> o su impresora física conectada.</li><br/><li class="bullet-item">En <em>Diseño</em>, seleccionar <strong>Vertical</strong>.</li><br/><li class="bullet-item">En <em>Más ajustes</em>, asegurarse de activar <strong>Gráficos de fondo</strong> y ajustar los márgenes a <strong>Predeterminado</strong> o <strong>Mínimo</strong>.</li><br/><li class="bullet-item">Presionar <strong>Imprimir</strong> para obtener un manual físico encuadernable de alta prestancia.</li></p>
+
+<hr class="section-divider" />
+
+<div class="callout-box"><strong>Compromiso Inquebrantable:</strong> Cada integrante humano y agente del enjambre consulta y actualiza este instructivo para preservar la visión holística del ecosistema y avanzar con paso firme hacia la culminación de las 50 fases de desarrollo.</div>
+</div>
+</body>
+</html>

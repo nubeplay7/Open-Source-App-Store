@@ -33,11 +33,13 @@ import {
   Sliders,
   Menu,
   Award,
+  Camera,
   Smartphone,
   MessageSquare,
-  Code2
+  Code2,
+  Database
 } from 'lucide-react';
-import { AppCatalogItem, UserProfile, DeviceTelemetry, ClonedAppRepo } from '../types';
+import { AppCatalogItem, UserProfile, DeviceTelemetry, ClonedAppRepo, CatalogOwnershipFilter, STACK_DETAILS } from '../types';
 
 interface PlayStoreViewProps {
   catalog: AppCatalogItem[];
@@ -49,11 +51,14 @@ interface PlayStoreViewProps {
   onOpenAccountDrawer: () => void;
   onOpenCompiler: () => void;
   onOpenPublisher: () => void;
+  onOpenSourceUpload?: () => void;
+  onOpenCloudTesting?: (app?: AppCatalogItem) => void;
   onOpenChangelog?: () => void;
   onOpenProposals?: () => void;
   onOpenArchitectureDocs?: () => void;
   onOpenRepoSync?: () => void;
   onOpenWorkspace?: () => void;
+  onOpenAdminPanel?: () => void;
   onOpenCommandPalette?: () => void;
   onOpenSecurityAudit?: () => void;
   onOpenRepoManager?: () => void;
@@ -74,6 +79,7 @@ interface PlayStoreViewProps {
   onOpenCrossDeviceSync?: (app?: AppCatalogItem) => void;
   onOpenSocialChat?: () => void;
   onOpenCollabStudio?: () => void;
+  onOpenCiCdEvidence?: () => void;
 }
 
 
@@ -99,6 +105,7 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
   onOpenArchitectureDocs,
   onOpenRepoSync,
   onOpenWorkspace,
+  onOpenAdminPanel,
   onOpenCommandPalette,
   onOpenSecurityAudit,
   onOpenRepoManager,
@@ -118,13 +125,21 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
   onOpenInnovationsHub,
   onOpenCrossDeviceSync,
   onOpenSocialChat,
-  onOpenCollabStudio
+  onOpenCollabStudio,
+  onOpenSourceUpload,
+  onOpenCloudTesting,
+  onOpenCiCdEvidence
 }) => {
 
   const [bottomTab, setBottomTab] = useState<PlayBottomTab>('APPS');
   const [subTab, setSubTab] = useState<PlaySubTab>('FOR_YOU');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedInterest, setSelectedInterest] = useState<string>('ALL');
+  const [ownershipFilter, setOwnershipFilter] = useState<CatalogOwnershipFilter>('ALL');
+
+  // Counts of My Apps vs Community Apps
+  const myAppsCount = useMemo(() => catalog.filter(a => a.isUserApp).length, [catalog]);
+  const communityAppsCount = useMemo(() => catalog.filter(a => !a.isUserApp).length, [catalog]);
 
   // Batch Select State
   const [isBatchMode, setIsBatchMode] = useState<boolean>(false);
@@ -223,6 +238,10 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
   // Filter catalog with all persistent dimensions
   const filteredApps = useMemo(() => {
     return catalog.filter((app) => {
+      // 0. Ownership Filter
+      if (ownershipFilter === 'MY_APPS' && !app.isUserApp) return false;
+      if (ownershipFilter === 'COMMUNITY' && app.isUserApp) return false;
+
       // 1. Search Query
       const matchesSearch = 
         !searchQuery || 
@@ -282,7 +301,7 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
 
       return true;
     });
-  }, [catalog, searchQuery, selectedInterest, archFilter, securityFilter, permissionFilter]);
+  }, [catalog, searchQuery, selectedInterest, archFilter, securityFilter, permissionFilter, ownershipFilter]);
 
   // Featured apps for carousel
   const featuredApps = useMemo(() => catalog.filter(a => a.isFeatured), [catalog]);
@@ -436,6 +455,17 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
             </button>
           )}
 
+          {/* Admin Panel Quick Access Button */}
+          {onOpenAdminPanel && (
+            <button
+              onClick={onOpenAdminPanel}
+              title="Panel de Administración Maestro (Base de Datos & Scraper)"
+              className="p-2 rounded-full bg-amber-950/70 hover:bg-amber-900/80 text-amber-300 transition min-w-[38px] min-h-[38px] flex items-center justify-center border border-amber-600/50 shadow-sm shrink-0"
+            >
+              <Database className="w-4 h-4 text-amber-400" />
+            </button>
+          )}
+
           {/* Notification Bell with Badge (3) */}
           <div className="relative shrink-0">
             <button
@@ -509,6 +539,48 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
         {/* ======================================================== */}
         {bottomTab === 'APPS' && (
           <>
+            {/* Banner Oficial: Descarga Civer App Store Mobile */}
+            <div className="overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-950 via-slate-900 to-teal-950 border border-emerald-500/50 p-5 shadow-2xl relative">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="space-y-1.5 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] uppercase tracking-wider font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2.5 py-0.5 rounded-full">
+                      Civer App Store Mobile • APK Oficial v1.0.3
+                    </span>
+                    <span className="text-xs text-slate-400 font-mono">Build 3 • 13.1 MB</span>
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-black text-white">
+                    Instala Civer App Store en tu dispositivo Android
+                  </h3>
+                  <p className="text-xs text-slate-300 max-w-xl leading-relaxed">
+                    Experiencia de Play Store nativa 100% de código abierto. Descargas directas, instalador silencioso Shizuku, compilador en la nube y sincronización OTA sin cables USB ni comandos ADB.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0 flex-wrap">
+                  <a
+                    href="/downloads/com.civer.appstore-v1.0.3-release.apk"
+                    download="com.civer.appstore-v1.0.3-release.apk"
+                    className="flex-1 sm:flex-none px-6 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs shadow-lg shadow-emerald-950/60 flex items-center justify-center gap-2 transition hover:scale-105"
+                  >
+                    <Download className="w-4 h-4 text-slate-950 stroke-[2.5]" />
+                    <span>Descargar APK</span>
+                  </a>
+
+                  {onOpenCiCdEvidence && (
+                    <button
+                      onClick={onOpenCiCdEvidence}
+                      className="px-5 py-3 rounded-full bg-slate-900/90 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-md"
+                      title="Ver Mega-Matriz de Certificación y Evidencias CI/CD"
+                    >
+                      <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                      <span>Evidencias CI/CD</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
             {/* Event Hero Carousel (Screenshot 1 Style) */}
             <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-950/60 via-slate-900 to-[#111318] border border-emerald-800/30 p-5 shadow-xl relative">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -537,6 +609,86 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
                     <span>Lanzar Compilación</span>
                   </button>
                 </div>
+              </div>
+            </div>
+
+            {/* Ownership Tabs & Source Upload Bar (Mis Aplicaciones vs Comunidad) */}
+            <div className="p-3.5 sm:p-4 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+                <button
+                  type="button"
+                  onClick={() => setOwnershipFilter('ALL')}
+                  className={`px-3.5 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap shrink-0 ${
+                    ownershipFilter === 'ALL'
+                      ? 'bg-emerald-600 text-white shadow-md shadow-emerald-950/60'
+                      : 'bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800'
+                  }`}
+                >
+                  <LayoutGrid className="w-3.5 h-3.5" />
+                  <span>Todas las Apps</span>
+                  <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-slate-900 text-slate-300">
+                    {catalog.length}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setOwnershipFilter('MY_APPS')}
+                  className={`px-3.5 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap shrink-0 ${
+                    ownershipFilter === 'MY_APPS'
+                      ? 'bg-gradient-to-r from-amber-500 to-emerald-600 text-white shadow-md shadow-amber-950/60'
+                      : 'bg-slate-950 text-amber-300 hover:text-amber-200 border border-amber-900/50'
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                  <span>Mis Aplicaciones (Creadas por mí)</span>
+                  <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-amber-950 text-amber-300 border border-amber-800/60 font-bold">
+                    {myAppsCount}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setOwnershipFilter('COMMUNITY')}
+                  className={`px-3.5 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap shrink-0 ${
+                    ownershipFilter === 'COMMUNITY'
+                      ? 'bg-sky-600 text-white shadow-md shadow-sky-950/60'
+                      : 'bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800'
+                  }`}
+                >
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>Comunidad FOSS</span>
+                  <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-slate-900 text-slate-300">
+                    {communityAppsCount}
+                  </span>
+                </button>
+              </div>
+
+              <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+                {/* Cloud Testing & Screencap Studio Button */}
+                {onOpenCloudTesting && (
+                  <button
+                    type="button"
+                    onClick={() => onOpenCloudTesting()}
+                    className="px-3.5 py-2 rounded-2xl bg-indigo-950/90 hover:bg-indigo-900/90 text-indigo-300 border border-indigo-700/60 font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-950/60 shrink-0"
+                    title="Abrir Laboratorio de Pruebas en la Nube con Emulador KVM y Capturas de Pantalla"
+                  >
+                    <Camera className="w-4 h-4 text-indigo-400 animate-pulse" />
+                    <span>Pruebas Cloud & Capturas</span>
+                  </button>
+                )}
+
+                {/* Source Upload Button */}
+                {onOpenSourceUpload && (
+                  <button
+                    type="button"
+                    onClick={onOpenSourceUpload}
+                    className="px-4 py-2 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 hover:from-emerald-500 hover:to-indigo-500 text-white font-bold text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/60 shrink-0"
+                  >
+                    <Upload className="w-4 h-4" />
+                    <span>Subir Código Fuente / ZIP</span>
+                  </button>
+                )}
               </div>
             </div>
 
@@ -804,11 +956,23 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
                           <div className={`w-11 h-11 sm:w-14 sm:h-14 rounded-2xl ${app.iconBg} flex items-center justify-center text-white text-lg sm:text-2xl font-bold shadow-md group-hover:scale-105 transition shrink-0`}>
                             {app.name.charAt(0)}
                           </div>
-                          {!isBatchMode && !isSelected && app.badgeTag && (
-                            <span className="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded font-mono truncate max-w-[65px] sm:max-w-[75px] shrink-0">
-                              {app.badgeTag}
-                            </span>
-                          )}
+                          <div className="flex flex-col items-end gap-1 shrink-0">
+                            {app.isUserApp && (
+                              <span className="text-[9px] bg-gradient-to-r from-amber-400 to-emerald-400 text-slate-950 font-black px-1.5 py-0.5 rounded-full font-mono shadow-sm">
+                                Creada por mí
+                              </span>
+                            )}
+                            {app.stackType && (
+                              <span className={`text-[8px] font-mono px-1 py-0.2 rounded border ${STACK_DETAILS[app.stackType]?.badgeBg} ${STACK_DETAILS[app.stackType]?.badgeText} ${STACK_DETAILS[app.stackType]?.badgeBorder}`}>
+                                {app.stackType === 'ANDROID_NATIVE' ? 'Android' : app.stackType === 'FLUTTER' ? 'Flutter' : app.stackType === 'REACT_NATIVE' ? 'RN' : 'PWA'}
+                              </span>
+                            )}
+                            {!isBatchMode && !isSelected && app.badgeTag && !app.isUserApp && (
+                              <span className="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded font-mono truncate max-w-[65px] sm:max-w-[75px] shrink-0">
+                                {app.badgeTag}
+                              </span>
+                            )}
+                          </div>
                         </div>
 
                         <h4 className="font-semibold text-slate-100 text-xs mt-2.5 line-clamp-1 group-hover:text-emerald-300 transition">
@@ -1134,6 +1298,21 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
                     </div>
                     <p className="text-[10px] text-slate-300">
                       Obsidian Notebook • Jira Kanban • Slack Channels.
+                    </p>
+                  </button>
+                )}
+
+                {onOpenAdminPanel && (
+                  <button
+                    onClick={onOpenAdminPanel}
+                    className="p-3 rounded-2xl bg-gradient-to-br from-amber-950/90 via-slate-900 to-slate-900 hover:bg-[#1e2025] border border-amber-800/80 transition text-left space-y-1 shadow-md shadow-amber-950/40"
+                  >
+                    <div className="flex items-center gap-2 text-amber-300 font-bold text-xs">
+                      <Database className="w-4 h-4 text-amber-400" />
+                      <span>Panel Admin Maestro</span>
+                    </div>
+                    <p className="text-[10px] text-slate-300">
+                      Base de Datos 15+ cols • Web Scraper GitHub • Hub Multi-Versión.
                     </p>
                   </button>
                 )}
