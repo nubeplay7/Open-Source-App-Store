@@ -39,6 +39,35 @@ export function getEffectiveGitHubToken(token?: string): string {
   return getMasterPlatformToken();
 }
 
+/**
+ * Safe fetch helper for GitHub API:
+ * Tries with Authorization header first; if 401 occurs on GET requests (token expired/revoked),
+ * transparently retries without Authorization since nubeplay7/Open-Source-App-Store is a public repository.
+ */
+export async function fetchGitHubApi(url: string, token?: string, options: RequestInit = {}): Promise<Response> {
+  const cleanToken = getEffectiveGitHubToken(token);
+  const authHeader = cleanToken.startsWith('github_pat_') ? `Bearer ${cleanToken}` : `token ${cleanToken}`;
+  
+  const headers: Record<string, string> = {
+    'Accept': 'application/vnd.github+json',
+    'User-Agent': 'Civer-App-Store-Agent',
+    ...((options.headers as Record<string, string>) || {})
+  };
+
+  if (cleanToken && cleanToken.length > 10) {
+    headers['Authorization'] = authHeader;
+  }
+
+  let response = await fetch(url, { ...options, headers });
+
+  if (response.status === 401 && (!options.method || options.method === 'GET') && headers['Authorization']) {
+    delete headers['Authorization'];
+    response = await fetch(url, { ...options, headers });
+  }
+
+  return response;
+}
+
 export interface GitHubTokenVerificationResult {
   valid: boolean;
   user: string;
@@ -318,14 +347,7 @@ export async function findLatestDispatchedRun(
     const cleanToken = getEffectiveGitHubToken(token);
     const authHeader = cleanToken.startsWith('github_pat_') ? `Bearer ${cleanToken}` : `token ${cleanToken}`;
     const url = `https://api.github.com/repos/${repoOwner}/${repoName}/actions/runs?per_page=5`;
-
-    const response = await fetch(url, {
-      headers: {
-        'Authorization': authHeader,
-        'Accept': 'application/vnd.github+json',
-        'User-Agent': 'Civer-App-Store-Agent'
-      }
-    });
+    const response = await fetchGitHubApi(url, token);
 
     if (!response.ok) return { status: 'not_found' };
 
@@ -371,20 +393,11 @@ export async function pollRealWorkflowRun(
   updatedAt?: string;
 }> {
   try {
-    const cleanToken = getEffectiveGitHubToken(token);
-    const authHeader = cleanToken.startsWith('github_pat_') ? `Bearer ${cleanToken}` : `token ${cleanToken}`;
-    
     const url = runId 
       ? `https://api.github.com/repos/${repoOwner}/${repoName}/actions/runs/${runId}`
       : `https://api.github.com/repos/${repoOwner}/${repoName}/actions/runs?per_page=1`;
 
-    const response = await fetch(url, {
-      headers: {
-        'Authorization': authHeader,
-        'Accept': 'application/vnd.github+json',
-        'User-Agent': 'Civer-App-Store-Agent'
-      }
-    });
+    const response = await fetchGitHubApi(url, token);
 
     if (!response.ok) return { status: 'not_found' };
 
@@ -422,17 +435,8 @@ export async function fetchLiveWorkflowRunJobs(
   error?: string;
 }> {
   try {
-    const cleanToken = getEffectiveGitHubToken(token);
-    const authHeader = cleanToken.startsWith('github_pat_') ? `Bearer ${cleanToken}` : `token ${cleanToken}`;
     const url = `https://api.github.com/repos/${repoOwner}/${repoName}/actions/runs/${runId}/jobs`;
-
-    const response = await fetch(url, {
-      headers: {
-        'Authorization': authHeader,
-        'Accept': 'application/vnd.github+json',
-        'User-Agent': 'Civer-App-Store-Agent'
-      }
-    });
+    const response = await fetchGitHubApi(url, token);
 
     if (!response.ok) {
       return { success: false, jobs: [], steps: [], error: `HTTP ${response.status}` };
@@ -468,17 +472,8 @@ export async function fetchLiveWorkflowRunArtifacts(
   repoName: string = DEFAULT_REPO_NAME
 ): Promise<LiveArtifactItem[]> {
   try {
-    const cleanToken = getEffectiveGitHubToken(token);
-    const authHeader = cleanToken.startsWith('github_pat_') ? `Bearer ${cleanToken}` : `token ${cleanToken}`;
     const url = `https://api.github.com/repos/${repoOwner}/${repoName}/actions/runs/${runId}/artifacts`;
-
-    const response = await fetch(url, {
-      headers: {
-        'Authorization': authHeader,
-        'Accept': 'application/vnd.github+json',
-        'User-Agent': 'Civer-App-Store-Agent'
-      }
-    });
+    const response = await fetchGitHubApi(url, token);
 
     if (!response.ok) return [];
 
