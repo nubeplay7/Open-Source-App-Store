@@ -61,9 +61,12 @@ fun MainScreen() {
     topBar = {
       Surface(
         color = Slate950,
-        modifier = Modifier.fillMaxWidth().border(width = 1.dp, color = Slate800)
+        modifier = Modifier
+          .fillMaxWidth()
+          .statusBarsPadding()
+          .border(width = 1.dp, color = Slate800)
       ) {
-        Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp)) {
+        Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp)) {
           // Top Header Row
           Row(
             modifier = Modifier.fillMaxWidth(),
@@ -75,7 +78,7 @@ fun MainScreen() {
                 imageVector = Icons.Default.Storefront,
                 contentDescription = null,
                 tint = Emerald400,
-                modifier = Modifier.size(22.dp)
+                modifier = Modifier.size(24.dp)
               )
               Spacer(modifier = Modifier.width(8.dp))
               Text(
@@ -87,54 +90,55 @@ fun MainScreen() {
             }
 
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-              // Botón de Actualizaciones OTA Continuas
+              // Botón de Actualizaciones OTA Continuas (44dp target)
               val hasOtaUpdate = otaStatus is com.example.ota.OtaStatus.Available
               IconButton(
                 onClick = { showOtaDialog = true },
                 modifier = Modifier
-                  .size(34.dp)
-                  .clip(RoundedCornerShape(8.dp))
+                  .size(44.dp)
+                  .clip(RoundedCornerShape(10.dp))
                   .background(if (hasOtaUpdate) Emerald500.copy(alpha = 0.2f) else Slate900)
-                  .border(1.dp, if (hasOtaUpdate) Emerald400 else Slate800, RoundedCornerShape(8.dp))
+                  .border(1.dp, if (hasOtaUpdate) Emerald400 else Slate800, RoundedCornerShape(10.dp))
               ) {
                 Icon(
                   imageVector = if (hasOtaUpdate) Icons.Default.SystemUpdate else Icons.Default.CloudSync,
                   contentDescription = "Actualización OTA",
                   tint = if (hasOtaUpdate) Emerald400 else Slate400,
-                  modifier = Modifier.size(17.dp)
+                  modifier = Modifier.size(20.dp)
                 )
               }
 
-              // Botón de Configuración de Actualizaciones (Shizuku & OTA)
+              // Botón de Configuración de Actualizaciones (Shizuku & OTA) (44dp target)
               IconButton(
                 onClick = { showSettingsDialog = true },
                 modifier = Modifier
-                  .size(34.dp)
-                  .clip(RoundedCornerShape(8.dp))
+                  .size(44.dp)
+                  .clip(RoundedCornerShape(10.dp))
                   .background(Slate900)
-                  .border(1.dp, Slate800, RoundedCornerShape(8.dp))
+                  .border(1.dp, Slate800, RoundedCornerShape(10.dp))
               ) {
                 Icon(
                   imageVector = Icons.Default.Settings,
                   contentDescription = "Configuración OTA & Shizuku",
                   tint = Cyan400,
-                  modifier = Modifier.size(17.dp)
+                  modifier = Modifier.size(20.dp)
                 )
               }
 
+              // Botón de Exportar (44dp target)
               IconButton(
                 onClick = { showExportModal = true },
                 modifier = Modifier
-                  .size(34.dp)
-                  .clip(RoundedCornerShape(8.dp))
+                  .size(44.dp)
+                  .clip(RoundedCornerShape(10.dp))
                   .background(Slate900)
-                  .border(1.dp, Slate800, RoundedCornerShape(8.dp))
+                  .border(1.dp, Slate800, RoundedCornerShape(10.dp))
               ) {
                 Icon(
                   Icons.Default.Download,
                   contentDescription = "Exportar Markdown",
                   tint = Emerald400,
-                  modifier = Modifier.size(17.dp)
+                  modifier = Modifier.size(20.dp)
                 )
               }
             }
@@ -416,6 +420,9 @@ fun MainScreen() {
                 if (!comparedStores.any { it.id == store.id } && comparedStores.size < 4) {
                   comparedStores = comparedStores + store
                 }
+              },
+              onSetComparedStores = { presetList ->
+                comparedStores = presetList.take(4)
               },
               onClearAll = { comparedStores = emptyList() }
             )

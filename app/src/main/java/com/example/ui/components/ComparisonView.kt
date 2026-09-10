@@ -28,10 +28,11 @@ fun ComparisonView(
   allStores: List<AppStoreInfo>,
   onRemoveStore: (AppStoreInfo) -> Unit,
   onAddStore: (AppStoreInfo) -> Unit,
+  onSetComparedStores: (List<AppStoreInfo>) -> Unit = {},
   onClearAll: () -> Unit
 ) {
   if (comparedStores.isEmpty()) {
-    EmptyComparisonState(allStores, onAddStore)
+    EmptyComparisonState(allStores, onAddStore, onSetComparedStores)
   } else {
     ActiveComparisonTable(comparedStores, onRemoveStore, onClearAll)
   }
@@ -40,7 +41,8 @@ fun ComparisonView(
 @Composable
 fun EmptyComparisonState(
   allStores: List<AppStoreInfo>,
-  onAddStore: (AppStoreInfo) -> Unit
+  onAddStore: (AppStoreInfo) -> Unit,
+  onSetComparedStores: (List<AppStoreInfo>) -> Unit = {}
 ) {
   Column(
     modifier = Modifier
@@ -97,9 +99,14 @@ fun EmptyComparisonState(
     ) {
       Button(
         onClick = {
-          allStores.find { it.id == "droid-ify" }?.let { onAddStore(it) }
-          allStores.find { it.id == "aurora-store" }?.let { onAddStore(it) }
-          allStores.find { it.id == "obtainium" }?.let { onAddStore(it) }
+          val presets = listOfNotNull(
+            allStores.find { it.id == "droid-ify" },
+            allStores.find { it.id == "aurora-store" },
+            allStores.find { it.id == "obtainium" }
+          )
+          if (presets.isNotEmpty()) {
+            onSetComparedStores(presets)
+          }
         },
         modifier = Modifier.weight(1f),
         colors = ButtonDefaults.buttonColors(containerColor = Emerald900, contentColor = Emerald400),
@@ -111,9 +118,14 @@ fun EmptyComparisonState(
 
       FilledTonalButton(
         onClick = {
-          allStores.find { it.id == "fdroid-official" }?.let { onAddStore(it) }
-          allStores.find { it.id == "neo-store" }?.let { onAddStore(it) }
-          allStores.find { it.id == "accrescent" }?.let { onAddStore(it) }
+          val presets = listOfNotNull(
+            allStores.find { it.id == "fdroid-official" },
+            allStores.find { it.id == "neo-store" },
+            allStores.find { it.id == "accrescent" }
+          )
+          if (presets.isNotEmpty()) {
+            onSetComparedStores(presets)
+          }
         },
         modifier = Modifier.weight(1f),
         colors = ButtonDefaults.filledTonalButtonColors(containerColor = Slate800, contentColor = Slate200),
