@@ -29,24 +29,24 @@ export class OtaUpdateService {
 
     // Default seeded manifest
     return {
-      storeVersion: '4.2.0',
+      storeVersion: '1.0.4',
       lastUpdated: new Date().toISOString(),
       channel: 'stable',
       releases: {
         'civer-app-store': {
           appId: 'civer-app-store',
-          appName: 'Civer App Store Matrix',
-          packageName: 'com.civer.store',
-          versionName: '4.2.0',
-          versionCode: 42,
+          appName: 'Civer App Store Mobile',
+          packageName: 'com.civer.appstore',
+          versionName: '1.0.4',
+          versionCode: 4,
           releaseDate: new Date().toISOString(),
-          sha256Checksum: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-          downloadUrl: 'https://github.com/nubeplay7/Open-Source-App-Store/releases/download/v4.2.0/civer-app-store-v4.2.0.apk',
-          fileSizeBytes: 14200000,
-          fileSizeMb: 14.2,
-          releaseNotes: 'Lanzamiento v4.2.0 con soporte gRPC-web, integración con @EnviodeApkCompiladaBot y firma OTA Scheme v4.',
+          sha256Checksum: '72568ce3f49253ff34a4d0666b4cf18e846c2f86be8c4eb2007f12212b32bbad',
+          downloadUrl: 'https://appstore.civer.cloud/downloads/com.civer.appstore-v1.0.4-release.apk',
+          fileSizeBytes: 22637696,
+          fileSizeMb: 21.59,
+          releaseNotes: 'Civer App Store v1.0.4 Oficial (Build 4): TopBar statusBarsPadding, accesibilidad 44dp, comparación atómica en Compose, compilador en la nube 100% real con GitHub Actions y soporte Shizuku/ADB.',
           minSdk: 24,
-          targetSdk: 36,
+          targetSdk: 35,
           signatureScheme: 'Scheme v2+v3+v4 (fs-verity)'
         },
         'aurora-store': {

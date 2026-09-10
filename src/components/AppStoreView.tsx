@@ -236,9 +236,9 @@ export const AppStoreView: React.FC<AppStoreViewProps> = ({
                 <div className="space-y-2 max-w-xl">
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-3 py-1 rounded-full">
-                      APLICACIÓN ANDROID OFICIAL • v1.0.3
+                      APLICACIÓN ANDROID OFICIAL • v1.0.4
                     </span>
-                    <span className="text-xs text-slate-400 font-mono">Build 3 • 13.1 MB</span>
+                    <span className="text-xs text-slate-400 font-mono">Build 4 • 21.59 MB</span>
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                     Lleva Civer App Store en tu móvil
@@ -257,12 +257,12 @@ export const AppStoreView: React.FC<AppStoreViewProps> = ({
 
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 flex-wrap">
                   <a
-                    href="/downloads/com.civer.appstore-v1.0.3-release.apk"
-                    download="com.civer.appstore-v1.0.3-release.apk"
+                    href="/downloads/com.civer.appstore-v1.0.4-release.apk"
+                    download="com.civer.appstore-v1.0.4-release.apk"
                     className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-xs tracking-wider uppercase flex items-center justify-center gap-2.5 shadow-xl shadow-emerald-950/60 transition hover:scale-105"
                   >
                     <Download className="w-4 h-4 text-slate-950 stroke-[2.5]" />
-                    <span>Descargar APK Oficial</span>
+                    <span>Descargar APK Oficial v1.0.4</span>
                   </a>
 
                   {onOpenCiCdEvidence && (

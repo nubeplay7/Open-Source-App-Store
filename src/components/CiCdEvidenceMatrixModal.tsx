@@ -54,9 +54,9 @@ export const EVIDENCE_DATA: CiCdEvidenceItem[] = [
     requirement: 'Manifiesto OTA accesible globalmente por HTTPS con soporte de conmutación por error (Cloudflare -> LAN -> Tailscale).',
     status: 'LIVE',
     endpointOrResource: 'https://appstore.civer.cloud/api/v1/ota/manifest.json',
-    forensicEvidence: 'Release v1.0.3 (Build 4) publicada • Tamaño: 13.1 MB • MinSDK: 24 • TargetSDK: 36',
-    hashOrMetadata: 'SHA-256: 4a4941baddbf897f0a458d870ca18afdd46818a705525329f7b5961639028c40',
-    verifiedAt: '09/09/2026 01:23 UTC-6',
+    forensicEvidence: 'Release v1.0.4 (Build 4) publicada • Tamaño: 21.59 MB • MinSDK: 24 • TargetSDK: 36',
+    hashOrMetadata: 'SHA-256: 72568ce3f49253ff34a4d0666b4cf18e846c2f86be8c4eb2007f12212b32bbad',
+    verifiedAt: '10/09/2026 11:45 UTC-6',
     notes: 'Las aplicaciones instaladas consultan este manifiesto para auto-actualizarse en segundo plano.'
   },
   {
@@ -65,10 +65,10 @@ export const EVIDENCE_DATA: CiCdEvidenceItem[] = [
     category: 'OTA',
     requirement: 'Binario APK compilado y firmado disponible para descarga directa en el sitio web y con cabeceras MIME correctas.',
     status: 'VERIFIED',
-    endpointOrResource: 'https://appstore.civer.cloud/downloads/com.civer.appstore-v1.0.3-release.apk',
-    forensicEvidence: 'HTTP 200 OK • Content-Type: application/vnd.android.package-archive • 13,740,428 bytes',
+    endpointOrResource: 'https://appstore.civer.cloud/downloads/com.civer.appstore-v1.0.4-release.apk',
+    forensicEvidence: 'HTTP 200 OK • Content-Type: application/vnd.android.package-archive • 22,637,696 bytes',
     hashOrMetadata: 'Scheme v2+v3+v4 (fs-verity) • Alias: civer-release-key',
-    verifiedAt: '09/09/2026 01:23 UTC-6',
+    verifiedAt: '10/09/2026 11:45 UTC-6',
     notes: 'Disponible desde el Navbar, la vista AppStore y la vista PlayStore.'
   },
   {
@@ -400,12 +400,12 @@ export const CiCdEvidenceMatrixModal: React.FC<CiCdEvidenceMatrixModalProps> = (
           </div>
           <div className="flex items-center gap-2">
             <a
-              href="/downloads/com.civer.appstore-v1.0.3-release.apk"
-              download="com.civer.appstore-v1.0.3-release.apk"
+              href="/downloads/com.civer.appstore-v1.0.4-release.apk"
+              download="com.civer.appstore-v1.0.4-release.apk"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/40 font-bold transition"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Descargar APK v1.0.3</span>
+              <span>Descargar APK v1.0.4</span>
             </a>
             <button
               onClick={onClose}

@@ -37,7 +37,12 @@ import {
   Smartphone,
   MessageSquare,
   Code2,
-  Database
+  Database,
+  GitBranch,
+  Globe,
+  Server,
+  ExternalLink,
+  Check
 } from 'lucide-react';
 import { AppCatalogItem, UserProfile, DeviceTelemetry, ClonedAppRepo, CatalogOwnershipFilter, STACK_DETAILS } from '../types';
 
@@ -162,6 +167,7 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
   });
 
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
+  const [compilerSearchQuery, setCompilerSearchQuery] = useState('');
 
   const toggleAppSelection = (appId: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
@@ -545,9 +551,9 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
                 <div className="space-y-1.5 flex-1">
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] uppercase tracking-wider font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2.5 py-0.5 rounded-full">
-                      Civer App Store Mobile • APK Oficial v1.0.3
+                      Civer App Store Mobile • APK Oficial v1.0.4
                     </span>
-                    <span className="text-xs text-slate-400 font-mono">Build 3 • 13.1 MB</span>
+                    <span className="text-xs text-slate-400 font-mono">Build 4 • 21.59 MB</span>
                   </div>
                   <h3 className="text-lg sm:text-xl font-black text-white">
                     Instala Civer App Store en tu dispositivo Android
@@ -559,12 +565,12 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
 
                 <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0 flex-wrap">
                   <a
-                    href="/downloads/com.civer.appstore-v1.0.3-release.apk"
-                    download="com.civer.appstore-v1.0.3-release.apk"
+                    href="/downloads/com.civer.appstore-v1.0.4-release.apk"
+                    download="com.civer.appstore-v1.0.4-release.apk"
                     className="flex-1 sm:flex-none px-6 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs shadow-lg shadow-emerald-950/60 flex items-center justify-center gap-2 transition hover:scale-105"
                   >
                     <Download className="w-4 h-4 text-slate-950 stroke-[2.5]" />
-                    <span>Descargar APK</span>
+                    <span>Descargar APK v1.0.4</span>
                   </a>
 
                   {onOpenCiCdEvidence && (
@@ -1144,28 +1150,300 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
         )}
 
         {/* ======================================================== */}
-        {/* VIEW 3: COMPILER CI TAB */}
+        {/* VIEW 3: COMPILER CI TAB (100% REAL GITHUB ACTIONS CLOUD ENGINE) */}
         {/* ======================================================== */}
         {bottomTab === 'COMPILER' && (
-          <div className="space-y-4">
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center space-y-4">
-              <div className="w-16 h-16 rounded-full bg-sky-500/10 border border-sky-500/30 flex items-center justify-center mx-auto text-sky-400">
-                <Cpu className="w-8 h-8" />
+          <div className="space-y-6 animate-in fade-in duration-300">
+            {/* Header Hero */}
+            <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-sky-950/40 to-slate-900 border border-sky-500/30 rounded-3xl p-5 sm:p-7 shadow-2xl">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 relative z-10">
+                <div className="space-y-2 max-w-2xl">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-3 py-1 rounded-full bg-sky-500/20 border border-sky-400/40 text-sky-300 text-[11px] font-bold flex items-center gap-1.5 shadow-sm">
+                      <Cpu className="w-3.5 h-3.5 text-sky-400 animate-pulse" />
+                      GitHub Actions Cloud Runners • Ubuntu 24.04 LTS
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[11px] font-bold flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                      100% Real • Cero Mocks
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/40 text-purple-300 text-[11px] font-bold flex items-center gap-1.5">
+                      <Key className="w-3.5 h-3.5 text-purple-400" />
+                      Credenciales Transparentes
+                    </span>
+                  </div>
+
+                  <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                    Compilador Cloud y Distribución FOSS en la Nube
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    Envía a compilar cualquier aplicación Android directamente en runners de GitHub Actions (16 GB RAM, JDK 17, Gradle 9.3.1). Los usuarios no necesitan configurar tokens ni cuentas personales: la plataforma utiliza las credenciales maestras para compilar, firmar con Scheme v2+v3+v4 y publicar de forma permanente en la nube y OTA.
+                  </p>
+                </div>
+
+                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 shrink-0">
+                  <button
+                    type="button"
+                    onClick={onOpenCompiler}
+                    className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-sky-950/60 flex items-center gap-2 transition"
+                  >
+                    <Terminal className="w-4 h-4" />
+                    <span>Abrir Consola & Logs en Vivo</span>
+                  </button>
+                  <a
+                    href="https://appstore.civer.cloud/downloads/com.civer.appstore-v1.0.4-release.apk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-semibold text-xs border border-slate-700/80 flex items-center gap-2 transition"
+                  >
+                    <Download className="w-4 h-4 text-emerald-400" />
+                    <span>APK v1.0.4 Directo (21.59 MB)</span>
+                  </a>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-100">Compilador Cloud GitHub Actions</h3>
-                <p className="text-xs text-slate-400 mt-1 max-w-md mx-auto">
-                  Ejecuta compilaciones en servidores remotos de GitHub, consulta el historial de APKs generados y descárgalos con un clic.
-                </p>
+
+              {/* Badges strip */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-4 mt-5 border-t border-slate-800/80 text-[11px]">
+                <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 flex items-center gap-2">
+                  <Server className="w-4 h-4 text-sky-400 shrink-0" />
+                  <div className="min-w-0">
+                    <p className="font-bold text-slate-200 truncate">Runners Cloud</p>
+                    <p className="text-[10px] text-slate-400 truncate">16 GB RAM / 4 vCPUs</p>
+                  </div>
+                </div>
+                <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-amber-400 shrink-0" />
+                  <div className="min-w-0">
+                    <p className="font-bold text-slate-200 truncate">Toolchain Gradle</p>
+                    <p className="text-[10px] text-slate-400 truncate">AGP 9.1.1 • Gradle 9.3.1</p>
+                  </div>
+                </div>
+                <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <div className="min-w-0">
+                    <p className="font-bold text-slate-200 truncate">Firma Criptográfica</p>
+                    <p className="text-[10px] text-slate-400 truncate">Scheme v2+v3+v4 (fs-verity)</p>
+                  </div>
+                </div>
+                <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 flex items-center gap-2">
+                  <Globe className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <div className="min-w-0">
+                    <p className="font-bold text-slate-200 truncate">Alojamiento Permanente</p>
+                    <p className="text-[10px] text-slate-400 truncate">appstore.civer.cloud</p>
+                  </div>
+                </div>
               </div>
-              <button
-                type="button"
-                onClick={onOpenCompiler}
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold text-xs shadow-xl shadow-sky-950/60 inline-flex items-center gap-2 transition"
-              >
-                <Cpu className="w-4 h-4" />
-                <span>Abrir Terminal de Compilación CI</span>
-              </button>
+            </div>
+
+            {/* Featured Hero Target: Civer App Store Mobile v1.0.4 */}
+            <div className="bg-[#1a1c22] border-2 border-emerald-500/40 rounded-3xl p-5 sm:p-6 space-y-4 shadow-xl">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-emerald-950/60 border border-emerald-400/40 shrink-0">
+                    C
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="font-black text-slate-100 text-base">Civer App Store Mobile (Oficial)</h3>
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold font-mono text-[10px] border border-emerald-500/30">
+                        v1.0.4 • Build 4
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-mono text-[10px] border border-sky-500/30">
+                        21.59 MB
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-300 mt-1">
+                      Cliente nativo de Civer App Store para Android. Compilado con Compose TopBar, accesibilidad 44dp, cero rastreadores y soporte Shizuku/ADB silencioso.
+                    </p>
+                    <p className="text-[10px] text-slate-500 font-mono mt-1 truncate max-w-xl">
+                      SHA-256: 72568ce3f49253ff34a4d0666b4cf18e846c2f86be8c4eb2007f12212b32bbad
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0 flex-wrap sm:flex-nowrap">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const civerApp = catalog.find(a => a.id === 'civer-app-store' || a.packageName === 'com.civer.appstore') || catalog[0];
+                      if (civerApp) onCompileApp(civerApp);
+                    }}
+                    className="flex-1 sm:flex-initial px-5 py-3 rounded-2xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-sky-950/50 flex items-center justify-center gap-2 transition"
+                  >
+                    <Cpu className="w-4 h-4" />
+                    <span>Compilar en Nube (1 Clic)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const civerApp = catalog.find(a => a.id === 'civer-app-store' || a.packageName === 'com.civer.appstore') || catalog[0];
+                      if (civerApp) onInstallApp(civerApp);
+                    }}
+                    className="flex-1 sm:flex-initial px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg shadow-emerald-950/50 flex items-center justify-center gap-2 transition"
+                  >
+                    <Download className="w-4 h-4" />
+                    <span>Instalar APK v1.0.4</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Catalog Apps Ready for One-Click Cloud Compilation */}
+            <div className="space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
+                    <Layers className="w-4 h-4 text-sky-400" />
+                    Catálogo FOSS Listo para Compilar en Servidores Cloud
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Selecciona cualquier app para despachar su compilación en GitHub Actions. Verás el progreso en tiempo real de cada paso de Gradle.
+                  </p>
+                </div>
+
+                {/* Filter Input */}
+                <div className="relative w-full sm:w-64">
+                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    placeholder="Filtrar por nombre o paquete..."
+                    value={compilerSearchQuery}
+                    onChange={(e) => setCompilerSearchQuery(e.target.value)}
+                    className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500 transition"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                {catalog
+                  .filter(app => {
+                    if (!compilerSearchQuery) return true;
+                    const q = compilerSearchQuery.toLowerCase();
+                    return app.name.toLowerCase().includes(q) || app.packageName.toLowerCase().includes(q) || app.category.toLowerCase().includes(q);
+                  })
+                  .map((app) => (
+                    <div
+                      key={app.id}
+                      className="bg-[#1a1c22] border border-slate-800/90 hover:border-sky-500/50 rounded-2xl p-4 transition flex flex-col justify-between space-y-3 shadow-md group"
+                    >
+                      <div className="space-y-2.5">
+                        <div className="flex items-start gap-3">
+                          <div className={`w-11 h-11 rounded-xl ${app.iconBg || 'bg-slate-700'} flex items-center justify-center text-white font-bold text-lg shrink-0 shadow`}>
+                            {app.name.charAt(0)}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <h4 className="font-bold text-slate-100 text-xs truncate group-hover:text-sky-300 transition">{app.name}</h4>
+                              <span className="text-[10px] text-slate-400 font-mono shrink-0">v{app.version}</span>
+                            </div>
+                            <p className="text-[11px] text-slate-400 truncate">{app.packageName}</p>
+                            <div className="flex items-center gap-2 text-[10px] text-slate-500 font-mono mt-0.5">
+                              <span className="text-amber-400">★ {app.rating}</span>
+                              <span>•</span>
+                              <span>{app.apkSizeMb || '15.0'} MB</span>
+                              <span>•</span>
+                              <span className="text-emerald-400">{app.license || 'GPL-3.0'}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                          {app.description || app.tagline}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center justify-between gap-2 pt-2.5 border-t border-slate-800/80">
+                        {app.githubUrl ? (
+                          <a
+                            href={app.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[11px] text-slate-400 hover:text-sky-400 flex items-center gap-1 transition"
+                          >
+                            <GitBranch className="w-3 h-3" />
+                            <span>Repo</span>
+                            <ExternalLink className="w-2.5 h-2.5" />
+                          </a>
+                        ) : (
+                          <span className="text-[10px] text-slate-500 font-mono">Monorepo FOSS</span>
+                        )}
+
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => onCompileApp(app)}
+                            className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 shadow transition"
+                            title="Compilar en GitHub Actions con credenciales de la plataforma"
+                          >
+                            <Cpu className="w-3.5 h-3.5" />
+                            <span>Compilar Nube</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => onInstallApp(app)}
+                            className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-emerald-600 text-slate-200 hover:text-white font-semibold text-xs flex items-center gap-1 transition"
+                            title="Instalar versión disponible"
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                            <span>Instalar</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+
+            {/* Architectural Pipeline Explainer */}
+            <div className="bg-[#14161c] border border-slate-800 rounded-3xl p-5 sm:p-6 space-y-4">
+              <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                Flujo de Compilación y Distribución Segura de Extremo a Extremo
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-1.5">
+                  <div className="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold text-xs">
+                    1
+                  </div>
+                  <h4 className="font-bold text-slate-200">Despacho en 1 Clic</h4>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">
+                    La app activa el webhook de GitHub Actions usando el token maestro de la plataforma. Cero fricción o registros requeridos.
+                  </p>
+                </div>
+
+                <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-1.5">
+                  <div className="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">
+                    2
+                  </div>
+                  <h4 className="font-bold text-slate-200">Compilación Real</h4>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">
+                    Runner aislado de GitHub ejecuta Gradle assembleRelease, Kotlin DSL y ProGuard/R8 con 16 GB de RAM en la nube.
+                  </p>
+                </div>
+
+                <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-1.5">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">
+                    3
+                  </div>
+                  <h4 className="font-bold text-slate-200">Firma Criptográfica</h4>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">
+                    Firma Scheme v2, v3 y v4 con fs-verity y cálculo de SHA-256 inmutable verificado contra el repositorio oficial.
+                  </p>
+                </div>
+
+                <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-1.5">
+                  <div className="w-7 h-7 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs">
+                    4
+                  </div>
+                  <h4 className="font-bold text-slate-200">Distribución & OTA</h4>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">
+                    Alojamiento permanente en CDN Cloudflare /downloads/, actualización del manifest OTA y alerta directa al bot Telegram.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}

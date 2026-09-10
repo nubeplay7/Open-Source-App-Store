@@ -59,7 +59,7 @@ export const ConnectedDevicesView: React.FC<ConnectedDevicesViewProps> = ({ cata
       status: 'online',
       lastSeen: 'Ahora mismo (ADB Enlace Activo)',
       appInstalled: true,
-      appVersion: 'v1.0.3 (Oficial Civer Store)',
+      appVersion: 'v1.0.4 (Oficial Civer Store)',
       ipAddress: '192.168.1.74:5555'
     }
   ]);
@@ -69,7 +69,7 @@ export const ConnectedDevicesView: React.FC<ConnectedDevicesViewProps> = ({ cata
   const [isDeploying, setIsDeploying] = useState<boolean>(false);
   const [deployLogs, setDeployLogs] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<'FLEET' | 'DOWNLOAD_CENTER' | 'REMOTE_INSTALL'>('FLEET');
-  const [apkSha256, setApkSha256] = useState<string>('4a4941baddbf897f0a458d870ca18afdd46818a705525329f7b5961639028c40');
+  const [apkSha256, setApkSha256] = useState<string>('72568ce3f49253ff34a4d0666b4cf18e846c2f86be8c4eb2007f12212b32bbad');
 
   const activeDevice = devices.find(d => d.id === selectedDevice) || devices[0];
 
@@ -152,7 +152,7 @@ export const ConnectedDevicesView: React.FC<ConnectedDevicesViewProps> = ({ cata
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-white">Civer App Store para Android</h3>
-                    <p className="text-xs text-slate-400 font-mono">Paquete Oficial: com.civer.appstore • v1.0.3 Release</p>
+                    <p className="text-xs text-slate-400 font-mono">Paquete Oficial: com.civer.appstore • v1.0.4 Release</p>
                   </div>
                 </div>
                 <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-semibold">
@@ -189,11 +189,11 @@ export const ConnectedDevicesView: React.FC<ConnectedDevicesViewProps> = ({ cata
               {/* Action Buttons */}
               <div className="pt-2 flex flex-col sm:flex-row items-center gap-4">
                 <a
-                  href="https://manager.civer.cloud/downloads/com.civer.appstore-v1.0.3-release.apk"
+                  href="https://manager.civer.cloud/downloads/com.civer.appstore-v1.0.4-release.apk"
                   download
                   className="w-full sm:w-auto flex-1 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 transition-all text-center"
                 >
-                  <ArrowDownToLine className="w-4 h-4" /> Descargar APK Oficial (Release)
+                  <ArrowDownToLine className="w-4 h-4" /> Descargar APK Oficial (Release v1.0.4)
                 </a>
                 <button
                   onClick={() => handleSendRemoteInstall('civer-app-store')}
@@ -233,7 +233,7 @@ export const ConnectedDevicesView: React.FC<ConnectedDevicesViewProps> = ({ cata
               {/* QR Code Container */}
               <div className="inline-block p-4 rounded-2xl bg-white shadow-2xl border-4 border-indigo-500/20">
                 <img
-                  src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://manager.civer.cloud/downloads/com.civer.appstore-v1.0.3-release.apk"
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://manager.civer.cloud/downloads/com.civer.appstore-v1.0.4-release.apk"
                   alt="QR Civer App Store APK"
                   className="w-44 h-44 rounded-lg"
                 />
@@ -242,7 +242,7 @@ export const ConnectedDevicesView: React.FC<ConnectedDevicesViewProps> = ({ cata
               <div className="text-[11px] text-slate-400 space-y-1">
                 <p>Enlace de descarga directo:</p>
                 <code className="text-emerald-400 font-mono text-[10px] break-all">
-                  https://manager.civer.cloud/downloads/com.civer.appstore-v1.0.3-release.apk
+                  https://manager.civer.cloud/downloads/com.civer.appstore-v1.0.4-release.apk
                 </code>
               </div>
             </div>
@@ -324,7 +324,7 @@ export const ConnectedDevicesView: React.FC<ConnectedDevicesViewProps> = ({ cata
                     onChange={(e) => setSelectedAppId(e.target.value)}
                     className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500"
                   >
-                    <option value="civer-app-store">🚀 Civer App Store Oficial (com.civer.appstore v1.0.3)</option>
+                    <option value="civer-app-store">🚀 Civer App Store Oficial (com.civer.appstore v1.0.4)</option>
                     {catalogApps.slice(0, 10).map(app => (
                       <option key={app.id} value={app.id}>
                         {app.name} — {app.packageName || app.id} ({app.category})

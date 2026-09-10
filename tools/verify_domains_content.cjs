@@ -45,7 +45,7 @@ async function main() {
   const apkHead = await new Promise((resolve) => {
     const req = https.request({
       hostname: 'appstore.civer.cloud',
-      path: '/downloads/com.civer.appstore-v1.0.3-release.apk',
+      path: '/downloads/com.civer.appstore-v1.0.4-release.apk',
       method: 'HEAD'
     }, (res) => {
       resolve({
@@ -57,7 +57,7 @@ async function main() {
     req.on('error', e => resolve({ error: e.message }));
     req.end();
   });
-  console.log('\n3. APK Download (v1.0.3):');
+  console.log('\n3. APK Download (v1.0.4):');
   console.log('   Status:', apkHead.statusCode);
   console.log('   Tamaño (bytes):', apkHead.contentLength);
   console.log('   Content-Type:', apkHead.contentType);
