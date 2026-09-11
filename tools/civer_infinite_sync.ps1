@@ -7,7 +7,8 @@
 param(
     [int]$IntervalSeconds = 60,
     [switch]$RunOnce,
-    [switch]$VerboseCluster
+    [switch]$VerboseCluster,
+    [switch]$RunSentinel
 )
 
 $ErrorActionPreference = 'Continue'
@@ -74,6 +75,20 @@ function Run-ClusterPulse {
             Write-Host "  -> [State Keeper] system_state.json actualizado con éxito." -ForegroundColor Green
         } catch {
             Write-Host "  -> [State Keeper] Error actualizando JSON: $($_.Exception.Message)" -ForegroundColor Red
+        }
+    }
+
+    # 7. Hub Global de Reportes Automatizados (Centinela Global)
+    if ($RunSentinel -or ($Iter % 5 -eq 1)) {
+        Write-Host "  -> [Global Sentinel] Actualizando hub global de reportes unificados..." -ForegroundColor Cyan
+        try {
+            $sentinelScript = Join-Path $PSScriptRoot "run_global_automated_sentinel.cjs"
+            if (Test-Path $sentinelScript) {
+                & node $sentinelScript
+                Write-Host "  -> [Global Sentinel] Hub global de reportes sincronizado exitosamente." -ForegroundColor Green
+            }
+        } catch {
+            Write-Host "  -> [Global Sentinel] Advertencia en ejecución: $($_.Exception.Message)" -ForegroundColor Yellow
         }
     }
 }

@@ -1,0 +1,124 @@
+{
+  "reportId": "rep-1789125343776",
+  "timestamp": "2026-09-11T11:15:34.256Z",
+  "environment": {
+    "masterNode": "DESKTOP-HLBE8QU (ASUS)",
+    "clusterVersion": "5.0.0-SOVEREIGN-CLUSTER",
+    "constitution": "docs/cluster/GLOBAL_CLUSTER_CONSTITUTION.md"
+  },
+  "summary": {
+    "overallHealth": "100%_OPERATIONAL",
+    "totalSkills": 113,
+    "skillsHarmonized": true,
+    "zeroTrackersCertified": true,
+    "hydrologyAllPackaged": true,
+    "mailboxActive": true
+  },
+  "subsystems": {
+    "canaries": {
+      "cloudflareEdge": {
+        "name": "Edge Cloudflare (bene.civer.cloud)",
+        "status": "HEALTHY",
+        "latencyMs": 638,
+        "statusCode": 200
+      },
+      "masterReact": {
+        "name": "ASUS Master React Frontend (Port 3000)",
+        "status": "ONLINE",
+        "latencyMs": 47,
+        "statusCode": 200,
+        "contentHash": "4db81ea5d8191e284286bc0ec7ab68fe0f3b6828b61d61358f5348690d318146"
+      },
+      "alwaysOnGateway": {
+        "name": "Always-On Gateway (Port 3080)",
+        "status": "STANDBY_READY",
+        "latencyMs": 5
+      },
+      "phpLagoon": {
+        "name": "Laguna PHP 8.2 Headless",
+        "status": "HEALTHY",
+        "version": "8.2.33",
+        "router": "php/api/router.php"
+      },
+      "thinkpadPeer": {
+        "name": "Nodo ThinkPad T480s (Tailscale Mesh)",
+        "status": "STANDBY_FEDERATED",
+        "tailscaleIp": "100.96.218.12",
+        "discoveryWebPort": 8766
+      },
+      "samsungHardware": {
+        "name": "Samsung Galaxy A06 (Hardware Físico)",
+        "model": "Samsung Galaxy A06",
+        "serial": "R8YY500R7ZB",
+        "connection": "ADB_OVER_SSH",
+        "shizukuStatus": "RUNNING"
+      },
+      "civerWork": {
+        "name": "Civer Work Sovereign Ledger & Payments",
+        "status": "OPERATIONAL_ZERO_FEE",
+        "lightningNet": "BOLT11_READY",
+        "speiBanxico": "DIRECT_DISBURSE_ACTIVE",
+        "feeRate": "0.00%"
+      }
+    },
+    "hydrology": {
+      "routerSyntax": "CLEAN_SYNTAX_0_ERRORS",
+      "plugins": [
+        {
+          "plugin": "civer-cloud-headless-bridge",
+          "zipExists": true,
+          "sizeBytes": 1201,
+          "sha256": "3dcfd63b878a173bf21331378e6b485861c08bd66789f758d78107f178852f67",
+          "status": "PACKAGED_AND_VERIFIED"
+        },
+        {
+          "plugin": "civer-commerce-engine",
+          "zipExists": true,
+          "sizeBytes": 1101,
+          "sha256": "7c585a0dff8865909ed3b18294217ae3674a13f1b86a2598ea0efaca93a90b41",
+          "status": "PACKAGED_AND_VERIFIED"
+        },
+        {
+          "plugin": "civer-visual-builder-engine",
+          "zipExists": true,
+          "sizeBytes": 1140,
+          "sha256": "435949932e79ca4dc2d7a6050624fcc1747e1d4b663dd7f0e5735d99900d4d38",
+          "status": "PACKAGED_AND_VERIFIED"
+        }
+      ],
+      "totalPlugins": 3,
+      "allPackaged": true
+    },
+    "catalog": {
+      "totalAppsCataloged": 50,
+      "sampleApps": [
+        "droid-ify",
+        "Android 8.0 (API 26)",
+        "aurora-store",
+        "Android 5.0 (API 21)",
+        "obtainium"
+      ],
+      "trackersDetected": 0,
+      "zeroTrackersCertified": true,
+      "licenseStandard": "SPDX_COMPLIANT_FOSS",
+      "status": "CERTIFIED_SOVEREIGN"
+    },
+    "skills": {
+      "totalSkillsRequired": 113,
+      "registrySynced": true,
+      "agentsDocSynced": true,
+      "stateJsonSynced": true,
+      "fullyHarmonized": true,
+      "categoriesCount": 12
+    },
+    "mailbox": {
+      "mailboxFile": "C:\\Users\\asus\\.gemini\\antigravity\\brain\\cluster_mailbox.json",
+      "active": true,
+      "pendingMessagesCount": 1,
+      "status": "SYNCHRONIZED"
+    }
+  },
+  "cryptographicProof": {
+    "reportPayloadSha256": "3bff4fa50dff3b742461c960bd1995a11d998ad1b2055b07f74ea0bf5da44911"
+  }
+}

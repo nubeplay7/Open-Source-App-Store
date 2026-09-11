@@ -1,23 +1,23 @@
 {
-  "timestamp": "2026-09-11T10:53:31.079Z",
+  "timestamp": "2026-09-11T11:11:57.256Z",
   "status": "HEALTHY",
   "canaries": {
     "edge_cloudflare": {
       "name": "Canary 1: Cloudflare Edge (bene.civer.cloud)",
-      "ok": true,
-      "latencyMs": 294,
-      "statusCode": 200
+      "ok": false,
+      "latencyMs": 4000,
+      "statusCode": 408
     },
     "local_master_web": {
       "name": "Canary 2: ASUS Master React (:3000)",
       "ok": true,
-      "latencyMs": 169,
+      "latencyMs": 196,
       "statusCode": 200
     },
     "always_on_gateway": {
       "name": "Canary 3: Droplet / Local Gateway (:3080)",
       "ok": true,
-      "latencyMs": 7,
+      "latencyMs": 3,
       "statusCode": 500
     },
     "thinkpad_node": {
@@ -45,5 +45,5 @@
       "mode": "CLI_ZTS_RUNTIME"
     }
   },
-  "healthPercent": 100
+  "healthPercent": 86
 }
