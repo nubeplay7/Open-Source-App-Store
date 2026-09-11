@@ -167,6 +167,23 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
     return saved === 'true';
   });
 
+  const sidebarScrollRef = useRef<HTMLDivElement>(null);
+
+  // Restore sidebar scroll position on mount
+  useEffect(() => {
+    const savedPos = sessionStorage.getItem('ciber_sidebar_scroll_pos');
+    if (savedPos && sidebarScrollRef.current) {
+      sidebarScrollRef.current.scrollTop = Number(savedPos);
+    }
+  }, []);
+
+  // Save scroll position
+  const handleSidebarScroll = () => {
+    if (sidebarScrollRef.current) {
+      sessionStorage.setItem('ciber_sidebar_scroll_pos', String(sidebarScrollRef.current.scrollTop));
+    }
+  };
+
   const toggleCollapse = () => {
     setIsCollapsed(prev => {
       const next = !prev;
@@ -174,6 +191,22 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
       return next;
     });
   };
+
+  // Keyboard shortcut [ or Ctrl+B to toggle collapse
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA' || target?.isContentEditable) {
+        return;
+      }
+      if (e.key === '[' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b')) {
+        e.preventDefault();
+        toggleCollapse();
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
 
   const navModes = [
     {
@@ -418,12 +451,12 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
 
       {/* Desktop Persistent Sidebar */}
       <aside
-        className={`hidden md:flex flex-col bg-[#0b0e14]/95 backdrop-blur-xl border-r border-slate-800/80 z-40 transition-all duration-300 select-none shrink-0 ${
+        className={`hidden md:flex flex-col h-screen max-h-screen sticky top-0 bg-[#0b0e14]/95 backdrop-blur-xl border-r border-slate-800/80 z-40 transition-all duration-300 select-none shrink-0 overflow-hidden ${
           isCollapsed ? 'w-16' : 'w-64'
         }`}
       >
       {/* Sidebar Header & Brand */}
-      <div className="p-3.5 border-b border-slate-800/80 flex items-center justify-between">
+      <div className="p-3.5 border-b border-slate-800/80 flex items-center justify-between shrink-0">
         {!isCollapsed ? (
           <div className="flex items-center gap-2.5 overflow-hidden">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700 flex items-center justify-center text-slate-950 font-black shadow-md shadow-emerald-950">
@@ -447,7 +480,7 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
 
         <button
           onClick={toggleCollapse}
-          title={isCollapsed ? 'Expandir barra lateral' : 'Colapsar barra lateral'}
+          title={isCollapsed ? 'Expandir barra lateral ([)' : 'Colapsar barra lateral ([)'}
           className="p-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white transition border border-slate-800"
         >
           {isCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
@@ -455,7 +488,7 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
       </div>
 
       {/* Main Navigation Views Section */}
-      <div className="p-2 space-y-1 border-b border-slate-800/80">
+      <div className="p-2 space-y-1 border-b border-slate-800/80 shrink-0">
         {!isCollapsed && (
           <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
             Vistas Principales
@@ -498,7 +531,7 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
       </div>
 
       {/* Quick Engineering & System Tools Section */}
-      <div className="flex-1 overflow-y-auto p-2 space-y-1">
+      <div ref={sidebarScrollRef} onScroll={handleSidebarScroll} className="flex-1 overflow-y-auto overscroll-contain p-2 space-y-1 custom-scrollbar-subtle">
         {/* Novedad Clave: Sincronización Multi-Dispositivo & Social */}
         {!isCollapsed && (
           <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono flex items-center justify-between">
@@ -1458,7 +1491,7 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
 
 
       {/* Bottom Profile & Hardware Telemetry Widget */}
-      <div className="p-3 border-t border-slate-800/80 bg-[#0e121a]/80">
+      <div className="p-3 border-t border-slate-800/80 bg-[#0e121a]/80 shrink-0">
         {!isCollapsed ? (
           <div className="space-y-2">
             {/* Device Telemetry Pill (Clickable) */}

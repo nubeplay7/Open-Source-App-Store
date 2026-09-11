@@ -1,9 +1,9 @@
 # REPORTE GLOBAL UNIFICADO DE AUDITORÍA Y SALUD DEL CLÚSTER
 ## Ecosistema Civer App Store, Bené Cloud & Nodos Federados
 
-- **ID de Reporte**: `rep-1789128402900`
-- **Sello de Tiempo ISO**: `2026-09-11T12:06:32.515Z`
-- **Firma Digital SHA-256**: `609195a5c84983e4828cd43cbb78c7eb813c3ebb509aff1215aa651c874db59c`
+- **ID de Reporte**: `rep-1789129509963`
+- **Sello de Tiempo ISO**: `2026-09-11T12:24:58.520Z`
+- **Firma Digital SHA-256**: `fe4e84d85cfc7874beb2d03450b06b92a40faad036820076060c336ddd587b7d`
 - **Estado General de Clúster**: **SALUDABLE (100% OPERACIONAL)**
 - **Constitución y Principios**: [`GLOBAL_CLUSTER_CONSTITUTION.md`](../cluster/GLOBAL_CLUSTER_CONSTITUTION.md)
 
@@ -13,8 +13,8 @@
 
 | Subsistema / Dominio | Estado | Métrica Clave | Verificación Anti-Falsos Positivos |
 | :--- | :--- | :--- | :--- |
-| **Edge Cloudflare** | `DEGRADED_TIMEOUT` | 3500ms | Sonda HTTP GET con validación de cabeceras |
-| **ASUS Master Frontend** | `OFFLINE` | Puerto 3000 (9ms) | Digest SHA-256 validado en caliente |
+| **Edge Cloudflare** | `HEALTHY` | 1765ms | Sonda HTTP GET con validación de cabeceras |
+| **ASUS Master Frontend** | `ONLINE` | Puerto 3000 (8ms) | Digest SHA-256 validado en caliente |
 | **Always-On Gateway** | `STANDBY_READY` | Puerto 3080 | Standby supervisor resiliente |
 | **Laguna PHP 8.2** | `HEALTHY` | Versión 8.2.33 | Router `php/api/router.php` verificado con `php -l` |
 | **ThinkPad Peer (Mesh)** | `STANDBY_FEDERATED` | 100.96.218.12 | Sondeo Tailscale y HUD DiscoveryWeb |
@@ -22,7 +22,7 @@
 | **Civer Work & Ledger** | `OPERATIONAL_ZERO_FEE` | 0% Comisiones | Facturación Lightning BOLT11 & SPEI Banxico |
 | **Catálogo FOSS** | `CERTIFIED_SOVEREIGN` | 50 Apps (0 Trackers) | Certificación Exodus Privacy Cero-Rastreadores |
 | **Catálogo de Skills** | `113_SKILLS_ALIGNED`| 113 Skills (12 Categorías) | Sincronía 1:1 entre Registry, AGENTS y State |
-| **Buzón Paperclip** | `SYNCHRONIZED` | 4 Mensajes | Cola atómica en almacenamiento compartido |
+| **Buzón Paperclip** | `SYNCHRONIZED` | 5 Mensajes | Cola atómica en almacenamiento compartido |
 
 ---
 

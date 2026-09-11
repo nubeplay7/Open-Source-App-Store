@@ -117,9 +117,9 @@
   "discoveryweb_thinkpad_online": true,
   "total_skills_count": 113,
   "pipeline_last_execution": {
-    "timestamp": "2026-09-11T12:06:42.955Z",
+    "timestamp": "2026-09-11T12:25:11.147Z",
     "targetPhase": "ALL",
-    "stepsExecuted": 4,
+    "stepsExecuted": 7,
     "allPassed": true
   }
 }

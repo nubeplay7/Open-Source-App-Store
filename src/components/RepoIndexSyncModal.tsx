@@ -35,6 +35,13 @@ import { civerWebSocketBus } from '../services/civerWebSocketBus';
 import { OPENAPI_SPEC, PROTOBUF_DEFINITION } from '../services/apiContractsService';
 import { MCP_SERVER_MANIFEST } from '../services/mcpToolsService';
 import { AppCatalogItem } from '../types';
+import { 
+  FDroidIndexV2Worker, 
+  VersionDeltaReport, 
+  AntiFeatureEvaluation, 
+  FdroidWorkerSyncProgress 
+} from '../services/fdroidIndexV2Worker';
+import { APPS_CATALOG } from '../data/appsCatalogData';
 
 interface FdroidMirror {
   id: string;
@@ -181,7 +188,7 @@ interface RepoIndexSyncModalProps {
   onOpenAcademy?: () => void;
 }
 
-type ModalTab = 'MIRRORS' | 'BATCH_IMPORT' | 'CI_QUEUE' | 'API_GATEWAY_DOCS' | 'MCP_AGENT_WORKSPACE';
+type ModalTab = 'MIRRORS' | 'STREAMING_V2' | 'BATCH_IMPORT' | 'CI_QUEUE' | 'API_GATEWAY_DOCS' | 'MCP_AGENT_WORKSPACE';
 
 export const RepoIndexSyncModal: React.FC<RepoIndexSyncModalProps> = ({
   isOpen,
@@ -227,6 +234,44 @@ export const RepoIndexSyncModal: React.FC<RepoIndexSyncModalProps> = ({
   }, [candidates]);
 
   if (!isOpen) return null;
+
+  const handleExecuteWorkerSync = async () => {
+    setIsSyncing(true);
+    const catalogToUse = (catalog && catalog.length > 0) ? catalog : APPS_CATALOG;
+    const mirror = mirrors.find(m => m.id === selectedMirror) || mirrors[0];
+    try {
+      setSyncLogs(prev => [
+        `[STREAM-V2] Conectando con ${mirror.name} (${mirror.url})...`,
+        ...prev
+      ]);
+      const result = await FDroidIndexV2Worker.executeStreamingSync(
+        mirror.url,
+        catalogToUse,
+        (progress) => {
+          setStreamingProgress(progress);
+          setSyncLogs(prev => [
+            `[${progress.step}] ${progress.message}`,
+            ...prev.slice(0, 20)
+          ]);
+        }
+      );
+      setDeltas(result.deltas);
+      civerWebSocketBus.emit('CATALOG_UPDATED', {
+        source: 'F-Droid Index V2 Worker',
+        updatesCount: result.deltas.filter(d => d.hasUpdate).length
+      });
+    } catch (err) {
+      setStreamingProgress({
+        step: 'ERROR',
+        percentage: 100,
+        packagesProcessed: 0,
+        totalPackages: 0,
+        message: `Error en streaming: ${err.message}`
+      });
+    } finally {
+      setIsSyncing(false);
+    }
+  };
 
   const handleStartSync = () => {
     setIsSyncing(true);

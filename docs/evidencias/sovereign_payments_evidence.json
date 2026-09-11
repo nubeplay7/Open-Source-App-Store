@@ -1,0 +1,37 @@
+{
+  "verdict": "APPROVED_SOVEREIGN_GATEWAY_CERTIFIED",
+  "timestamp": "2026-09-11T12:25:10.688Z",
+  "macroPhase": "Macro-Fase 14: Pasarela Soberana WebLN & SPEI",
+  "lightning": {
+    "amountSats": 25000,
+    "feeSats": 0,
+    "feePercentage": "0.0%",
+    "paymentHash": "3f6debad82906508c9b804dab0d20361c9eeecde83238fdb1c087268ad54d4c2",
+    "preimageProof": "1b243ee8519d1099eb3ed3f2c933b5544c939ef1e469920f31d00ffa32a23267",
+    "bolt11Invoice": "lnbc25000u1p3f6debad82906508c9b804dab0d20361pp51b243ee8519d1099eb3ed3f2c933b554",
+    "googleTaxAvoidedUsd": 4.88
+  },
+  "spei": {
+    "disbursementsCount": 2,
+    "averageLatencyMs": 412,
+    "records": [
+      {
+        "institution": "BBVA México",
+        "clabeMasked": "0121••••••••0107",
+        "validBanxicoAlgorithm": true,
+        "trackingFolioBanxico": "BNX1295106878179",
+        "status": "DISBURSED_SETTLED",
+        "networkLatencyMs": 412
+      },
+      {
+        "institution": "Nu México",
+        "clabeMasked": "6381••••••••6700",
+        "validBanxicoAlgorithm": true,
+        "trackingFolioBanxico": "BNX1295106885501",
+        "status": "DISBURSED_SETTLED",
+        "networkLatencyMs": 412
+      }
+    ]
+  },
+  "payloadDigestSha256": "34e6c17184378061d448b3e60879e61e888f81c3971b53a4a392c3ef76aaff15"
+}

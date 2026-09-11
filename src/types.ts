@@ -1722,3 +1722,84 @@ export interface OmniRouterStatus {
   pools: OmniRouterAccountPool[];
 }
 
+// -------------------------------------------------------------
+// F-DROID V2 STREAMING & ANTI-FEATURES DETECTOR
+// -------------------------------------------------------------
+
+export interface FDroidV2PackageEntry {
+  packageName: string;
+  name: string;
+  summary: string;
+  description: string;
+  versionName: string;
+  versionCode: number;
+  addedTimestamp: number;
+  lastUpdatedTimestamp: number;
+  apkSize: number;
+  sha256: string;
+  antiFeatures: string[];
+  license: string;
+  webUrl: string;
+  iconUrl?: string;
+  screenshots?: string[];
+}
+
+export interface FDroidV2IndexManifest {
+  repoName: string;
+  repoUrl: string;
+  timestamp: number;
+  version: number;
+  packagesCount: number;
+  packages: Record<string, FDroidV2PackageEntry>;
+}
+
+export interface FDroidSyncResult {
+  syncId: string;
+  timestamp: string;
+  packagesEvaluated: number;
+  antiFeaturesDetected: number;
+  newReleasesFound: number;
+  sha256Signature: string;
+  status: 'SYNCHRONIZED' | 'PARTIAL' | 'ERROR';
+}
+
+// -------------------------------------------------------------
+// PAGOS SOBERANOS (LIGHTNING NETWORK BOLT11 & BANXICO SPEI)
+// -------------------------------------------------------------
+
+export interface LightningInvoiceRequest {
+  amountSats: number;
+  memo: string;
+  expirySeconds?: number;
+}
+
+export interface LightningPaymentReceipt {
+  paymentHash: string;
+  preimage: string;
+  bolt11Invoice: string;
+  amountSats: number;
+  feeSats: number;
+  settledAt: string;
+  savingsVsAppStoreUsd: number;
+  status: 'SETTLED' | 'PENDING' | 'EXPIRED';
+}
+
+export interface SpeiTransferRequest {
+  clabe18Digits: string;
+  beneficiaryName: string;
+  amountMxn: number;
+  concept: string;
+}
+
+export interface SpeiDisbursementReceipt {
+  trackingFolioBanxico: string;
+  destinationBank: string;
+  clabeMasked: string;
+  amountMxn: number;
+  feeMxn: number;
+  disbursedAt: string;
+  cepUrl: string;
+  status: 'DISBURSED_SETTLED' | 'IN_TRANSIT' | 'REJECTED';
+}
+
+

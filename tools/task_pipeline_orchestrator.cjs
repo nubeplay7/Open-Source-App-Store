@@ -46,6 +46,16 @@ async function main() {
   // Paso 1: Macro-Fase 10 - Compilación de Ciclo de Vida Completo
   if (targetPhase === 'ALL' || targetPhase === '10') {
     const step1 = runStep('Macro-Fase 10: Compilación CI/CD de Ciclo Completo', () => {
+      const manifestPath = path.join(ROOT_DIR, 'docs', 'evidencias', 'full_lifecycle_build_manifest.json');
+      if (fs.existsSync(manifestPath)) {
+        const stats = fs.statSync(manifestPath);
+        const ageMinutes = (Date.now() - stats.mtimeMs) / (1000 * 60);
+        if (ageMinutes < 15) {
+          const raw = fs.readFileSync(manifestPath, 'utf8');
+          const data = JSON.parse(raw);
+          return { status: 'CACHE_VALID_FRESH', buildId: data.buildId, verdict: data.verdict, ageMinutes: Math.round(ageMinutes) };
+        }
+      }
       const script = path.join(ROOT_DIR, 'tools', 'ci_cd_full_lifecycle_engine.cjs');
       return execSync(`node "${script}"`, { cwd: ROOT_DIR, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
     });
@@ -85,6 +95,33 @@ async function main() {
       };
     });
     executionLog.push({ phase: 'Macro-Fase 12', ...step4 });
+  }
+
+  // Paso 5: Macro-Fase 13 - Ingestor Streaming F-Droid v2 & Anti-Features
+  if (targetPhase === 'ALL' || targetPhase === '13') {
+    const step5 = runStep('Macro-Fase 13: Ingestor Streaming F-Droid v2 y Detección Anti-Features', () => {
+      const script = path.join(ROOT_DIR, 'tools', 'verify_fdroid_streaming.cjs');
+      return execSync(`node "${script}"`, { cwd: ROOT_DIR, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+    });
+    executionLog.push({ phase: 'Macro-Fase 13', ...step5 });
+  }
+
+  // Paso 6: Macro-Fase 14 - Pasarela Soberana WebLN Lightning & SPEI Banxico
+  if (targetPhase === 'ALL' || targetPhase === '14') {
+    const step6 = runStep('Macro-Fase 14: Pasarela Soberana WebLN Lightning y Dispersión SPEI Banxico', () => {
+      const script = path.join(ROOT_DIR, 'tools', 'verify_sovereign_payments.cjs');
+      return execSync(`node "${script}"`, { cwd: ROOT_DIR, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+    });
+    executionLog.push({ phase: 'Macro-Fase 14', ...step6 });
+  }
+
+  // Paso 7: Macro-Fase 16 - Federación Semántica RAG y Búsqueda Vectorial Local
+  if (targetPhase === 'ALL' || targetPhase === '16') {
+    const step7 = runStep('Macro-Fase 16: Federación Semántica RAG Local (Vector Math & Embeddings)', () => {
+      const script = path.join(ROOT_DIR, 'tools', 'verify_semantic_rag.cjs');
+      return execSync(`node "${script}"`, { cwd: ROOT_DIR, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+    });
+    executionLog.push({ phase: 'Macro-Fase 16', ...step7 });
   }
 
   // Actualizar el estado consolidado

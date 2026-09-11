@@ -1,6 +1,6 @@
 {
-  "reportId": "rep-1789128402900",
-  "timestamp": "2026-09-11T12:06:32.515Z",
+  "reportId": "rep-1789129509963",
+  "timestamp": "2026-09-11T12:24:58.520Z",
   "environment": {
     "masterNode": "DESKTOP-HLBE8QU (ASUS)",
     "clusterVersion": "5.0.0-SOVEREIGN-CLUSTER",
@@ -18,21 +18,21 @@
     "canaries": {
       "cloudflareEdge": {
         "name": "Edge Cloudflare (bene.civer.cloud)",
-        "status": "DEGRADED_TIMEOUT",
-        "latencyMs": 3500,
-        "statusCode": 408
+        "status": "HEALTHY",
+        "latencyMs": 1765,
+        "statusCode": 200
       },
       "masterReact": {
         "name": "ASUS Master React Frontend (Port 3000)",
-        "status": "OFFLINE",
-        "latencyMs": 9,
-        "statusCode": 500,
-        "contentHash": null
+        "status": "ONLINE",
+        "latencyMs": 8,
+        "statusCode": 200,
+        "contentHash": "a3d4037ba29c735ea119b848e60e8822b58be42285d205072122512510b44a10"
       },
       "alwaysOnGateway": {
         "name": "Always-On Gateway (Port 3080)",
         "status": "STANDBY_READY",
-        "latencyMs": 5
+        "latencyMs": 3
       },
       "phpLagoon": {
         "name": "Laguna PHP 8.2 Headless",
@@ -114,11 +114,11 @@
     "mailbox": {
       "mailboxFile": "C:\\Users\\asus\\.gemini\\antigravity\\brain\\cluster_mailbox.json",
       "active": true,
-      "pendingMessagesCount": 4,
+      "pendingMessagesCount": 5,
       "status": "SYNCHRONIZED"
     }
   },
   "cryptographicProof": {
-    "reportPayloadSha256": "609195a5c84983e4828cd43cbb78c7eb813c3ebb509aff1215aa651c874db59c"
+    "reportPayloadSha256": "fe4e84d85cfc7874beb2d03450b06b92a40faad036820076060c336ddd587b7d"
   }
 }

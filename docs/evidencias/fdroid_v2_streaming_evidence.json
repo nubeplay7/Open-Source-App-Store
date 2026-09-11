@@ -1,0 +1,148 @@
+{
+  "verdict": "APPROVED_STREAMING_COMPATIBLE",
+  "timestamp": "2026-09-11T12:25:10.312Z",
+  "macroPhase": "Macro-Fase 13: Ingestor Streaming F-Droid v2",
+  "evaluatedPackagesCount": 14,
+  "antiFeaturesClassified": 6,
+  "manifestSchema": "https://gitlab.com/fdroid/fdroiddata/-/raw/master/schemas/v2/index.json",
+  "payloadDigestSha256": "fec01841ca9bf05b01e23b4b318b6228c7ea8ff5b3eba40e5f55d7709f671904",
+  "packages": [
+    {
+      "packageName": "dev.imranr.obtainium",
+      "name": "Obtainium",
+      "version": "1.0.0",
+      "antiFeatures": [
+        "NonFreeNet (Dependencia de servicios en nube)",
+        "UpstreamNonFree (Código fuente con componentes privativos)"
+      ],
+      "sha256": "c9563a32adb498ec364aa9a71954de040fbb4fdcc46207c183f2f9008a3644b5",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "org.schabi.newpipe",
+      "name": "NewPipe",
+      "version": "1.0.1",
+      "antiFeatures": [],
+      "sha256": "f35bebd26cd0c5b2862f8b18df05c9c9bf359eea22c78f53ec71771e48ca514c",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "app.revanced.manager.flutter",
+      "name": "ReVanced Manager",
+      "version": "1.0.2",
+      "antiFeatures": [],
+      "sha256": "0fda0408c6df403e1b8975d9f698c2214abcf9bd4e7f2441c60709cd667f3458",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "mihon.app",
+      "name": "Mihon",
+      "version": "1.0.3",
+      "antiFeatures": [],
+      "sha256": "e9942d38c2bf1f2ebe0b2423595a964fb7289a8f9e32838d7d0e8a31affc9a6d",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "com.termux",
+      "name": "Termux",
+      "version": "1.0.4",
+      "antiFeatures": [
+        "NonFreeNet (Dependencia de servicios en nube)"
+      ],
+      "sha256": "e48ee7e3377a48d7ff4df685c8ae754456f437196b37408207614f29695d8fa4",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "app.lawnchair",
+      "name": "Lawnchair 14",
+      "version": "1.0.5",
+      "antiFeatures": [],
+      "sha256": "95a75fa865e0728990ee87fb6fe5eb640ec738b6d14f35d19c2fa1b2e270c6dd",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "net.typeblog.shelter",
+      "name": "Shelter",
+      "version": "1.0.6",
+      "antiFeatures": [],
+      "sha256": "bd6ad7ee1b892f91e637d34517f4b2a7a6ad2fbc8db73debf2b8dc703be09845",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "com.kunzisoft.keepass.free",
+      "name": "KeePassDX Password Vault",
+      "version": "1.0.7",
+      "antiFeatures": [
+        "UpstreamNonFree (Código fuente con componentes privativos)"
+      ],
+      "sha256": "a4873bf469630b74c723e7678301dcb100469de4348dbbd6cc359ba8125d453b",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "com.machiav3lli.fdroid",
+      "name": "Neo Store",
+      "version": "1.0.8",
+      "antiFeatures": [
+        "NonFreeNet (Dependencia de servicios en nube)"
+      ],
+      "sha256": "12218a0feb396605fc42e49045d5d35561873dc9f9c39a5b2e1d62bee102d4aa",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "io.github.muntashirakon.AppManager",
+      "name": "App Manager",
+      "version": "1.0.9",
+      "antiFeatures": [],
+      "sha256": "ceca8319253de84c8f95c52f8039923a307785136ca0c348edef71840eb9e0c0",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "de.danoeh.antennapod",
+      "name": "AntennaPod",
+      "version": "1.0.10",
+      "antiFeatures": [],
+      "sha256": "4bf5266615e29118469b69cc8dfbeb2cb5cdb33409ca06a8e60790a57edec508",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "com.diegosouzapw.omniroute",
+      "name": "OmniRoute AI Gateway",
+      "version": "1.0.11",
+      "antiFeatures": [],
+      "sha256": "51b9c3dff2e1d7cd12125fd5545cef26086dcebd1c317839bc6fcc1babf24890",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "com.deepseek.harness",
+      "name": "DeepSeek Harness (dsh)",
+      "version": "1.0.12",
+      "antiFeatures": [
+        "NonFreeNet (Dependencia de servicios en nube)"
+      ],
+      "sha256": "05def382de7a2b8dba2cf57cdb4bc9d561aac61832e0b5c92fc153177ef49364",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    },
+    {
+      "packageName": "ai.openclaw.agent",
+      "name": "OpenClaw 2.0",
+      "version": "1.0.13",
+      "antiFeatures": [],
+      "sha256": "9808492ae57132ba8e2babdef20884c990411e0c15d182c28780ab6a088dbaf5",
+      "license": "GPL-3.0-or-later",
+      "reproducibleVerified": true
+    }
+  ]
+}

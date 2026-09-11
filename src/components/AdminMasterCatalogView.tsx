@@ -331,6 +331,18 @@ export const AdminMasterCatalogView: React.FC<AdminMasterCatalogViewProps> = ({
               </button>
 
               <button
+                onClick={() => {
+                  setNearbyAppToSend(undefined);
+                  setIsNearbyModalOpen(true);
+                }}
+                className="px-2.5 py-1.5 bg-cyan-950/80 hover:bg-cyan-900 text-cyan-300 border border-cyan-700/60 rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
+                title="Malla de Transferencia Nearby P2P WebRTC & Wi-Fi Direct"
+              >
+                <Radio className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="hidden sm:inline">Radar P2P Wi-Fi Direct</span>
+              </button>
+
+              <button
                 onClick={onBackToStore}
                 className="px-3 py-1.5 bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-600/50 rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
               >
@@ -921,6 +933,24 @@ export const AdminMasterCatalogView: React.FC<AdminMasterCatalogViewProps> = ({
                                 title="Auditar y verificar firma digital APK (v1-v4 con apksigner)"
                               >
                                 <Key className="w-3.5 h-3.5" />
+                              </button>
+
+                              {/* Nearby P2P WebRTC Transfer */}
+                              <button
+                                onClick={() => {
+                                  setNearbyAppToSend({
+                                    id: app.id,
+                                    name: app.name,
+                                    packageId: app.packageName,
+                                    sizeMb: app.apkSizeMb,
+                                    sha256: app.sha256Checksum || 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+                                  });
+                                  setIsNearbyModalOpen(true);
+                                }}
+                                className="p-1.5 bg-slate-800 hover:bg-cyan-950/80 text-cyan-400 rounded-lg text-xs transition border border-slate-700 hover:border-cyan-600"
+                                title="Transmitir APK a dispositivo cercano vía Nearby P2P Wi-Fi Direct"
+                              >
+                                <Radio className="w-3.5 h-3.5" />
                               </button>
                             </div>
                           </td>
@@ -1583,6 +1613,17 @@ export const AdminMasterCatalogView: React.FC<AdminMasterCatalogViewProps> = ({
           onClose={() => setIsKeystoreVaultModalOpen(false)}
           initialAppIdForVerification={selectedAppForSignatureVerification?.id}
           catalog={catalog}
+        />
+      )}
+
+      {/* ------------------------------------------------------------- */}
+      {/* MODAL GLOBAL DE TRANSFERENCIA NEARBY P2P MESH (WEBRTC)         */}
+      {/* ------------------------------------------------------------- */}
+      {isNearbyModalOpen && (
+        <NearbyTransferModal
+          isOpen={isNearbyModalOpen}
+          onClose={() => setIsNearbyModalOpen(false)}
+          defaultAppToSend={nearbyAppToSend}
         />
       )}
     </div>

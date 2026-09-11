@@ -42,6 +42,7 @@ import { RecommenderQuizView } from './components/RecommenderQuizView';
 import { EcosystemGuideView } from './components/EcosystemGuideView';
 import { StoreDetailModal } from './components/StoreDetailModal';
 import { ExportModal } from './components/ExportModal';
+import { ArrowUp } from 'lucide-react';
 
 // Modals & Views
 import { PlayStoreView } from './components/PlayStoreView';
@@ -349,12 +350,39 @@ export const App: React.FC = () => {
     }
   };
 
-  // Keyboard shortcut for Command Palette (Ctrl+K / Cmd+K)
+  // Independent Viewport Scrolling & Scroll-to-Top Handlers
+  const mainContentRef = useRef<HTMLElement>(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const handleMainContentScroll = (e: React.UIEvent<HTMLElement>) => {
+    const top = e.currentTarget.scrollTop;
+    setShowScrollTop(top > 350);
+  };
+
+  const handleScrollToTop = () => {
+    if (mainContentRef.current) {
+      mainContentRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  // Global Keyboard Shortcuts (Ctrl+K: Command Palette, T: Scroll-to-Top, /: Focus Catalog Search)
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      const target = e.target as HTMLElement;
+      const isTyping = target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA' || target?.isContentEditable;
+
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setIsCommandPaletteOpen((prev) => !prev);
+      } else if (!isTyping && (e.key === 't' || e.key === 'T')) {
+        e.preventDefault();
+        handleScrollToTop();
+      } else if (!isTyping && e.key === '/') {
+        const searchInput = document.getElementById('global-catalog-search-input');
+        if (searchInput) {
+          e.preventDefault();
+          searchInput.focus();
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -820,7 +848,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row selection:bg-emerald-950 selection:text-emerald-300 font-sans relative">
+    <div className="h-screen max-h-screen md:h-[100dvh] overflow-hidden bg-slate-950 text-slate-100 flex flex-col md:flex-row selection:bg-emerald-950 selection:text-emerald-300 font-sans relative">
       
       {/* GLOBAL DEVELOPER SIDEBAR (Desktop Sticky Aside + Mobile Drawer) */}
       <DeveloperSidebar
@@ -903,9 +931,13 @@ export const App: React.FC = () => {
         onCloseMobile={() => setIsMobileSidebarOpen(false)}
       />
 
-      {/* Main Content Area (Dynamic Container with Max-W and MX-Auto Fluidity + Elementor Live Customizer Styles + Viewport Simulation Frame) */}
-      <div 
-        className={`flex-1 flex flex-col min-w-0 overflow-x-hidden w-full mx-auto pb-16 md:pb-0 ${
+      {/* Main Content Area (Dynamic Independent Scroll Container + Max-W and MX-Auto Fluidity + Viewport Simulation Frame) */}
+      <main 
+        ref={mainContentRef}
+        onScroll={handleMainContentScroll}
+        id="civer-main-viewport-container"
+        tabIndex={-1}
+        className={`flex-1 flex flex-col min-w-0 h-full max-h-screen overflow-y-auto overflow-x-hidden w-full mx-auto pb-16 md:pb-0 overscroll-contain custom-scrollbar-main focus:outline-none ${
           isSimulating ? 'transition-none' : 'transition-all duration-200'
         } ${isGridDebug ? 'grid-debug-active' : ''} ${isHeatmapMode ? 'heatmap-mode-active' : ''} ${isStressTestActive ? 'stress-test-active' : ''} ${simulatedWidth !== null ? 'viewport-simulation-frame bg-slate-950/95 my-2 rounded-2xl border border-sky-500/40 shadow-2xl' : ''}`}
         style={{
@@ -1150,6 +1182,28 @@ export const App: React.FC = () => {
               onOpenAgentAPIExplorer={() => setIsAgentAPIExplorerOpen(true)}
               onOpenCiCdEvidence={() => setIsCiCdEvidenceOpen(true)}
               onOpenAndroidInstall={() => setIsAndroidInstallModalOpen(true)}
+              onOpenKeystoreVault={() => setIsKeystoreVaultOpen(true)}
+              onOpenNearbyTransfer={() => setIsNearbyTransferOpen(true)}
+              onOpenSecurityAudit={() => {
+                setSecurityAuditApp(null);
+                setIsSecurityAuditOpen(true);
+              }}
+              onOpenRepoManager={() => setIsRepoManagerOpen(true)}
+              onOpenDiagnostics={() => setIsDiagnosticsOpen(true)}
+              onOpenBuildsHub={() => setIsBuildsHubModalOpen(true)}
+              onOpenOtaReleases={() => setIsOtaModalOpen(true)}
+              onOpenDesignProfiles={() => setIsDesignProfilesOpen(true)}
+              onOpenFunctionalityProfiles={() => setIsFunctionalityProfilesOpen(true)}
+              onOpenDexDecompiler={() => setIsDexDecompilerOpen(true)}
+              onOpenGitPatch={() => setIsGitPatchOpen(true)}
+              onOpenRuntimeSandbox={() => setIsRuntimeSandboxOpen(true)}
+              onOpenArchitectureGraph={() => setIsArchitectureGraphOpen(true)}
+              onOpenLiveCustomizer={() => setIsLiveCustomizerOpen(true)}
+              onOpenResponsiveHUD={() => setIsResponsiveHUDOpen(true)}
+              onOpenVisualRegression={() => setIsVisualRegressionModalOpen(true)}
+              onOpenFluidityScore={() => setIsFluidityAuditModalOpen(true)}
+              onOpenScreenInventory={() => setIsScreenInventoryModalOpen(true)}
+              onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
             />
 
             {/* Main Tab Content */}

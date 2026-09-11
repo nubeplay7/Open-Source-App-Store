@@ -173,6 +173,63 @@ button, a[role="button"], .btn-action, .badge-pill, [class*="rounded-full"], [cl
   background: #334155;
 }
 
+/* Independent Split-Pane Custom Scrollbars */
+.custom-scrollbar-subtle {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(71, 85, 105, 0.45) transparent;
+  overscroll-behavior-y: contain;
+}
+
+.custom-scrollbar-subtle::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.custom-scrollbar-subtle::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar-subtle::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.4);
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+.custom-scrollbar-subtle::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.7);
+}
+
+.custom-scrollbar-main {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(51, 65, 85, 0.7) rgba(15, 23, 42, 0.25);
+  scrollbar-gutter: stable;
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+}
+
+.custom-scrollbar-main::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar-main::-webkit-scrollbar-track {
+  background: rgba(11, 14, 20, 0.4);
+}
+
+.custom-scrollbar-main::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+  border: 1px solid rgba(51, 65, 85, 0.25);
+}
+
+.custom-scrollbar-main::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+.overscroll-contain {
+  overscroll-behavior: contain;
+}
+
 /* Hide scrollbar on small touch devices for horizontal carousels while keeping scrollable */
 .no-scrollbar::-webkit-scrollbar {
   display: none;

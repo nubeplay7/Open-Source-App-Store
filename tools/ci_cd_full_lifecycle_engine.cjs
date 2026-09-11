@@ -43,7 +43,8 @@ function verifyTypeScript() {
   console.log('[Fase 1/6] Validando tipado estricto con TypeScript...');
   const t0 = getMicroseconds();
   try {
-    execSync('npx tsc --noEmit', { cwd: ROOT_DIR, stdio: ['pipe', 'pipe', 'pipe'], encoding: 'utf8' });
+    const tscBin = path.join(ROOT_DIR, 'node_modules', 'typescript', 'bin', 'tsc');
+    execSync(`node "${tscBin}" --noEmit`, { cwd: ROOT_DIR, stdio: ['ignore', 'pipe', 'ignore'], encoding: 'utf8' });
     const durationMs = Math.round((getMicroseconds() - t0) / 1000);
     console.log(`  -> Tipado TypeScript verificado: 0 errores (${durationMs}ms)`);
     return { status: 'CLEAN', errors: 0, durationMs };
@@ -60,7 +61,8 @@ function runProductionBuild() {
   console.log('[Fase 2/6] Compilando frontend web de producción con Vite...');
   const t0 = getMicroseconds();
   try {
-    execSync('npx vite build', { cwd: ROOT_DIR, stdio: ['pipe', 'pipe', 'pipe'], encoding: 'utf8' });
+    const viteBin = path.join(ROOT_DIR, 'node_modules', 'vite', 'bin', 'vite.js');
+    execSync(`node "${viteBin}" build`, { cwd: ROOT_DIR, stdio: ['ignore', 'pipe', 'ignore'], encoding: 'utf8' });
     const durationMs = Math.round((getMicroseconds() - t0) / 1000);
     console.log(`  -> Compilación Vite completada exitosamente (${durationMs}ms)`);
     return { status: 'SUCCESS', durationMs };

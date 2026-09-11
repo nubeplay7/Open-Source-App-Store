@@ -314,7 +314,7 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
   const editorChoiceApps = useMemo(() => catalog.filter(a => a.isEditorChoice), [catalog]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#111318] text-slate-100 pb-20 select-none">
+    <div className="flex flex-col min-h-full bg-[#111318] text-slate-100 pb-20 select-none">
       {/* Offline Mode Cached Banner */}
       {isOfflineMode && (
         <div className="bg-gradient-to-r from-amber-950 via-amber-900 to-amber-950 border-b border-amber-600/60 px-4 py-2 text-amber-200 text-xs flex items-center justify-between sticky top-0 z-40 shadow-lg">
@@ -349,7 +349,7 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
           )}
 
           {/* Search Pill */}
-          <div className="flex-1 bg-[#1e2025] hover:bg-[#252830] transition rounded-full px-4 py-2.5 flex items-center gap-3 border border-slate-800/80 shadow-sm">
+          <div className="flex-1 bg-[#1e2025] hover:bg-[#252830] transition rounded-full px-4 py-2.5 flex items-center gap-3 border border-slate-800/80 shadow-sm focus-within:border-emerald-500/60 focus-within:ring-1 focus-within:ring-emerald-500/40">
             <div className="flex items-center gap-1.5 font-bold text-xs tracking-wider shrink-0">
               {/* Google Play Quad-Color Logo */}
               <div className="w-5 h-5 flex items-center justify-center">
@@ -363,12 +363,17 @@ export const PlayStoreView: React.FC<PlayStoreViewProps> = ({
             </div>
 
             <input
+              id="global-catalog-search-input"
               type="text"
-              placeholder="Buscar apps de código abierto, clientes y juegos..."
+              placeholder="Buscar apps de código abierto, clientes y juegos... (Presiona /)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-transparent border-none outline-none text-xs text-slate-100 placeholder:text-slate-400 w-full"
             />
+
+            <span className="hidden sm:inline-flex items-center text-[10px] font-mono text-slate-500 bg-slate-900/90 border border-slate-800 px-1.5 py-0.5 rounded shadow-inner">
+              /
+            </span>
 
             {searchQuery && (
               <button onClick={() => setSearchQuery('')} className="text-slate-400 hover:text-slate-200 p-1">
