@@ -37,7 +37,8 @@ import {
   Building2,
   Activity,
   Zap,
-  Key
+  Key,
+  Radio
 } from 'lucide-react';
 import { AppCatalogItem, AppCatalogCategory } from '../types';
 import { BinaryDeltaPatcherService } from '../services/binaryDeltaPatcherService';
@@ -49,6 +50,7 @@ import {
 import { AdminEnterpriseHub } from './AdminEnterpriseHub';
 import { AppCrawlerScreensGalleryModal } from './AppCrawlerScreensGalleryModal';
 import { KeystoreVaultModal } from './KeystoreVaultModal';
+import { NearbyTransferModal } from './NearbyTransferModal';
 
 interface AdminMasterCatalogViewProps {
   catalog: AppCatalogItem[];
@@ -100,6 +102,16 @@ export const AdminMasterCatalogView: React.FC<AdminMasterCatalogViewProps> = ({
   // Keystore Vault & Signature Verifier modal state
   const [isKeystoreVaultModalOpen, setIsKeystoreVaultModalOpen] = useState(false);
   const [selectedAppForSignatureVerification, setSelectedAppForSignatureVerification] = useState<AppCatalogItem | null>(null);
+
+  // Nearby P2P Wi-Fi Direct Mesh transfer state
+  const [isNearbyModalOpen, setIsNearbyModalOpen] = useState(false);
+  const [nearbyAppToSend, setNearbyAppToSend] = useState<{
+    id: string;
+    name: string;
+    packageId: string;
+    sizeMb: number;
+    sha256: string;
+  } | undefined>(undefined);
 
   // Extended filters
   const [buildNodeFilter, setBuildNodeFilter] = useState<string>('ALL');

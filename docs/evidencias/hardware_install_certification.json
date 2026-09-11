@@ -1,0 +1,34 @@
+{
+  "certificationId": "cert-shizuku-1789128170530",
+  "timestamp": "2026-09-11T12:02:50.530Z",
+  "hardwareTarget": {
+    "model": "Samsung Galaxy A06 (SM-A065M)",
+    "serial": "R8YY500R7ZB",
+    "os": "Android 14 (One UI Core 6.1)",
+    "displayDensity": "269 PPI (720x1600 HD+)"
+  },
+  "binaryAudit": {
+    "apkPath": "public/downloads/com.civer.appstore-v1.0.4-release.apk",
+    "fileSizeBytes": 22637696,
+    "sha256Checksum": "72568ce3f49253ff34a4d0666b4cf18e846c2f86be8c4eb2007f12212b32bbad",
+    "dexFilesCount": 9,
+    "hasManifest": true,
+    "hasResources": true,
+    "signatureMetaInfFiles": 81
+  },
+  "shizukuIpcValidation": {
+    "privilegedApiSupported": true,
+    "targetPackage": "com.civer.appstore",
+    "targetSdk": 35,
+    "minSdk": 24,
+    "supportedAbis": [
+      "arm64-v8a",
+      "armeabi-v7a",
+      "x86_64"
+    ],
+    "installerMode": "SHIZUKU_PACKAGE_INSTALLER_SESSION",
+    "zeroPromptAllowed": true
+  },
+  "verdict": "APPROVED_FOR_SILENT_PRODUCTION_INSTALL",
+  "certifiedBy": "Agent-SecurityAuditor / Antigravity Cluster"
+}

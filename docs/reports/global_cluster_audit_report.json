@@ -1,6 +1,6 @@
 {
-  "reportId": "rep-1789127232937",
-  "timestamp": "2026-09-11T11:46:56.070Z",
+  "reportId": "rep-1789128402900",
+  "timestamp": "2026-09-11T12:06:32.515Z",
   "environment": {
     "masterNode": "DESKTOP-HLBE8QU (ASUS)",
     "clusterVersion": "5.0.0-SOVEREIGN-CLUSTER",
@@ -18,16 +18,16 @@
     "canaries": {
       "cloudflareEdge": {
         "name": "Edge Cloudflare (bene.civer.cloud)",
-        "status": "HEALTHY",
-        "latencyMs": 981,
-        "statusCode": 200
+        "status": "DEGRADED_TIMEOUT",
+        "latencyMs": 3500,
+        "statusCode": 408
       },
       "masterReact": {
         "name": "ASUS Master React Frontend (Port 3000)",
-        "status": "ONLINE",
-        "latencyMs": 442,
-        "statusCode": 200,
-        "contentHash": "1abf1bc353127d4efacda5ef5ca869dc7c513fa74c48985dd50b64dfad0375ca"
+        "status": "OFFLINE",
+        "latencyMs": 9,
+        "statusCode": 500,
+        "contentHash": null
       },
       "alwaysOnGateway": {
         "name": "Always-On Gateway (Port 3080)",
@@ -114,11 +114,11 @@
     "mailbox": {
       "mailboxFile": "C:\\Users\\asus\\.gemini\\antigravity\\brain\\cluster_mailbox.json",
       "active": true,
-      "pendingMessagesCount": 2,
+      "pendingMessagesCount": 4,
       "status": "SYNCHRONIZED"
     }
   },
   "cryptographicProof": {
-    "reportPayloadSha256": "92b72bb40e8a9d89593560f9dac6018383efd9578d1dc7e436e1db190ffe29e3"
+    "reportPayloadSha256": "609195a5c84983e4828cd43cbb78c7eb813c3ebb509aff1215aa651c874db59c"
   }
 }

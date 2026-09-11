@@ -1,7 +1,7 @@
 {
-  "buildId": "build-1789127143555",
-  "buildTimestamp": "2026-09-11T11:43:30.625Z",
-  "completedAt": "2026-09-11T11:45:43.556Z",
+  "buildId": "build-1789128384358",
+  "buildTimestamp": "2026-09-11T12:03:11.896Z",
+  "completedAt": "2026-09-11T12:06:24.360Z",
   "environment": {
     "node": "v24.18.1",
     "platform": "win32",
@@ -12,18 +12,18 @@
     "typeScript": {
       "status": "CLEAN",
       "errors": 0,
-      "durationMs": 50763
+      "durationMs": 103641
     },
     "productionBuild": {
       "status": "SUCCESS",
-      "durationMs": 76033
+      "durationMs": 88119
     },
     "distArtifacts": {
       "artifacts": [
         {
           "file": "index.html",
           "sizeBytes": 2077,
-          "sha256": "1abf1bc353127d4efacda5ef5ca869dc7c513fa74c48985dd50b64dfad0375ca"
+          "sha256": "c8a79f89b7530bc601905e042fa83e093ca021fdc56ef911429f0a66f187a148"
         },
         {
           "file": "manifest.webmanifest",
@@ -33,7 +33,7 @@
         {
           "file": "sw.js",
           "sizeBytes": 2512,
-          "sha256": "1df4bdbff59fe349c88820bef52b0bd3ac66c4b2208558652db50eb7a2606150"
+          "sha256": "5f7078452af0146aac26fba60de9e1d55f03bcd5194331657ed1c918ca32b314"
         },
         {
           "file": "registerSW.js",
@@ -78,5 +78,5 @@
     }
   },
   "verdict": "ALL_STAGES_PASSED_100%_OPERATIONAL",
-  "cryptoSignature": "19de1070134d90b6354f3872e98df4060f9f81ea9d190edf87923512f0e5f519"
+  "cryptoSignature": "0b0eed7fc0f23ca2699e2baa861655196ceee90a7105f4930c45a542f5ea5003"
 }

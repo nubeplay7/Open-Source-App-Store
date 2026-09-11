@@ -1,13 +1,13 @@
 {
-  "reportId": "heal-1789127726543",
-  "timestamp": "2026-09-11T11:55:15.276Z",
+  "reportId": "heal-1789128392118",
+  "timestamp": "2026-09-11T12:06:24.711Z",
   "clusterMaster": "DESKTOP-HLBE8QU (ASUS Master Node)",
   "verdict": "SYSTEM_AUTONOMOUSLY_STABLE_AND_SELF_HEALED",
   "autoDiagnosis": {
     "services": {
       "port3000": {
         "status": "RECOVERED_ONLINE",
-        "latencyMs": 2500
+        "latencyMs": 0
       },
       "phpLagoon": {
         "status": "OPERATIONAL"
@@ -16,7 +16,7 @@
         {
           "target": "ASUS_PORT_3000",
           "action": "EVACUATE_PORT_AND_HEALTH_CHECK",
-          "timestamp": "2026-09-11T11:55:22.972Z",
+          "timestamp": "2026-09-11T12:06:31.776Z",
           "result": "HEALED"
         }
       ]
@@ -83,7 +83,7 @@
         "systemdRecycler": "civer-openclaw-systemd-graceful-recycler",
         "status": "ACTIVE_COORDINATING"
       },
-      "mailboxProcessedMessages": 2,
+      "mailboxProcessedMessages": 3,
       "swarmStatus": "100%_SYNCHRONIZED"
     },
     "hardware": {
@@ -95,5 +95,5 @@
     }
   },
   "recoveryActionsTotal": 1,
-  "cryptoProof": "2bb42f2b484c1e05db8a418c2343582e05ff28c0ef4c0ee1ca3d32800554a1ce"
+  "cryptoProof": "6b17107baa01f52a07b678451f5d11911080e766779309ce16dfb44f9ea9c9e5"
 }

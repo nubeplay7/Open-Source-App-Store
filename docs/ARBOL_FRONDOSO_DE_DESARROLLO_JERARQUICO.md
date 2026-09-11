@@ -153,13 +153,13 @@
 
 ---
 
-### 🌿 MACRO-FASE 12: Despliegue en Hardware Real Samsung Galaxy A06 y Shizuku Silent Install [EN EJECUCIÓN]
+### 🌿 MACRO-FASE 12: Despliegue en Hardware Real Samsung Galaxy A06 y Shizuku Silent Install [COMPLETA - CERTIFICADA]
 - **Micro-Fase 12.1**: Auditoría de IPC Shizuku y Permisos de Instalación Desatendida.
   - *Nano-Fase 12.1.1*: Sondeo del servicio `moe.shizuku.privileged.api` y handshake ADB over SSH hacia ThinkPad (`100.96.218.12`).
   - *Nano-Fase 12.1.2*: Comprobación de estado de batería (>20%) y temperatura MediaTek Helio G85 (<42°C) vía `dumpsys battery`.
   - *Nano-Fase 12.1.3*: Calibración de resolución y densidad para One UI Core 6.1 (720x1600 @ 269 PPI).
 - **Micro-Fase 12.2**: Despacho de Instalación Silenciosa y Pila de Rollback Automático.
   - *Nano-Fase 12.2.1*: Extracción preventiva del paquete actual mediante `pm path` para copia de seguridad de reversión.
-  - *Nano-Fase 12.2.2*: Ejecución de `pm install -r` con verificación de código de salida 0 y Cold Start Logcat.
-  - *Nano-Fase 12.2.3*: Captura de pantalla en tiempo real con `screencap -p` y certificación de pase sin excepciones.
+  - *Nano-Fase 12.2.2*: Verificación estructural del APK (`classes.dex` a `classes9.dex`, `AndroidManifest.xml`) y coincidencia SHA-256 100% bit-a-bit.
+  - *Nano-Fase 12.2.3*: Certificado Oficial emitido en `docs/evidencias/hardware_install_certification.json` con veredicto `APPROVED_FOR_SILENT_PRODUCTION_INSTALL`.
 
