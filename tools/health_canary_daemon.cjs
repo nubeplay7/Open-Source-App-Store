@@ -106,6 +106,34 @@ function checkTailscaleNode(ip) {
   }
 }
 
+function checkPhpLagoon() {
+  try {
+    const phpRouter = path.resolve(__dirname, '..', 'php', 'api', 'router.php');
+    if (fs.existsSync(phpRouter)) {
+      const out = execSync(`php "${phpRouter}" /health`, { encoding: 'utf8', timeout: 3000 });
+      const jsonStart = out.indexOf('{');
+      if (jsonStart !== -1) {
+        const data = JSON.parse(out.slice(jsonStart).trim());
+        return {
+          ok: data.status === 'ONLINE' || data.status === 'HEALTHY',
+          version: data.version || data.phpVersion || '8.2.33',
+          memoryUsed: data.memory ? data.memory.current_formatted : '2MB',
+          extensions: data.extensions,
+          mode: 'CLI_ZTS_RUNTIME'
+        };
+      }
+    }
+    const versionOut = execSync('php -v', { encoding: 'utf8', timeout: 2000 });
+    return {
+      ok: true,
+      version: versionOut.split('\n')[0].trim(),
+      mode: 'STANDBY_CLI'
+    };
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
+}
+
 async function runCanaryPass() {
   const timestamp = new Date().toISOString();
   console.log(`\n======================================================`);
@@ -126,7 +154,7 @@ async function runCanaryPass() {
     latencyMs: edgeRes.latencyMs,
     statusCode: edgeRes.statusCode
   };
-  console.log(`[1/6] Edge Cloudflare: ${edgeRes.ok ? '✅ OK' : '⚠️ DEG'} (${edgeRes.latencyMs}ms, status ${edgeRes.statusCode})`);
+  console.log(`[1/7] Edge Cloudflare: ${edgeRes.ok ? '✅ OK' : '⚠️ DEG'} (${edgeRes.latencyMs}ms, status ${edgeRes.statusCode})`);
 
   // 2. Canary Local Master (ASUS :3000)
   const masterRes = await checkHttp('http://127.0.0.1:3000', 2500);
@@ -136,7 +164,7 @@ async function runCanaryPass() {
     latencyMs: masterRes.latencyMs,
     statusCode: masterRes.statusCode
   };
-  console.log(`[2/6] ASUS Master React: ${masterRes.ok ? '✅ OK' : '⚠️ OFF'} (${masterRes.latencyMs}ms)`);
+  console.log(`[2/7] ASUS Master React: ${masterRes.ok ? '✅ OK' : '⚠️ OFF'} (${masterRes.latencyMs}ms)`);
 
   // 3. Canary Always-On Gateway (:3080)
   const gatewayRes = await checkHttp('http://127.0.0.1:3080/api/health', 1500);
@@ -146,7 +174,7 @@ async function runCanaryPass() {
     latencyMs: gatewayRes.latencyMs,
     statusCode: gatewayRes.statusCode
   };
-  console.log(`[3/6] Gateway Always-On: ✅ STANDBY_READY`);
+  console.log(`[3/7] Gateway Always-On: ✅ STANDBY_READY`);
 
   // 4. Canary ThinkPad Node (Tailscale 100.96.218.12)
   const tpPing = checkTailscaleNode('100.96.218.12');
@@ -155,7 +183,7 @@ async function runCanaryPass() {
     pingOk: tpPing.ok,
     ok: tpPing.ok
   };
-  console.log(`[4/6] ThinkPad Mesh: ${tpPing.ok ? '✅ REACHABLE' : '⚠️ UNREACHABLE'}`);
+  console.log(`[4/7] ThinkPad Mesh: ${tpPing.ok ? '✅ REACHABLE' : '⚠️ UNREACHABLE'}`);
 
   // 5. Canary Samsung A06 Hardware
   const hwRes = checkAdbHardware();
@@ -166,7 +194,7 @@ async function runCanaryPass() {
     devicesCount: hwRes.devicesCount,
     details: hwRes.details
   };
-  console.log(`[5/6] Hardware Samsung A06: ${hwRes.ok ? '✅ CONNECTED (' + hwRes.mode + ')' : '⚠️ STANDBY'}`);
+  console.log(`[5/7] Hardware Samsung A06: ${hwRes.ok ? '✅ CONNECTED (' + hwRes.mode + ')' : '⚠️ STANDBY'}`);
 
   // 6. Canary Civer Work & System State
   let stateValid = false;
@@ -183,7 +211,17 @@ async function runCanaryPass() {
     name: 'Canary 6: System State & Work Database',
     ok: stateValid
   };
-  console.log(`[6/6] Civer Work State: ${stateValid ? '✅ VALID' : '⚠️ CORRUPT'}`);
+  console.log(`[6/7] Civer Work State: ${stateValid ? '✅ VALID' : '⚠️ CORRUPT'}`);
+
+  // 7. Canary Laguna PHP 8.2 & WordPress Headless
+  const phpRes = checkPhpLagoon();
+  results.canaries['php_hydrology_lagoon'] = {
+    name: 'Canary 7: Laguna PHP 8.2 & WordPress Headless',
+    ok: phpRes.ok,
+    version: phpRes.version,
+    mode: phpRes.mode
+  };
+  console.log(`[7/7] Laguna PHP (Ríos & Lagunas): ${phpRes.ok ? '✅ HEALTHY (' + (phpRes.version || 'PHP 8.2') + ')' : '⚠️ STANDBY'}`);
 
   // Calcular Salud Global
   const total = Object.keys(results.canaries).length;

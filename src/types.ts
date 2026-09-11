@@ -489,7 +489,7 @@ export interface DeviceTelemetry {
   connectionSpeedKbps: number;
 }
 
-export type StoreUiMode = 'ciber_store' | 'play_store' | 'app_store' | 'matrix_pro' | 'dev_workspace' | 'admin_catalog_matrix' | 'connected_devices' | 'android_ecosystem' | 'civer_work_hub';
+export type StoreUiMode = 'ciber_store' | 'play_store' | 'app_store' | 'matrix_pro' | 'dev_workspace' | 'admin_catalog_matrix' | 'connected_devices' | 'android_ecosystem' | 'civer_work_hub' | 'php_hydrology';
 
 // -------------------------------------------------------------
 // CIBER DEV WORKSPACE (OBSIDIAN + JIRA + SLACK + CHANGELOG SYNC)

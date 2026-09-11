@@ -578,3 +578,32 @@ Este documento contiene la especificación formal y ejecutable de las **50 Habil
   2. Monitorear el estado de ejecución y reanudar el bucle ante caídas o reinicios.
 - **Salida**: Servicio persistente y soberano de sincronización infinita de clúster.
 
+### 56. `SKILL-ENT-06: PhpHydrologyLagoonBridge`
+- **Propósito**: Coordinar la comunicación bidireccional y fallback determinista entre el clúster TypeScript y la Laguna PHP 8.2 Headless (`php/api/router.php`).
+- **Disparador**: Invocación de operaciones de la API REST o comprobación de salud de la cuenca hidrológica.
+- **Entrada**: Solicitudes HTTP o comandos CLI hacia los controladores de salud, construcción y comercio.
+- **Ejecución**:
+  1. Detectar el entorno de ejecución (CLI vs servidor HTTP nativo).
+  2. Despachar a los controladores especializados (`HealthController`, `BuilderController`, `CommerceController`, `WordPressBridgeController`).
+  3. Emitir respuestas normalizadas JSON con degradación offline elegante en el cliente TypeScript.
+- **Salida**: Integración fluida entre PHP 8.2 y el frontend React sin dependencia de servidores pesados.
+
+### 57. `SKILL-ENT-07: HeadlessElementorComposeSynthesizer`
+- **Propósito**: Compilar esquemas declarativos JSON en código limpio Tailwind CSS para la web y composables `@Composable` de Jetpack Compose para Android.
+- **Disparador**: Generación o edición de vistas en el constructor visual de Civer Store.
+- **Entrada**: Estructura en árbol de bloques (`HERO_BANNER`, `APP_SHOWCASE_GRID`, `FEATURE_MATRIX`, `CTA_CONVERSION`).
+- **Ejecución**:
+  1. Parsear propiedades declarativas y aplicar clases de utilidad Tailwind CSS v4.
+  2. Mapear jerarquías equivalentes en Kotlin (`Column`, `Row`, `Card`, `Button`, `Text`).
+  3. Emitir el doble flujo de renderizado en un solo payload sincronizado.
+- **Salida**: Paridad visual y funcional 1:1 entre la experiencia web y la aplicación nativa Android.
+
+### 58. `SKILL-ENT-08: ZeroFeeCommerceWooCommerceClone`
+- **Propósito**: Gestionar catálogo, órdenes y liquidaciones comerciales con 0% de comisiones intermedias usando Lightning Network y SPEI directo.
+- **Disparador**: Compra de software, módulos o soporte para desarrolladores en la tienda.
+- **Entrada**: Identificador de producto, método de pago (`LIGHTNING` o `SPEI`) y correo del cliente.
+- **Ejecución**:
+  1. Calcular el ahorro del 30% frente a las tarifas de Google Play Store.
+  2. Generar facturas BOLT11 con expiración y CLABEs virtuales de Banxico.
+  3. Registrar la orden en el almacenamiento local y notificar al comprador.
+- **Salida**: Transacciones comerciales soberanas sin intermediarios bancarios abusivos ni tiendas cerradas.

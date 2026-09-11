@@ -193,6 +193,14 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
       activeBg: 'bg-amber-950/80 border-amber-700/80 text-amber-300 shadow-sm'
     },
     {
+      id: 'php_hydrology' as StoreUiMode,
+      name: 'Ríos & Lagunas (PHP/WP)',
+      tag: 'Headless WP • Elementor • WC',
+      icon: Code2,
+      color: 'text-indigo-400',
+      activeBg: 'bg-indigo-950/80 border-indigo-700/80 text-indigo-300 shadow-sm'
+    },
+    {
       id: 'dev_workspace' as StoreUiMode,
       name: 'Dev Workspace',
       tag: 'Obsidian • Jira • Slack',

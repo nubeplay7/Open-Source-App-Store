@@ -212,6 +212,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <button
+              onClick={() => onSelectUiMode('php_hydrology')}
+              className={`px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition font-medium ${
+                uiMode === 'php_hydrology'
+                  ? 'bg-indigo-950 text-indigo-300 border border-indigo-600/50 shadow-sm'
+                  : 'text-slate-400 hover:text-indigo-300'
+              }`}
+              title="Ríos & Lagunas: PHP 8.2 + WordPress Headless (Elementor & WooCommerce Clones)"
+            >
+              <Code2 className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="hidden sm:inline">Ríos &amp; Lagunas</span>
+              <span className="px-1.5 py-0.2 rounded text-[9px] bg-indigo-500/20 text-indigo-300 font-bold hidden lg:inline">PHP/WP</span>
+            </button>
+
+            <button
               onClick={() => onSelectUiMode('dev_workspace')}
               className={`px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition font-medium ${
                 uiMode === 'dev_workspace'

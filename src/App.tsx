@@ -49,6 +49,7 @@ import { AppStoreView } from './components/AppStoreView';
 import { CiberDevWorkspaceView } from './components/CiberDevWorkspaceView';
 import { ConnectedDevicesView } from './components/ConnectedDevicesView';
 import { CiverWorkEcosystemView } from './components/CiverWorkEcosystemView';
+import { PhpHydrologyEcosystemView } from './components/PhpHydrologyEcosystemView';
 import { AndroidAppEcosystemView } from './components/AndroidAppEcosystemView';
 import { AndroidInstallModal } from './components/AndroidInstallModal';
 import { OfflineIndicator } from './components/OfflineIndicator';
@@ -1278,6 +1279,11 @@ export const App: React.FC = () => {
       {/* 7. CIVER WORK & SHARK TANK HUB ("Tu trabajo en línea que sí paga") */}
       {uiMode === 'civer_work_hub' && (
         <CiverWorkEcosystemView />
+      )}
+
+      {/* 8. RÍOS Y LAGUNAS (PHP 8.2 & WORDPRESS HEADLESS ECOSYSTEM) */}
+      {uiMode === 'php_hydrology' && (
+        <PhpHydrologyEcosystemView />
       )}
       </div>
 
