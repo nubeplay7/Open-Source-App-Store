@@ -68,9 +68,9 @@ El repositorio cuenta con un servidor de **Model Context Protocol (MCP)** implem
 
 ---
 
-## 5. Índice Maestro de 50 Specialized Agent Skills
+## 5. Índice Maestro de 113 Specialized Agent Skills
 
-Cualquier sub-agente que opere sobre el sistema debe consultar y ejecutar las siguientes 50 habilidades especializadas descritas en detalle en `docs/skills/SKILLS_REGISTRY.md`:
+Cualquier sub-agente que opere sobre el sistema debe consultar y ejecutar las siguientes 113 habilidades especializadas descritas en detalle en `docs/skills/SKILLS_REGISTRY.md`:
 
 ### Categoría A: Seguridad Criptográfica y Auditoría (10 Skills)
 1. **`SKILL-SEC-01: ExodusTrackerAudit`** — Escaneo de binarios APK y manifiestos para detectar rastreadores conocidos.
@@ -133,6 +133,81 @@ Cualquier sub-agente que opere sobre el sistema debe consultar y ejecutar las si
 48. **`SKILL-UIX-05: DarkModeNeutralHarmonizer`** — Evitación de fondos 100% negros; aplicación de sombras y elevaciones relativas.
 49. **`SKILL-UIX-06: CommandPaletteActionMapper`** — Mapeo de atajos de teclado globales (ej: `Ctrl+K`, `A` para Android).
 50. **`SKILL-UIX-07: OfflineFallbackRenderer`** — Garantía de pantallas de degradación limpia cuando no hay red.
+
+### Categoría G: Infraestructura Empresarial y Pagos Soberanos (8 Skills)
+51. **`SKILL-ENT-01: LightningBolt11Settler`** — Liquidación instantánea en satoshis vía Lightning Network (BOLT11/WebLN).
+52. **`SKILL-ENT-02: SpeiBanxicoDisburser`** — Dispersión inmediata SPEI hacia cuentas mexicanas con rastreo Banxico.
+53. **`SKILL-ENT-03: RemoteSamsungScreenMirror`** — Captura remota y control interactivo del Galaxy A06 por ADB over SSH.
+54. **`SKILL-ENT-04: ClusterMailboxPaperclipRouter`** — Enrutamiento y sincronización de mensajes entre agentes del clúster.
+55. **`SKILL-ENT-05: WindowsTaskSchedulerPersister`** — Supervisión e instalación de servicios en segundo plano vía Task Scheduler.
+56. **`SKILL-ENT-06: PhpHydrologyLagoonBridge`** — Enrutamiento dual CLI/HTTP entre React TypeScript y Laguna PHP 8.2.
+57. **`SKILL-ENT-07: HeadlessElementorComposeSynthesizer`** — Transpilador JSON a Tailwind CSS y Jetpack Compose Kotlin.
+58. **`SKILL-ENT-08: ZeroFeeCommerceWooCommerceClone`** — Motor de e-commerce soberano con 0% comisiones y pagos directos.
+
+### Categoría H: Testing Forense y Certificación Anti-Falsos Positivos (11 Skills)
+59. **`SKILL-TST-01: MultiRoundHttpContractAuditor`** — Auditorías HTTP E2E multirronda con validación SHA-256 por ronda.
+60. **`SKILL-TST-02: MicrosecondLatencyProfiler`** — Percentiles P50/P90/P99 en microsegundos vía `process.hrtime`.
+61. **`SKILL-TST-03: DomStructuralAstValidator`** — Auditoría AST de árbol DOM para prevenir etiquetas y widgets rotos.
+62. **`SKILL-TST-04: HighDpiVectorFrameRenderer`** — Capturas vectoriales SVG de alta fidelidad selladas criptográficamente.
+63. **`SKILL-TST-05: ZeroFalsePositiveCertifier`** — Triangulación forzosa de 3 fuentes independientes (HTTP, disco, SO).
+64. **`SKILL-TST-06: ServiceWorkerPrecacheAuditor`** — Verificación bit a bit de los 19 activos precacheados en la PWA.
+65. **`SKILL-TST-07: MemoryLeakHeapProfiler`** — Detección y contención de fugas de memoria con límites RSS estrictos.
+66. **`SKILL-TST-08: CrossBrowserCompatibilitySentinel`** — Verificación de paridad Chromium, Gecko y WebKit nativos.
+67. **`SKILL-TST-09: DatabaseTransactionRollbackGuard`** — Auditoría de atomicidad transaccional SQLite con rollback seguro.
+68. **`SKILL-TST-10: CryptographicHashCollisionDetector`** — Detección y rechazo de colisiones MD5/SHA-1 en binarios.
+69. **`SKILL-TST-11: CanaryHealthContinuityAsserter`** — Comprobación de integridad ininterrumpida de los 7 canarios del clúster.
+
+### Categoría I: Toolchain de Despliegue en Hardware Android y Shizuku (11 Skills)
+70. **`SKILL-HRD-01: AdbOverSshThinkpadTunnel`** — Túnel SSH con reenvío de socket ADB hacia la ThinkPad T480s.
+71. **`SKILL-HRD-02: ShizukuPrivilegedInstallDispatcher`** — Instalación silenciosa vía `moe.shizuku.privileged.api`.
+72. **`SKILL-HRD-03: SamsungGalaxyA06DpiScaler`** — Adaptación visual a resolución 720x1600 y 269 PPI del Galaxy A06.
+73. **`SKILL-HRD-04: AndroidBatteryThermalTelemetry`** — Monitoreo de temperatura (°C) y nivel de batería por `dumpsys battery`.
+74. **`SKILL-HRD-05: PackageInstallerSessionTracker`** — Seguimiento paso a paso del ciclo de vida de `PackageInstaller`.
+75. **`SKILL-HRD-06: ColdStartLogcatProfiler`** — Captura de tiempos de cold-start y análisis de advertencias en Logcat.
+76. **`SKILL-HRD-07: ShizukuPermissionDoctor`** — Detección y autoreparación de permisos revocados en Shizuku.
+77. **`SKILL-HRD-08: AutomaticAppRollbackExecutor`** — Extracción y restauración atómica de la versión previa ante fallos.
+78. **`SKILL-HRD-09: UiAutomatorHierarchyDumper`** — Extracción del árbol de accesibilidad UI Automator para pruebas E2E.
+79. **`SKILL-HRD-10: AndroidDozeModeBypasser`** — Configuración de optimización de batería para background execution.
+80. **`SKILL-HRD-11: VirtualKeyInputDriver`** — Inyección de toques y pulsaciones de teclas nativas (`BACK`, `HOME`).
+
+### Categoría J: Arquitectura Hidrológica Avanzada y PHP 8.2 (11 Skills)
+81. **`SKILL-HYD-01: PhpCliServerSpawneer`** — Lanzador del runtime embebido PHP 8.2.33 ZTS x64 con aislamiento.
+82. **`SKILL-HYD-02: HeadlessPluginZipPackager`** — Compresión y ensamblado de plugins de WordPress con JSZip.
+83. **`SKILL-HYD-03: PhpSyntaxLinter`** — Validación formal de código PHP con `php -l` asegurando 0 errores de sintaxis.
+84. **`SKILL-HYD-04: TailwindToComposeAstTranspiler`** — Conversión de clases Tailwind CSS a funciones de Jetpack Compose.
+85. **`SKILL-HYD-05: ZeroFeeCartCheckoutProcessor`** — Procesador de órdenes de compra con cálculo de impuestos y comisiones $0.
+86. **`SKILL-HYD-06: WpRestApiSchemaHarmonizer`** — Normalización de esquemas REST para compatibilidad con plugins WP.
+87. **`SKILL-HYD-07: HydrologyLagoonTelemetryEmitter`** — Métricas de tiempo de ejecución y consumo de memoria en PHP.
+88. **`SKILL-HYD-08: JetpackComposePreviewGenerator`** — Generación de fragmentos Kotlin reproducibles en Android Studio.
+89. **`SKILL-HYD-09: DynamicWidgetHydrator`** — Inyección en caliente de datos en widgets del constructor visual.
+90. **`SKILL-HYD-10: PhpFastCgiProxyLinker`** — Interfaz de conexión segura entre Nginx y PHP-FPM / CLI embebido.
+91. **`SKILL-HYD-11: LagoonStateSyncSentinel`** — Sincronización continua de estado entre lagunas PHP y el núcleo React.
+
+### Categoría K: Automatización de Resiliencia, Failover de Red y Anti-502 (11 Skills)
+92. **`SKILL-RES-01: CloudflareTunnelEdgeGuardian`** — Monitoreo constante de túnel Cloudflare con reconexión ante 502/504.
+93. **`SKILL-RES-02: PortConflictAutoEvacuator`** — Detección y liberación automática de puertos 3000 y 3080 colisionados.
+94. **`SKILL-RES-03: TailscaleMeshHealthSentinel`** — Sondeo UDP/DERP continuo entre nodos ASUS, ThinkPad y Samsung.
+95. **`SKILL-RES-04: WindowsServiceRestartSupervisor`** — Supervisión y autoarranque de servicios del clúster en Windows.
+96. **`SKILL-RES-05: SshTunnelKeepaliveHealer`** — Envío de paquetes keepalive para evitar timeout en conexiones SSH.
+97. **`SKILL-RES-06: SslCertificateExpiracyWatcher`** — Verificación preventiva de caducidad en certificados SSL de borde.
+98. **`SKILL-RES-07: AntiDdosBurstThrottle`** — Limitación adaptativa de tasa para endpoints sensibles de autenticación.
+99. **`SKILL-RES-08: NodeGracefulDegradationManager`** — Transición fluida a modo offline local cuando cae la red.
+100. **`SKILL-RES-09: OtaManifestIntegritySealer`** — Firma criptográfica del manifiesto OTA para evitar inyecciones.
+101. **`SKILL-RES-10: ClusterStateJsonAtomicWriter`** — Escritura transaccional atómica de `system_state.json`.
+102. **`SKILL-RES-11: MemoryRssCeilingEnforcer`** — Vigilancia de memoria RAM y reinicio limpio preventivo antes de OOM.
+
+### Categoría L: Economía Descentralizada, Pagos y Gobernanza FOSS (11 Skills)
+103. **`SKILL-ECO-01: WebLnPaymentPromptInjector`** — Inyección de modales WebLN para pago con un solo clic con Alby.
+104. **`SKILL-ECO-02: BanxicoSpeiTrackingFolioValidator`** — Comprobación de validez de folios y estados de abono en Banxico.
+105. **`SKILL-ECO-03: BugBountySatRewardCalculator`** — Cálculo y acreditación inmediata de recompensas a testers de QA.
+106. **`SKILL-ECO-04: DigitalContractSignatureSealer`** — Sellado de acuerdos de software libre con firmas Ed25519/WebAuthn.
+107. **`SKILL-ECO-05: SharkTankDealRoomEscrow`** — Custodia de fondos en contratos multifirma con liberación por hitos.
+108. **`SKILL-ECO-06: ImmutableLedgerAuditExporter`** — Exportación forense de libros contables inmutables en JSON/CSV.
+109. **`SKILL-ECO-07: LightningFeeSavingsComparator`** — Métrica en tiempo real del capital ahorrado frente al 30% de Google.
+110. **`SKILL-ECO-08: ZeroKnowledgeBackupSealer`** — Cifrado E2EE con AES-256-GCM y PBKDF2 de carteras y configuraciones.
+111. **`SKILL-ECO-09: FOSSContributorRoyaltySplitter`** — Distribución automática de regalías entre autores, testers y fondo.
+112. **`SKILL-ECO-10: VibeCodingPromptRewardEngine`** — Recompensas a desarrolladores por plantillas de código reutilizables.
+113. **`SKILL-ECO-11: SovereignCloudAutonomousHeartbeat`** — Latido global criptográfico que certifica soberanía 100% libre.
 
 ---
 
