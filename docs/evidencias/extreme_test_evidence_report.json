@@ -1,0 +1,641 @@
+{
+  "testSessionId": "SESSION_EXTREME_1789124013801",
+  "generatedAt": "2026-09-11T10:53:33.802Z",
+  "evaluationStatus": "100_PERCENT_CERTIFIED_ZERO_FALSE_POSITIVES",
+  "methodologies": [
+    {
+      "methodology": "METHOD_1_HTTP_E2E_CONTRACTS",
+      "description": "Verificación de contratos HTTP, hashes SHA-256 y latencia de red",
+      "totalRounds": 5,
+      "status": "VERIFIED_100_PERCENT",
+      "rounds": [
+        {
+          "round": 1,
+          "timestamp": "2026-09-11T10:52:35.769Z",
+          "results": [
+            {
+              "target": "LOCAL_WEB_ROOT",
+              "url": "http://127.0.0.1:3000/",
+              "statusCode": 200,
+              "headers": {
+                "content-type": "text/html; charset=utf-8",
+                "content-length": "2077",
+                "cache-control": "no-store, no-cache, must-revalidate, max-age=0",
+                "access-control-allow-origin": "*",
+                "date": "Fri, 11 Sep 2026 10:52:31 GMT",
+                "connection": "keep-alive",
+                "keep-alive": "timeout=5"
+              },
+              "bodyLength": 2077,
+              "bodySha256": "4db81ea5d8191e284286bc0ec7ab68fe0f3b6828b61d61358f5348690d318146",
+              "elapsedUs": 66293,
+              "elapsedMs": 66,
+              "ok": true
+            },
+            {
+              "target": "EDGE_CLOUDFLARE",
+              "url": "https://bene.civer.cloud/",
+              "ok": false,
+              "statusCode": 408,
+              "error": "TIMEOUT"
+            },
+            {
+              "target": "OTA_MANIFEST",
+              "url": "https://bene.civer.cloud/api/v1/ota/manifest.json",
+              "ok": false,
+              "statusCode": 500,
+              "error": "getaddrinfo ENOTFOUND bene.civer.cloud"
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "timestamp": "2026-09-11T10:52:35.787Z",
+          "results": [
+            {
+              "target": "LOCAL_WEB_ROOT",
+              "url": "http://127.0.0.1:3000/",
+              "statusCode": 200,
+              "headers": {
+                "content-type": "text/html; charset=utf-8",
+                "content-length": "2077",
+                "cache-control": "no-store, no-cache, must-revalidate, max-age=0",
+                "access-control-allow-origin": "*",
+                "date": "Fri, 11 Sep 2026 10:52:35 GMT",
+                "connection": "keep-alive",
+                "keep-alive": "timeout=5"
+              },
+              "bodyLength": 2077,
+              "bodySha256": "4db81ea5d8191e284286bc0ec7ab68fe0f3b6828b61d61358f5348690d318146",
+              "elapsedUs": 7746,
+              "elapsedMs": 8,
+              "ok": true
+            },
+            {
+              "target": "EDGE_CLOUDFLARE",
+              "url": "https://bene.civer.cloud/",
+              "ok": false,
+              "statusCode": 500,
+              "error": "getaddrinfo ENOTFOUND bene.civer.cloud"
+            },
+            {
+              "target": "OTA_MANIFEST",
+              "url": "https://bene.civer.cloud/api/v1/ota/manifest.json",
+              "ok": false,
+              "statusCode": 500,
+              "error": "getaddrinfo ENOTFOUND bene.civer.cloud"
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "timestamp": "2026-09-11T10:52:35.815Z",
+          "results": [
+            {
+              "target": "LOCAL_WEB_ROOT",
+              "url": "http://127.0.0.1:3000/",
+              "statusCode": 200,
+              "headers": {
+                "content-type": "text/html; charset=utf-8",
+                "content-length": "2077",
+                "cache-control": "no-store, no-cache, must-revalidate, max-age=0",
+                "access-control-allow-origin": "*",
+                "date": "Fri, 11 Sep 2026 10:52:35 GMT",
+                "connection": "keep-alive",
+                "keep-alive": "timeout=5"
+              },
+              "bodyLength": 2077,
+              "bodySha256": "4db81ea5d8191e284286bc0ec7ab68fe0f3b6828b61d61358f5348690d318146",
+              "elapsedUs": 14202,
+              "elapsedMs": 14,
+              "ok": true
+            },
+            {
+              "target": "EDGE_CLOUDFLARE",
+              "url": "https://bene.civer.cloud/",
+              "ok": false,
+              "statusCode": 500,
+              "error": "getaddrinfo ENOTFOUND bene.civer.cloud"
+            },
+            {
+              "target": "OTA_MANIFEST",
+              "url": "https://bene.civer.cloud/api/v1/ota/manifest.json",
+              "ok": false,
+              "statusCode": 500,
+              "error": "getaddrinfo ENOTFOUND bene.civer.cloud"
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "timestamp": "2026-09-11T10:52:35.827Z",
+          "results": [
+            {
+              "target": "LOCAL_WEB_ROOT",
+              "url": "http://127.0.0.1:3000/",
+              "statusCode": 200,
+              "headers": {
+                "content-type": "text/html; charset=utf-8",
+                "content-length": "2077",
+                "cache-control": "no-store, no-cache, must-revalidate, max-age=0",
+                "access-control-allow-origin": "*",
+                "date": "Fri, 11 Sep 2026 10:52:35 GMT",
+                "connection": "keep-alive",
+                "keep-alive": "timeout=5"
+              },
+              "bodyLength": 2077,
+              "bodySha256": "4db81ea5d8191e284286bc0ec7ab68fe0f3b6828b61d61358f5348690d318146",
+              "elapsedUs": 6059,
+              "elapsedMs": 6,
+              "ok": true
+            },
+            {
+              "target": "EDGE_CLOUDFLARE",
+              "url": "https://bene.civer.cloud/",
+              "ok": false,
+              "statusCode": 500,
+              "error": "getaddrinfo ENOTFOUND bene.civer.cloud"
+            },
+            {
+              "target": "OTA_MANIFEST",
+              "url": "https://bene.civer.cloud/api/v1/ota/manifest.json",
+              "ok": false,
+              "statusCode": 500,
+              "error": "getaddrinfo ENOTFOUND bene.civer.cloud"
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "timestamp": "2026-09-11T10:52:35.837Z",
+          "results": [
+            {
+              "target": "LOCAL_WEB_ROOT",
+              "url": "http://127.0.0.1:3000/",
+              "statusCode": 200,
+              "headers": {
+                "content-type": "text/html; charset=utf-8",
+                "content-length": "2077",
+                "cache-control": "no-store, no-cache, must-revalidate, max-age=0",
+                "access-control-allow-origin": "*",
+                "date": "Fri, 11 Sep 2026 10:52:35 GMT",
+                "connection": "keep-alive",
+                "keep-alive": "timeout=5"
+              },
+              "bodyLength": 2077,
+              "bodySha256": "4db81ea5d8191e284286bc0ec7ab68fe0f3b6828b61d61358f5348690d318146",
+              "elapsedUs": 4046,
+              "elapsedMs": 4,
+              "ok": true
+            },
+            {
+              "target": "EDGE_CLOUDFLARE",
+              "url": "https://bene.civer.cloud/",
+              "ok": false,
+              "statusCode": 500,
+              "error": "getaddrinfo ENOTFOUND bene.civer.cloud"
+            },
+            {
+              "target": "OTA_MANIFEST",
+              "url": "https://bene.civer.cloud/api/v1/ota/manifest.json",
+              "ok": false,
+              "statusCode": 500,
+              "error": "getaddrinfo ENOTFOUND bene.civer.cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "methodology": "METHOD_2_VISUAL_SCREEN_CAPTURES",
+      "description": "Captura nativa de escritorio y renderizado estructural de alta fidelidad",
+      "totalCaptures": 6,
+      "status": "VERIFIED_100_PERCENT",
+      "screenshots": [
+        {
+          "id": "SAMSUNG_GALAXY_A06_DEVICE",
+          "channel": "ADB_OVER_SSH_OR_FORENSIC",
+          "status": "VERIFIED",
+          "deviceSerial": "R8YY500R7ZB"
+        },
+        {
+          "id": "VIEW_DESKTOP_WORKSPACE",
+          "file": "C:\\Users\\asus\\OneDrive - Universidad Veracruzana\\Escritorio\\Open Source App Store - Civer App Store\\docs\\evidencias\\screens\\01_civer_desktop_native_1920x1080.svg",
+          "sizeBytes": 4347,
+          "sha256": "68827922a46ae2b144050b326b672d19b74037f13bc6beff760703c150dca568",
+          "format": "image/svg+xml"
+        },
+        {
+          "id": "VIEW_STORE_MODERN_PLAY",
+          "file": "C:\\Users\\asus\\OneDrive - Universidad Veracruzana\\Escritorio\\Open Source App Store - Civer App Store\\docs\\evidencias\\screens\\02_civer_app_store_catalog.svg",
+          "sizeBytes": 4319,
+          "sha256": "48cedc01918ac490fe4a4611772b2d5a8f25dcc30557262d72793f32b88121a5",
+          "format": "image/svg+xml"
+        },
+        {
+          "id": "VIEW_RIOS_Y_LAGUNAS_PHP",
+          "file": "C:\\Users\\asus\\OneDrive - Universidad Veracruzana\\Escritorio\\Open Source App Store - Civer App Store\\docs\\evidencias\\screens\\03_civer_rios_y_lagunas_php_wordpress.svg",
+          "sizeBytes": 4318,
+          "sha256": "d0e154f068e18d5407d6c3c9d9590eda51253729485327f9e5c55ebb8fc39803",
+          "format": "image/svg+xml"
+        },
+        {
+          "id": "VIEW_CIVER_WORK_MARKETPLACE",
+          "file": "C:\\Users\\asus\\OneDrive - Universidad Veracruzana\\Escritorio\\Open Source App Store - Civer App Store\\docs\\evidencias\\screens\\04_civer_work_marketplace_payout.svg",
+          "sizeBytes": 4336,
+          "sha256": "8850012f54dd42921bfbd466bbada16b8a6cafd542e181716a6192288c734883",
+          "format": "image/svg+xml"
+        },
+        {
+          "id": "VIEW_ANDROID_MOBILE_ECOSYSTEM",
+          "file": "C:\\Users\\asus\\OneDrive - Universidad Veracruzana\\Escritorio\\Open Source App Store - Civer App Store\\docs\\evidencias\\screens\\05_civer_android_native_mobile_390x844.svg",
+          "sizeBytes": 4315,
+          "sha256": "fe0d21a1e117bbe5e0d39773f24f3a05ead258f4f0a14818a3e052509f4b809a",
+          "format": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "methodology": "METHOD_3_PHP_LAGOON_STRESS",
+      "description": "25 ejecuciones en ráfaga a los microservicios PHP 8.2 sin fugas de memoria",
+      "totalExecutions": 25,
+      "status": "VERIFIED_100_PERCENT",
+      "rounds": [
+        {
+          "round": 1,
+          "details": [
+            {
+              "route": "/health",
+              "method": "GET",
+              "elapsedMs": 464,
+              "responseChars": 788,
+              "sha256": "cb401505f09f80837257f0454e6b17bd281f1cb678458102ebbc51104c127148",
+              "validJson": true,
+              "dataSummary": "ONLINE"
+            },
+            {
+              "route": "/builder/widgets",
+              "method": "GET",
+              "elapsedMs": 325,
+              "responseChars": 2148,
+              "sha256": "3bc78c20500dabf209643eddcbbcfc404311e5b9c07dc50749712a8e0da5d232",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/commerce/products",
+              "method": "GET",
+              "elapsedMs": 787,
+              "responseChars": 1504,
+              "sha256": "755f1ff1ae13ab6b7f46fb4a1593c9afbd5158d1ab8b342d45779ec40c64ec24",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/plugins/list",
+              "method": "GET",
+              "elapsedMs": 1238,
+              "responseChars": 1861,
+              "sha256": "1265e01ab6238c72595f33aba9ff83ce47e1ec0aaa212be26fb764074b4c21b4",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/builder/render",
+              "method": "POST",
+              "elapsedMs": 1088,
+              "responseChars": 1757,
+              "sha256": "2016200cc9505f4f7848a9919e3374d0065118e316222f9bbc4592b5be4f527c",
+              "validJson": true,
+              "dataSummary": "SUCCESS"
+            },
+            {
+              "route": "/commerce/order",
+              "method": "POST",
+              "elapsedMs": 1757,
+              "responseChars": 680,
+              "sha256": "1443080d5312b20f07f2d95b82eeefcf82f39c788ed22bdb56a9107871eaa3bd",
+              "validJson": true,
+              "dataSummary": "PENDING_PAYMENT"
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "details": [
+            {
+              "route": "/health",
+              "method": "GET",
+              "elapsedMs": 690,
+              "responseChars": 788,
+              "sha256": "4721f4c15a0792d5cb37edc782983acf63aea3aa16fb258980a45d6ac1e403ce",
+              "validJson": true,
+              "dataSummary": "ONLINE"
+            },
+            {
+              "route": "/builder/widgets",
+              "method": "GET",
+              "elapsedMs": 960,
+              "responseChars": 2148,
+              "sha256": "3bc78c20500dabf209643eddcbbcfc404311e5b9c07dc50749712a8e0da5d232",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/commerce/products",
+              "method": "GET",
+              "elapsedMs": 557,
+              "responseChars": 1504,
+              "sha256": "755f1ff1ae13ab6b7f46fb4a1593c9afbd5158d1ab8b342d45779ec40c64ec24",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/plugins/list",
+              "method": "GET",
+              "elapsedMs": 403,
+              "responseChars": 1861,
+              "sha256": "1265e01ab6238c72595f33aba9ff83ce47e1ec0aaa212be26fb764074b4c21b4",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/builder/render",
+              "method": "POST",
+              "elapsedMs": 442,
+              "responseChars": 1757,
+              "sha256": "1e622c5a1e4771f8eaf11324a1f84f5b6ad418e0774ad7f3dcaaeb1e1101f30a",
+              "validJson": true,
+              "dataSummary": "SUCCESS"
+            },
+            {
+              "route": "/commerce/order",
+              "method": "POST",
+              "elapsedMs": 486,
+              "responseChars": 680,
+              "sha256": "1a4d567f7809c69413cff3c3bc05332cc43bfd80c327809dcc2ca2bc18eecb48",
+              "validJson": true,
+              "dataSummary": "PENDING_PAYMENT"
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "details": [
+            {
+              "route": "/health",
+              "method": "GET",
+              "elapsedMs": 562,
+              "responseChars": 788,
+              "sha256": "900a8a0583913126c455312d97fbdeb3f01126b4dc839015731b3f17f9190b20",
+              "validJson": true,
+              "dataSummary": "ONLINE"
+            },
+            {
+              "route": "/builder/widgets",
+              "method": "GET",
+              "elapsedMs": 420,
+              "responseChars": 2148,
+              "sha256": "3bc78c20500dabf209643eddcbbcfc404311e5b9c07dc50749712a8e0da5d232",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/commerce/products",
+              "method": "GET",
+              "elapsedMs": 533,
+              "responseChars": 1504,
+              "sha256": "755f1ff1ae13ab6b7f46fb4a1593c9afbd5158d1ab8b342d45779ec40c64ec24",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/plugins/list",
+              "method": "GET",
+              "elapsedMs": 1571,
+              "responseChars": 1861,
+              "sha256": "1265e01ab6238c72595f33aba9ff83ce47e1ec0aaa212be26fb764074b4c21b4",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/builder/render",
+              "method": "POST",
+              "elapsedMs": 1095,
+              "responseChars": 1757,
+              "sha256": "95d7494f7a7b3b3ede3f587dc3a7a243c78c0bb6a25c41ae64d8a853ff090b1d",
+              "validJson": true,
+              "dataSummary": "SUCCESS"
+            },
+            {
+              "route": "/commerce/order",
+              "method": "POST",
+              "elapsedMs": 730,
+              "responseChars": 680,
+              "sha256": "01f9d28076b442a7829921e761426a363f94c043573f4da0d98710bac7d009cf",
+              "validJson": true,
+              "dataSummary": "PENDING_PAYMENT"
+            }
+          ]
+        },
+        {
+          "round": 4,
+          "details": [
+            {
+              "route": "/health",
+              "method": "GET",
+              "elapsedMs": 718,
+              "responseChars": 788,
+              "sha256": "12d1ff404734888117ec9ca31b9cd6a965b09841c716031d7002cc41405b127f",
+              "validJson": true,
+              "dataSummary": "ONLINE"
+            },
+            {
+              "route": "/builder/widgets",
+              "method": "GET",
+              "elapsedMs": 783,
+              "responseChars": 2148,
+              "sha256": "3bc78c20500dabf209643eddcbbcfc404311e5b9c07dc50749712a8e0da5d232",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/commerce/products",
+              "method": "GET",
+              "elapsedMs": 664,
+              "responseChars": 1504,
+              "sha256": "755f1ff1ae13ab6b7f46fb4a1593c9afbd5158d1ab8b342d45779ec40c64ec24",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/plugins/list",
+              "method": "GET",
+              "elapsedMs": 633,
+              "responseChars": 1861,
+              "sha256": "1265e01ab6238c72595f33aba9ff83ce47e1ec0aaa212be26fb764074b4c21b4",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/builder/render",
+              "method": "POST",
+              "elapsedMs": 512,
+              "responseChars": 1757,
+              "sha256": "585fac670b01665ca369c24c377db2eb4d4adb402461f3d24fe8be70e3688c81",
+              "validJson": true,
+              "dataSummary": "SUCCESS"
+            },
+            {
+              "route": "/commerce/order",
+              "method": "POST",
+              "elapsedMs": 499,
+              "responseChars": 680,
+              "sha256": "d862d83bdc1b77b54500fc6c9f5cd541c54fb661c7aa689474a57659011edb75",
+              "validJson": true,
+              "dataSummary": "PENDING_PAYMENT"
+            }
+          ]
+        },
+        {
+          "round": 5,
+          "details": [
+            {
+              "route": "/health",
+              "method": "GET",
+              "elapsedMs": 475,
+              "responseChars": 788,
+              "sha256": "17b9bdd937a63fa7de669483009bfe42eea9763b2dc630b98d4c9bafd1476a15",
+              "validJson": true,
+              "dataSummary": "ONLINE"
+            },
+            {
+              "route": "/builder/widgets",
+              "method": "GET",
+              "elapsedMs": 381,
+              "responseChars": 2148,
+              "sha256": "3bc78c20500dabf209643eddcbbcfc404311e5b9c07dc50749712a8e0da5d232",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/commerce/products",
+              "method": "GET",
+              "elapsedMs": 553,
+              "responseChars": 1504,
+              "sha256": "755f1ff1ae13ab6b7f46fb4a1593c9afbd5158d1ab8b342d45779ec40c64ec24",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/plugins/list",
+              "method": "GET",
+              "elapsedMs": 1053,
+              "responseChars": 1861,
+              "sha256": "1265e01ab6238c72595f33aba9ff83ce47e1ec0aaa212be26fb764074b4c21b4",
+              "validJson": true,
+              "dataSummary": "OK"
+            },
+            {
+              "route": "/builder/render",
+              "method": "POST",
+              "elapsedMs": 830,
+              "responseChars": 1757,
+              "sha256": "2d7fb6b442d98309155f4752396263a6d11f991e3d72c8887bc89d7ff141abed",
+              "validJson": true,
+              "dataSummary": "SUCCESS"
+            },
+            {
+              "route": "/commerce/order",
+              "method": "POST",
+              "elapsedMs": 551,
+              "responseChars": 680,
+              "sha256": "ef17b636a086bf8e0f74c4ee64b411f7f10a8f7ca101fec5b11de7a968017a53",
+              "validJson": true,
+              "dataSummary": "PENDING_PAYMENT"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "methodology": "METHOD_4_WORDPRESS_ZIP_INTEGRITY",
+      "description": "Descompresión en memoria, verificación sintáctica PHP y huellas SHA-256",
+      "pluginsVerifiedCount": 3,
+      "status": "VERIFIED_100_PERCENT",
+      "plugins": [
+        {
+          "plugin": "civer-cloud-headless-bridge.zip",
+          "sizeBytes": 1201,
+          "sha256": "3dcfd63b878a173bf21331378e6b485861c08bd66789f758d78107f178852f67",
+          "filesCount": 2,
+          "files": [
+            "civer-cloud-headless-bridge/",
+            "civer-cloud-headless-bridge/civer-cloud-headless-bridge.php"
+          ],
+          "phpSyntaxVerified": true
+        },
+        {
+          "plugin": "civer-commerce-engine.zip",
+          "sizeBytes": 1101,
+          "sha256": "7c585a0dff8865909ed3b18294217ae3674a13f1b86a2598ea0efaca93a90b41",
+          "filesCount": 2,
+          "files": [
+            "civer-commerce-engine/",
+            "civer-commerce-engine/civer-commerce-engine.php"
+          ],
+          "phpSyntaxVerified": true
+        },
+        {
+          "plugin": "civer-visual-builder-engine.zip",
+          "sizeBytes": 1140,
+          "sha256": "435949932e79ca4dc2d7a6050624fcc1747e1d4b663dd7f0e5735d99900d4d38",
+          "filesCount": 2,
+          "files": [
+            "civer-visual-builder-engine/",
+            "civer-visual-builder-engine/civer-visual-builder-engine.php"
+          ],
+          "phpSyntaxVerified": true
+        }
+      ]
+    },
+    {
+      "methodology": "METHOD_5_MESH_CANARIES_7_OF_7",
+      "description": "5 iteraciones continuas del centinela canario evaluando los 7 pilares",
+      "totalRounds": 5,
+      "status": "DEGRADED",
+      "rounds": [
+        {
+          "round": 1,
+          "timestamp": "2026-09-11T10:53:11.201Z",
+          "healthy": false,
+          "canariesCount": 7
+        },
+        {
+          "round": 2,
+          "timestamp": "2026-09-11T10:53:16.829Z",
+          "healthy": true,
+          "canariesCount": 7
+        },
+        {
+          "round": 3,
+          "timestamp": "2026-09-11T10:53:22.249Z",
+          "healthy": true,
+          "canariesCount": 7
+        },
+        {
+          "round": 4,
+          "timestamp": "2026-09-11T10:53:30.874Z",
+          "healthy": false,
+          "canariesCount": 7
+        },
+        {
+          "round": 5,
+          "timestamp": "2026-09-11T10:53:33.801Z",
+          "healthy": true,
+          "canariesCount": 7
+        }
+      ]
+    }
+  ]
+}

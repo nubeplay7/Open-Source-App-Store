@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-09-11T10:52:40.656Z",
+  "device": {
+    "model": "Samsung Galaxy A06",
+    "model_code": "SM-A065M",
+    "serial": "R8YY500R7ZB",
+    "android_version": "14",
+    "connection": "ADB_OVER_SSH",
+    "shizuku_status": "RUNNING"
+  },
+  "resolution": "720x1600 (HD+)",
+  "densityDpi": 280,
+  "androidVersion": 14,
+  "shizukuPrivileged": true,
+  "viewPortStatus": "ACTIVE_CIVER_STORE_CANVAS",
+  "evidenceFile": "samsung_a06_screen_telemetry.json"
+}

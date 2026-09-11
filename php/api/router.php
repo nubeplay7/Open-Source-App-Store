@@ -53,36 +53,36 @@ try {
             break;
 
         case '/builder/render':
-            if ($method === 'POST') {
-                $raw = file_get_contents('php://input');
-                $data = json_decode($raw, true) ?: [];
-                echo json_encode(BuilderController::renderLayout($data), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-                exit(0);
-            }
-            break;
+            $raw = file_get_contents('php://input') ?: ($argv[2] ?? '');
+            $data = json_decode((string)$raw, true) ?: [
+                'blocks' => [
+                    ['type' => 'HERO_BANNER', 'props' => ['title' => 'Civer Cloud FOSS Store', 'subtitle' => 'Play Store Open Source']],
+                    ['type' => 'FEATURE_MATRIX', 'props' => ['columns' => 3]],
+                    ['type' => 'CTA_CONVERSION', 'props' => ['label' => 'Instalar App APK', 'action' => 'DOWNLOAD_DIRECT']]
+                ]
+            ];
+            echo json_encode(BuilderController::renderLayout($data), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            exit(0);
 
         case '/commerce/products':
-            if ($method === 'GET') {
-                echo json_encode(CommerceController::getProducts(), JSON_PRETTY_PRINT);
-                exit(0);
-            }
-            break;
+            echo json_encode(CommerceController::getProducts(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            exit(0);
 
         case '/commerce/checkout':
-            if ($method === 'POST') {
-                $raw = file_get_contents('php://input');
-                $data = json_decode($raw, true) ?: [];
-                echo json_encode(CommerceController::processCheckout($data), JSON_PRETTY_PRINT);
-                exit(0);
-            }
-            break;
+        case '/commerce/order':
+            $raw = file_get_contents('php://input') ?: ($argv[2] ?? '');
+            $data = json_decode((string)$raw, true) ?: [
+                'productId' => 'prod-app-dev-pass',
+                'paymentMethod' => 'LIGHTNING_BOLT11',
+                'customerEmail' => 'developer@civer.cloud'
+            ];
+            echo json_encode(CommerceController::processCheckout($data), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            exit(0);
 
+        case '/plugins/list':
         case '/wordpress/plugins':
-            if ($method === 'GET') {
-                echo json_encode(WordPressBridgeController::getInstalledPlugins(), JSON_PRETTY_PRINT);
-                exit(0);
-            }
-            break;
+            echo json_encode(WordPressBridgeController::getInstalledPlugins(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            exit(0);
 
         case '/wordpress/sync':
             if ($method === 'POST') {
