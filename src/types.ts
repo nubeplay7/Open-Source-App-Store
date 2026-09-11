@@ -489,7 +489,7 @@ export interface DeviceTelemetry {
   connectionSpeedKbps: number;
 }
 
-export type StoreUiMode = 'ciber_store' | 'play_store' | 'app_store' | 'matrix_pro' | 'dev_workspace' | 'admin_catalog_matrix' | 'connected_devices' | 'android_ecosystem';
+export type StoreUiMode = 'ciber_store' | 'play_store' | 'app_store' | 'matrix_pro' | 'dev_workspace' | 'admin_catalog_matrix' | 'connected_devices' | 'android_ecosystem' | 'civer_work_hub';
 
 // -------------------------------------------------------------
 // CIBER DEV WORKSPACE (OBSIDIAN + JIRA + SLACK + CHANGELOG SYNC)
@@ -1491,3 +1491,124 @@ export interface CloudMobileTestSession {
   telegramDispatchStatus?: 'PENDING' | 'SENT' | 'FAILED';
   telegramSentCount?: number;
 }
+
+// -------------------------------------------------------------
+// FASE 03: TELEMETRÍA DE RENDIMIENTO EN TIEMPO REAL (SAMSUNG A06)
+// -------------------------------------------------------------
+export interface LiveDevicePerformanceMetric {
+  timestamp: string;
+  cpuTotalPercent: number;
+  ramPssMb: number;
+  ramRssMb: number;
+  ramFreeMb: number;
+  fpsRender: number;
+  batteryTempC: number;
+  batteryVoltageMv: number;
+  batteryLevelPercent: number;
+  activeThreadsCount: number;
+  networkRxKbps: number;
+  networkTxKbps: number;
+}
+
+// -------------------------------------------------------------
+// FASE 04: MOTOR DE COMPARACIÓN Y DIFF VISUAL DE PANTALLAS CRAWLER
+// -------------------------------------------------------------
+export interface VisualScreenDiffReport {
+  id: string;
+  screenIdA: string;
+  screenIdB: string;
+  screenNameA: string;
+  screenNameB: string;
+  deltaPercentage: number; // 0-100%
+  changedPixelsCount: number;
+  addedNodesCount: number;
+  removedNodesCount: number;
+  modifiedNodesCount: number;
+  layoutShiftScore: number;
+  diffVisualMapUrl?: string;
+  divergenceDetails: string[];
+  auditTimestamp: string;
+}
+
+// -------------------------------------------------------------
+// CIVER WORK & SHARK TANK HUB — "TU TRABAJO EN LÍNEA QUE SÍ PAGA"
+// -------------------------------------------------------------
+
+export type CiverWorkRole = 
+  | 'IDEA_AUTHOR'     // El autor de la idea original
+  | 'VIBE_CODER'      // Programador con IA / Prompt engineer
+  | 'QA_TESTER'       // Tester remunerado que prueba y valida en Android
+  | 'LEAD_MAINTAINER' // Mantenedor activo del proyecto
+  | 'SHARK_INVESTOR'; // Inversionista / Empresario / Cliente
+
+export interface CiverRoyaltyDistribution {
+  civerCloudEnterprisePct: number; // 51% Maestro (Plataforma, Cómputo, IA, IP)
+  authorIdeaPct: number;           // 15% Autor Intelectual
+  developerVibeCoderPct: number;   // 20% Desarrollador Vibe Coding
+  leadMaintainerPct: number;       // 10% Mantenedor
+  qaTestersPoolPct: number;        // 4% Pool de QA y verificación
+}
+
+export interface PaidTestingMission {
+  id: string;
+  appId: string;
+  appName: string;
+  appPackage: string;
+  title: string;
+  description: string;
+  rewardUsd: number;
+  rewardSats: number;
+  targetAndroidVersion: string;
+  requiredDeviceType: 'PHYSICAL_PHONE' | 'EMULATOR' | 'ANY';
+  status: 'OPEN' | 'IN_PROGRESS' | 'IN_REVIEW' | 'COMPLETED';
+  submissionsCount: number;
+  maxTesters: number;
+  checklist: string[];
+  bugSeverityMultiplier: number;
+}
+
+export interface SharkTankProject {
+  id: string;
+  title: string;
+  tagline: string;
+  category: string;
+  fundingGoalUsd: number;
+  fundedAmountUsd: number;
+  equityOfferedPct: number;
+  proposedSalaryUsd?: number;
+  investorName: string;
+  investorType: 'ENTERPRISE' | 'ANGEL' | 'VENTURE_CAPITAL' | 'COMMUNITY_POOL';
+  status: 'LOOKING_FOR_DEV' | 'NEGOTIATION_ROOM' | 'FUNDED_IN_DEV' | 'PUBLISHED';
+  requiredRoles: CiverWorkRole[];
+  vibeCodingPromptIdea: string;
+  contractHash?: string;
+  termsSigned: boolean;
+  dealRoomMessagesCount: number;
+  isPrivateCustomerProject: boolean;
+}
+
+export interface InternalWorkContract {
+  contractId: string;
+  projectId: string;
+  projectTitle: string;
+  workerName: string;
+  workerRole: CiverWorkRole;
+  effectiveDate: string;
+  ipOwnershipClause: string; // Cesión a Civer Cloud Enterprise
+  royaltyPercentage: number;
+  fixedSalaryUsd?: number;
+  digitalSignatureHash: string;
+  status: 'DRAFT' | 'SIGNED' | 'ACTIVE' | 'FULFILLED';
+  arbitrationJurisdiction: string;
+}
+
+export interface ContributorWallet {
+  balanceUsd: number;
+  balanceSats: number;
+  pendingReviewUsd: number;
+  totalEarnedLifetimeUsd: number;
+  completedMissionsCount: number;
+  activeContractsCount: number;
+  payoutMethod: 'LIGHTNING_NETWORK' | 'BANK_SPEI' | 'USDT_CRYPTO' | 'CIVER_CREDITS';
+}
+

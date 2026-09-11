@@ -11,6 +11,7 @@ import {
   Search,
   Filter,
   Cpu,
+  Briefcase,
   ShoppingBag,
   Layers,
   Upload,
@@ -194,6 +195,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <ShoppingBag className="w-3.5 h-3.5 text-emerald-400" />
               <span className="hidden sm:inline">Civer App Store</span>
+            </button>
+
+            <button
+              onClick={() => onSelectUiMode('civer_work_hub')}
+              className={`px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition font-medium ${
+                uiMode === 'civer_work_hub'
+                  ? 'bg-amber-950 text-amber-300 border border-amber-600/50 shadow-sm'
+                  : 'text-slate-400 hover:text-amber-300'
+              }`}
+              title="Civer Work Hub: Tu trabajo en línea que sí paga (Testeo Remunerado, Vibe Coding, Shark Tank)"
+            >
+              <Briefcase className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden sm:inline">Trabajo &amp; Ganancias</span>
+              <span className="px-1.5 py-0.2 rounded text-[9px] bg-amber-500/20 text-amber-300 font-bold hidden lg:inline">$$$</span>
             </button>
 
             <button

@@ -4,6 +4,7 @@ import {
   Layers, 
   Terminal, 
   Cpu, 
+  Briefcase, 
   ChevronLeft, 
   ChevronRight, 
   Kanban, 
@@ -182,6 +183,14 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
       icon: ShoppingBag,
       color: 'text-emerald-400',
       activeBg: 'bg-emerald-950/80 border-emerald-700/80 text-emerald-300 shadow-sm'
+    },
+    {
+      id: 'civer_work_hub' as StoreUiMode,
+      name: 'Civer Work Hub',
+      tag: 'Trabajo Online que Sí Paga',
+      icon: Briefcase,
+      color: 'text-amber-400',
+      activeBg: 'bg-amber-950/80 border-amber-700/80 text-amber-300 shadow-sm'
     },
     {
       id: 'dev_workspace' as StoreUiMode,

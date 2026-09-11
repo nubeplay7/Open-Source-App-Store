@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   X, 
   Search, 
@@ -13,10 +13,17 @@ import {
   Sparkles,
   ExternalLink,
   Cpu,
-  Maximize2
+  Maximize2,
+  Gauge,
+  Thermometer,
+  GitCompare,
+  BarChart3,
+  RefreshCw
 } from 'lucide-react';
-import { AppCatalogItem, AppCrawlerScreenAudit } from '../types';
+import { AppCatalogItem, AppCrawlerScreenAudit, LiveDevicePerformanceMetric, VisualScreenDiffReport, MobileCapturedScreen } from '../types';
 import { getCrawlerScreensForApp } from '../data/appCrawlerScreensData';
+import { physicalDeviceTelemetryService } from '../services/physicalDeviceTelemetryService';
+import { screenVisualDiffService } from '../services/screenVisualDiffService';
 
 interface AppCrawlerScreensGalleryModalProps {
   app: AppCatalogItem;
@@ -46,6 +53,94 @@ export const AppCrawlerScreensGalleryModal: React.FC<AppCrawlerScreensGalleryMod
   const [copiedCommand, setCopiedCommand] = useState(false);
   const [isCrawlingLive, setIsCrawlingLive] = useState(false);
   const [liveCrawlerLog, setLiveCrawlerLog] = useState<string | null>(null);
+
+  // FASE 03: Telemetría de Rendimiento en Tiempo Real
+  const [liveTelemetry, setLiveTelemetry] = useState<LiveDevicePerformanceMetric>(() => 
+    physicalDeviceTelemetryService.getLatestMetric()
+  );
+  const [healthStatus, setHealthStatus] = useState(() => 
+    physicalDeviceTelemetryService.evaluateDeviceHealth()
+  );
+  const [isSamplingTelemetry, setIsSamplingTelemetry] = useState(false);
+
+  // FASE 04: Motor de Comparación y Diff Visual
+  const [diffBaseScreen, setDiffBaseScreen] = useState<AppCrawlerScreenAudit | null>(null);
+  const [diffCompareScreen, setDiffCompareScreen] = useState<AppCrawlerScreenAudit | null>(null);
+  const [diffReport, setDiffReport] = useState<VisualScreenDiffReport | null>(null);
+  const [showDiffModal, setShowDiffModal] = useState(false);
+
+  const handleRefreshTelemetry = () => {
+    setIsSamplingTelemetry(true);
+    setTimeout(() => {
+      const sample = physicalDeviceTelemetryService.recordSample({});
+      setLiveTelemetry(sample);
+      setHealthStatus(physicalDeviceTelemetryService.evaluateDeviceHealth());
+      setIsSamplingTelemetry(false);
+    }, 600);
+  };
+
+  const handleStartDiff = (screen: AppCrawlerScreenAudit) => {
+    if (!diffBaseScreen) {
+      setDiffBaseScreen(screen);
+    } else {
+      setDiffCompareScreen(screen);
+      // Calcular Diff entre diffBaseScreen y este screen
+      const screenMockA: MobileCapturedScreen = {
+        id: diffBaseScreen.screenId,
+        label: diffBaseScreen.screenName,
+        stage: 'MAIN',
+        timestamp: diffBaseScreen.capturedTimestamp,
+        dataUrl: diffBaseScreen.evidenceUrl,
+        width: 720,
+        height: 1600,
+        orientation: 'PORTRAIT',
+        uiElementsDetected: diffBaseScreen.uiHierarchyNodesCount,
+        clickableNodesCount: Math.round(diffBaseScreen.uiHierarchyNodesCount * 0.4),
+        anrDetected: false,
+        contrastScore: 94,
+        agentVisionNotes: 'Captura base auditada',
+        boundingBoxes: (diffBaseScreen.detectedElements || []).map((el, i) => ({
+          id: `node-${diffBaseScreen.screenId}-${i}`,
+          text: el,
+          bounds: [18, 100 + i * 85, 702, 175 + i * 85] as [number, number, number, number],
+          clickable: true,
+          className: el.includes('Button') ? 'android.widget.Button' : 'android.widget.TextView'
+        }))
+      };
+
+      const screenMockB: MobileCapturedScreen = {
+        id: screen.screenId,
+        label: screen.screenName,
+        stage: 'INTERACTION',
+        timestamp: screen.capturedTimestamp,
+        dataUrl: screen.evidenceUrl,
+        width: 720,
+        height: 1600,
+        orientation: 'PORTRAIT',
+        uiElementsDetected: screen.uiHierarchyNodesCount,
+        clickableNodesCount: Math.round(screen.uiHierarchyNodesCount * 0.45),
+        anrDetected: false,
+        contrastScore: 92,
+        agentVisionNotes: 'Captura comparada',
+        boundingBoxes: (screen.detectedElements || []).map((el, i) => ({
+          id: `node-${screen.screenId}-${i}`,
+          text: el,
+          bounds: [18, 100 + i * 88, 702, 178 + i * 88] as [number, number, number, number],
+          clickable: true,
+          className: el.includes('Button') ? 'android.widget.Button' : 'android.widget.TextView'
+        }))
+      };
+
+      const report = screenVisualDiffService.computeDiff(
+        screenMockA,
+        screenMockB,
+        diffBaseScreen.screenName,
+        screen.screenName
+      );
+      setDiffReport(report);
+      setShowDiffModal(true);
+    }
+  };
 
   const handleTriggerLiveCrawler = () => {
     setIsCrawlingLive(true);
@@ -233,6 +328,64 @@ export const AppCrawlerScreensGalleryModal: React.FC<AppCrawlerScreensGalleryMod
             </div>
           </div>
 
+          {/* FASE 03: Telemetría de Rendimiento en Tiempo Real Samsung Galaxy A06 */}
+          <div className="bg-slate-950/80 border border-emerald-900/40 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 text-xs font-mono shadow-inner">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="font-bold text-slate-200">Telemetría Samsung Galaxy A06:</span>
+              <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-950/80 border border-emerald-800/60 text-emerald-300 font-bold">
+                {healthStatus.status}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-4 flex-wrap text-slate-300">
+              <div className="flex items-center gap-1.5">
+                <Cpu className="w-3.5 h-3.5 text-sky-400" />
+                <span>CPU: <strong className="text-sky-300">{Number(liveTelemetry.cpuTotalPercent).toFixed(1)}%</strong></span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <BarChart3 className="w-3.5 h-3.5 text-purple-400" />
+                <span>RAM PSS: <strong className="text-purple-300">{liveTelemetry.ramPssMb} MB</strong> (Libre: {liveTelemetry.ramFreeMb} MB)</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Gauge className="w-3.5 h-3.5 text-emerald-400" />
+                <span>FPS: <strong className="text-emerald-300">{Number(liveTelemetry.fpsRender).toFixed(1)}</strong></span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Thermometer className="w-3.5 h-3.5 text-amber-400" />
+                <span>Temp: <strong className="text-amber-300">{Number(liveTelemetry.batteryTempC).toFixed(1)}°C</strong> ({liveTelemetry.batteryLevelPercent}%)</span>
+              </div>
+            </div>
+
+            <button
+              onClick={handleRefreshTelemetry}
+              disabled={isSamplingTelemetry}
+              className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 flex items-center gap-1.5 text-[11px] transition shadow-sm"
+              title="Muestrear telemetría ADB dumpsys en tiempo real"
+            >
+              <RefreshCw className={`w-3 h-3 ${isSamplingTelemetry ? 'animate-spin text-emerald-400' : ''}`} />
+              <span>{isSamplingTelemetry ? 'Muestreando...' : 'Muestrear ADB'}</span>
+            </button>
+          </div>
+
+          {/* FASE 04: Banner de Selección para Diff Visual */}
+          {diffBaseScreen && (
+            <div className="p-2.5 rounded-xl bg-indigo-950/70 border border-indigo-700/60 text-xs font-mono text-indigo-200 flex items-center justify-between gap-3 animate-in fade-in duration-200 shadow-lg">
+              <div className="flex items-center gap-2">
+                <GitCompare className="w-4 h-4 text-indigo-400 shrink-0" />
+                <span>
+                  Pantalla Base: <strong className="text-white">{diffBaseScreen.screenName}</strong>. Haz clic en <strong>"Diff Visual"</strong> en otra pantalla para computar discrepancias.
+                </span>
+              </div>
+              <button
+                onClick={() => setDiffBaseScreen(null)}
+                className="px-2 py-0.5 rounded bg-indigo-900/60 hover:bg-indigo-800 text-indigo-300 border border-indigo-700 text-[10px] transition"
+              >
+                Cancelar
+              </button>
+            </div>
+          )}
+
           {/* Controls: Search and Categories */}
           <div className="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center justify-between">
             <div className="relative flex-1 max-w-md">
@@ -332,13 +485,27 @@ export const AppCrawlerScreensGalleryModal: React.FC<AppCrawlerScreensGalleryMod
                     <span className="text-slate-500 text-[10px]">
                       {screen.resolution}
                     </span>
-                    <button
-                      onClick={() => setActiveScreenForDetail(screen)}
-                      className="px-2.5 py-1 rounded bg-slate-800 hover:bg-purple-900/50 text-slate-300 hover:text-purple-200 border border-slate-700 hover:border-purple-600 transition text-[11px] flex items-center gap-1.5"
-                    >
-                      <Eye className="w-3.5 h-3.5" />
-                      <span>Ver Detalles</span>
-                    </button>
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => handleStartDiff(screen)}
+                        className={`px-2 py-1 rounded border transition text-[11px] flex items-center gap-1 shadow-sm ${
+                          diffBaseScreen?.screenId === screen.screenId
+                            ? 'bg-indigo-600 text-white border-indigo-400 font-bold'
+                            : 'bg-slate-800 hover:bg-indigo-900/50 text-slate-300 hover:text-indigo-200 border-slate-700 hover:border-indigo-600'
+                        }`}
+                        title="Comparar regresión y diff visual con otra pantalla (Fase 04)"
+                      >
+                        <GitCompare className="w-3 h-3" />
+                        <span>{diffBaseScreen?.screenId === screen.screenId ? 'Base' : 'Diff'}</span>
+                      </button>
+                      <button
+                        onClick={() => setActiveScreenForDetail(screen)}
+                        className="px-2.5 py-1 rounded bg-slate-800 hover:bg-purple-900/50 text-slate-300 hover:text-purple-200 border border-slate-700 hover:border-purple-600 transition text-[11px] flex items-center gap-1.5 shadow-sm"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>Ver</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -460,6 +627,107 @@ export const AppCrawlerScreensGalleryModal: React.FC<AppCrawlerScreensGalleryMod
               </button>
             </div>
 
+          </div>
+        </div>
+      )}
+
+      {/* FASE 04: Modal de Auditoría de Regresión y Diff Visual */}
+      {showDiffModal && diffReport && (
+        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-[70] flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-slate-900 border border-indigo-500/60 rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 font-sans">
+            <div className="p-4 border-b border-slate-800 bg-slate-950/90 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-indigo-600/30 border border-indigo-500/50 flex items-center justify-center text-indigo-300 shrink-0">
+                  <GitCompare className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
+                    <span>Auditoría de Regresión & Diff Visual (Fase 04)</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-950 border border-indigo-800 text-indigo-300 font-bold">
+                      UIAutomator AST
+                    </span>
+                  </h3>
+                  <div className="text-[11px] text-slate-400 font-mono truncate max-w-md">
+                    {diffReport.screenNameA} ➔ {diffReport.screenNameB}
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  setShowDiffModal(false);
+                  setDiffBaseScreen(null);
+                  setDiffCompareScreen(null);
+                }}
+                className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-5 overflow-y-auto space-y-4 font-mono text-xs">
+              {/* Divergence Metrics */}
+              <div className="grid grid-cols-3 gap-3">
+                <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3 text-center">
+                  <div className="text-[10px] text-slate-500 uppercase">Delta Visual</div>
+                  <div className={`text-xl font-black ${diffReport.deltaPercentage > 25 ? 'text-amber-400' : 'text-emerald-400'}`}>
+                    {diffReport.deltaPercentage}%
+                  </div>
+                  <div className="text-[10px] text-slate-400">Divergencia Heurística</div>
+                </div>
+
+                <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3 text-center">
+                  <div className="text-[10px] text-slate-500 uppercase">Píxeles Alterados</div>
+                  <div className="text-xl font-black text-indigo-300">
+                    {diffReport.changedPixelsCount.toLocaleString()}
+                  </div>
+                  <div className="text-[10px] text-slate-400">Viewport 720x1600</div>
+                </div>
+
+                <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3 text-center">
+                  <div className="text-[10px] text-slate-500 uppercase">Layout Shift Score</div>
+                  <div className="text-xl font-black text-cyan-300">
+                    {diffReport.layoutShiftScore} / 100
+                  </div>
+                  <div className="text-[10px] text-slate-400">Desplazamiento DOM</div>
+                </div>
+              </div>
+
+              {/* Elements summary */}
+              <div className="flex items-center justify-around p-3 bg-slate-950/50 border border-slate-800/80 rounded-xl">
+                <span className="text-emerald-400 font-bold">+{diffReport.addedNodesCount} añadidos</span>
+                <span className="text-rose-400 font-bold">-{diffReport.removedNodesCount} eliminados</span>
+                <span className="text-amber-400 font-bold">~{diffReport.modifiedNodesCount} modificados</span>
+              </div>
+
+              {/* Breakdown Details */}
+              <div className="space-y-2">
+                <div className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                  Detalle Forense de Discrepancias:
+                </div>
+                <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 max-h-48 overflow-y-auto space-y-1.5 text-[11px] text-slate-300">
+                  {diffReport.divergenceDetails.map((det, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <span className="text-indigo-400 shrink-0 font-bold">{i + 1}.</span>
+                      <span className="font-mono leading-relaxed">{det}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-3 border-t border-slate-800 bg-slate-950/80 flex items-center justify-between text-xs font-mono text-slate-400">
+              <span>Audit: {new Date(diffReport.auditTimestamp).toLocaleTimeString()}</span>
+              <button
+                onClick={() => {
+                  setShowDiffModal(false);
+                  setDiffBaseScreen(null);
+                  setDiffCompareScreen(null);
+                }}
+                className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg transition"
+              >
+                Cerrar Comparativa
+              </button>
+            </div>
           </div>
         </div>
       )}
