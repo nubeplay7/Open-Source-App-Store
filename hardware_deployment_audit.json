@@ -1,0 +1,18 @@
+[
+  {
+    "timestamp": "2026-09-11T09:42:28.046Z",
+    "targetApk": "build/civer-appstore-signed-v1.3.0.apk",
+    "sha256": "a67042e9861865ce42ac48b7e87a3128bf8f02ee884ad62f71914be5d6ee90bb",
+    "device": {
+      "model": "Samsung Galaxy A06",
+      "model_code": "SM-A065M",
+      "serial": "R8YY500R7ZB",
+      "android_version": "14",
+      "connection": "ADB_OVER_SSH",
+      "shizuku_status": "RUNNING"
+    },
+    "nodeBridge": "Usuario@100.96.218.12",
+    "dryRun": true,
+    "status": "VERIFIED_READY"
+  }
+]

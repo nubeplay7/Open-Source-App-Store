@@ -23,6 +23,7 @@ import {
   Globe
 } from 'lucide-react';
 import { AppCatalogItem } from '../types';
+import { ClusterLiveTelemetryBar } from './ClusterLiveTelemetryBar';
 
 interface ConnectedDevice {
   id: string;
@@ -139,6 +140,9 @@ export const ConnectedDevicesView: React.FC<ConnectedDevicesViewProps> = ({ cata
           </div>
         </div>
       </div>
+
+      {/* Cluster Live Telemetry Bar */}
+      <ClusterLiveTelemetryBar />
 
       {/* Mode 1: Download Center View */}
       {activeTab === 'DOWNLOAD_CENTER' && (

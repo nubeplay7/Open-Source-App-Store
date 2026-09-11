@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-09-11T09:42:00.356Z",
+  "status": "HEALTHY",
+  "canaries": {
+    "edge_cloudflare": {
+      "name": "Canary 1: Cloudflare Edge (bene.civer.cloud)",
+      "ok": true,
+      "latencyMs": 252,
+      "statusCode": 200
+    },
+    "local_master_web": {
+      "name": "Canary 2: ASUS Master React (:3000)",
+      "ok": true,
+      "latencyMs": 26,
+      "statusCode": 200
+    },
+    "always_on_gateway": {
+      "name": "Canary 3: Droplet / Local Gateway (:3080)",
+      "ok": true,
+      "latencyMs": 6,
+      "statusCode": 500
+    },
+    "thinkpad_node": {
+      "name": "Canary 4: ThinkPad Cluster Node (100.96.218.12)",
+      "pingOk": true,
+      "ok": true
+    },
+    "hardware_samsung": {
+      "name": "Canary 5: Samsung A06 Hardware Testbed",
+      "ok": true,
+      "mode": "FEDERATED_TOPOLOGY",
+      "devicesCount": 1,
+      "details": [
+        "R8YY500R7ZB Samsung Galaxy A06 (ADB_OVER_SSH)"
+      ]
+    },
+    "civer_work_state": {
+      "name": "Canary 6: System State & Work Database",
+      "ok": true
+    }
+  },
+  "healthPercent": 100
+}

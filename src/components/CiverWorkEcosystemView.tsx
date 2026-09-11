@@ -56,12 +56,23 @@ import {
   INITIAL_COMMUNITY_CHANNELS,
   INITIAL_OMNIROUTER_STATUS
 } from '../data/civerWorkData';
+import { ClusterLiveTelemetryBar } from './ClusterLiveTelemetryBar';
+import { CiverPayoutModal } from './CiverPayoutModal';
 
 export const CiverWorkEcosystemView: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'TESTING' | 'SHARK_TANK' | 'ROYALTIES' | 'CONTRACTS' | 'OMNIROUTER' | 'CONVOCATIONS' | 'DEPARTMENTS'>('TESTING');
   
-  // Wallet State
+  // Wallet State & Payout Modal
   const [wallet, setWallet] = useState<ContributorWallet>(INITIAL_WORKER_WALLET);
+  const [isPayoutModalOpen, setIsPayoutModalOpen] = useState(false);
+
+  const handlePayoutSuccess = (amountUsd: number, amountSats: number) => {
+    setWallet(prev => ({
+      ...prev,
+      balanceUsd: Math.max(0, Number((prev.balanceUsd - amountUsd).toFixed(2))),
+      balanceSats: Math.max(0, prev.balanceSats - amountSats)
+    }));
+  };
   
   // Testing Missions State
   const [missions, setMissions] = useState<PaidTestingMission[]>(INITIAL_TESTING_MISSIONS);
@@ -288,7 +299,7 @@ fun SovereignActionFab(
               </div>
             </div>
             <button 
-              onClick={() => alert(`Retiro procesado por Lightning Network a tu nodo o billetera (275,000 sats). Liquidación instantánea.`)}
+              onClick={() => setIsPayoutModalOpen(true)}
               className="ml-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-slate-950 font-bold text-xs transition shadow-md flex items-center gap-1.5"
             >
               <Zap className="w-3.5 h-3.5 fill-current" />
@@ -389,7 +400,10 @@ fun SovereignActionFab(
       </header>
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+        {/* Live Sovereign Cluster & DiscoveryWeb Telemetry */}
+        <ClusterLiveTelemetryBar />
+
         {/* TAB 1: TESTING MISSIONS BOARD */}
         {activeTab === 'TESTING' && (
           <div className="space-y-6">
@@ -1352,6 +1366,15 @@ fun SovereignActionFab(
           </div>
         </div>
       )}
+
+      {/* Modal de Liquidación Inmediata Lightning / SPEI */}
+      <CiverPayoutModal
+        isOpen={isPayoutModalOpen}
+        onClose={() => setIsPayoutModalOpen(false)}
+        availableUsd={wallet.balanceUsd}
+        availableSats={wallet.balanceSats}
+        onPayoutSuccess={handlePayoutSuccess}
+      />
     </div>
   );
 };
