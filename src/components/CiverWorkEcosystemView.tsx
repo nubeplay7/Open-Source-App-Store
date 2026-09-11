@@ -24,7 +24,14 @@ import {
   PieChart,
   PlusCircle,
   HelpCircle,
-  ExternalLink
+  ExternalLink,
+  Bot,
+  Network,
+  Radio,
+  Globe,
+  Layers,
+  Terminal,
+  CheckCheck
 } from 'lucide-react';
 import { 
   PaidTestingMission, 
@@ -32,18 +39,26 @@ import {
   InternalWorkContract, 
   ContributorWallet, 
   CiverRoyaltyDistribution,
-  CiverWorkRole 
+  CiverWorkRole,
+  CiverDepartment,
+  WorkConvocation,
+  CommunityChannel,
+  OmniRouterStatus
 } from '../types';
 import { 
   DEFAULT_ROYALTY_DISTRIBUTION, 
   INITIAL_TESTING_MISSIONS, 
   INITIAL_SHARK_TANK_PROJECTS, 
   INITIAL_WORKER_WALLET, 
-  SAMPLE_MASTER_AGREEMENT 
+  SAMPLE_MASTER_AGREEMENT,
+  INITIAL_DEPARTMENTS,
+  INITIAL_CONVOCATIONS,
+  INITIAL_COMMUNITY_CHANNELS,
+  INITIAL_OMNIROUTER_STATUS
 } from '../data/civerWorkData';
 
 export const CiverWorkEcosystemView: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'TESTING' | 'SHARK_TANK' | 'ROYALTIES' | 'CONTRACTS'>('TESTING');
+  const [activeTab, setActiveTab] = useState<'TESTING' | 'SHARK_TANK' | 'ROYALTIES' | 'CONTRACTS' | 'OMNIROUTER' | 'CONVOCATIONS' | 'DEPARTMENTS'>('TESTING');
   
   // Wallet State
   const [wallet, setWallet] = useState<ContributorWallet>(INITIAL_WORKER_WALLET);
@@ -96,6 +111,54 @@ export const CiverWorkEcosystemView: React.FC = () => {
   // Contracts State
   const [contracts, setContracts] = useState<InternalWorkContract[]>([SAMPLE_MASTER_AGREEMENT]);
   const [hasSignedMasterTerms, setHasSignedMasterTerms] = useState(true);
+
+  // New Features State: Convocations, Departments, OmniRouter
+  const [enrolledConvocations, setEnrolledConvocations] = useState<Record<string, boolean>>({
+    'conv-vibe-01': true
+  });
+  const [omniPromptText, setOmniPromptText] = useState('Crea un botón flotante con Jetpack Compose y WebSocket client para Android 15');
+  const [omniSelectedModel, setOmniSelectedModel] = useState('gemini-2.5-flash');
+  const [omniResponseText, setOmniResponseText] = useState<string | null>(null);
+  const [isOmniGenerating, setIsOmniGenerating] = useState(false);
+  const [omniTokensUsed, setOmniTokensUsed] = useState(0);
+
+  // Handler: Enroll Convocation
+  const handleEnrollConvocation = (convId: string) => {
+    setEnrolledConvocations(prev => ({ ...prev, [convId]: true }));
+    alert('🎉 ¡Te has postulado con éxito a la convocatoria! Un agente de Recursos Humanos (Agent-PeopleOps) te contactará por Telegram para tu onboarding.');
+  };
+
+  // Handler: Run OmniRouter Prompt
+  const handleRunOmniPrompt = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!omniPromptText.trim()) return;
+    setIsOmniGenerating(true);
+    setOmniResponseText(null);
+
+    setTimeout(() => {
+      setIsOmniGenerating(false);
+      setOmniTokensUsed(prev => prev + 412);
+      setOmniResponseText(
+        `// Generado instantáneamente con IA Infinita OmniRouter (${omniSelectedModel})
+// Proveedor en cascada verificado: 0 costo | Latencia: 140ms
+@Composable
+fun SovereignActionFab(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    FloatingActionButton(
+        onClick = onClick,
+        containerColor = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary,
+        elevation = FloatingActionButtonDefaults.elevation(8.dp),
+        modifier = modifier
+    ) {
+        Icon(Icons.Filled.Bolt, contentDescription = "Acción Soberana Civer")
+    }
+}`
+      );
+    }, 1200);
+  };
 
   // Handler: Submit Mission Report
   const handleSubmitMissionReport = (e: React.FormEvent) => {
@@ -282,6 +345,45 @@ export const CiverWorkEcosystemView: React.FC = () => {
           >
             <FileText className="w-3.5 h-3.5" />
             <span>4. Contratos Digitales & Marco Legal</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('OMNIROUTER')}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap border ${
+              activeTab === 'OMNIROUTER'
+                ? 'bg-cyan-950/80 border-cyan-700 text-cyan-300 shadow-sm'
+                : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-900'
+            }`}
+          >
+            <Cpu className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="flex items-center gap-1.5">
+              <span>5. IA Infinita (OmniRouter)</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('CONVOCATIONS')}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap border ${
+              activeTab === 'CONVOCATIONS'
+                ? 'bg-rose-950/80 border-rose-700 text-rose-300 shadow-sm'
+                : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-900'
+            }`}
+          >
+            <Users className="w-3.5 h-3.5 text-rose-400" />
+            <span>6. Convocatorias (2h/día) & Comunidad</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('DEPARTMENTS')}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap border ${
+              activeTab === 'DEPARTMENTS'
+                ? 'bg-indigo-950/80 border-indigo-700 text-indigo-300 shadow-sm'
+                : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-900'
+            }`}
+          >
+            <Bot className="w-3.5 h-3.5 text-indigo-400" />
+            <span>7. Organigrama IA (12 Departamentos 24/7)</span>
           </button>
         </div>
       </header>
@@ -723,6 +825,356 @@ export const CiverWorkEcosystemView: React.FC = () => {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 5: OMNIROUTER IA INFINITA (POOL MULTI-CUENTA) */}
+        {activeTab === 'OMNIROUTER' && (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-cyan-950/40 via-slate-900 to-slate-900 border border-cyan-900/40 rounded-2xl p-5">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-base font-bold text-white flex items-center gap-2">
+                    <Cpu className="w-5 h-5 text-cyan-400" />
+                    <span>Pool de Cuentas OmniRouter: "IA Infinita Agéntica"</span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-950 text-cyan-300 border border-cyan-800 animate-pulse">
+                      48 Cuentas Activas
+                    </span>
+                  </h2>
+                  <p className="text-xs text-slate-400 mt-1 max-w-3xl leading-relaxed">
+                    Nuestros sistemas integran un pool agregado de múltiples cuentas autenticadas (Kaggle GPU, Baseten, Gemini, DeepSeek, Groq). Conmutan en cascada en &lt;45ms si una cuota se satura, garantizando que tú y todos los colaboradores tengan <strong>acceso ilimitado y gratuito a la mejor IA agéntica</strong> sin pagar un solo dólar de su bolsillo.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="px-3 py-2 rounded-xl bg-slate-950 border border-cyan-800/60 text-right">
+                    <div className="text-[10px] uppercase font-mono text-slate-400">Saldo Agregado</div>
+                    <div className="text-sm font-black text-cyan-400 font-mono">
+                      ${INITIAL_OMNIROUTER_STATUS.totalCombinedCreditUsd.toLocaleString()} USD
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Metrics Bar */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <div className="text-[10px] uppercase font-mono text-slate-400">Cuentas Autenticadas</div>
+                <div className="text-lg font-black text-white mt-1">48 Cuentas</div>
+                <div className="text-[10px] text-emerald-400 font-medium">Pool multi-proveedor</div>
+              </div>
+              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <div className="text-[10px] uppercase font-mono text-slate-400">Tokens 24h</div>
+                <div className="text-lg font-black text-cyan-400 font-mono mt-1">8,420,000</div>
+                <div className="text-[10px] text-slate-400">Despachados sin lag</div>
+              </div>
+              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <div className="text-[10px] uppercase font-mono text-slate-400">Enrutamiento Cascada</div>
+                <div className="text-lg font-black text-emerald-400 mt-1 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Activo</span>
+                </div>
+                <div className="text-[10px] text-slate-400">&lt;45ms conmutación</div>
+              </div>
+              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <div className="text-[10px] uppercase font-mono text-slate-400">Costo para el Usuario</div>
+                <div className="text-lg font-black text-amber-400 mt-1">$0.00 USD</div>
+                <div className="text-[10px] text-emerald-400">100% Cubierto por Civer</div>
+              </div>
+            </div>
+
+            {/* Provider Pools Grid */}
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
+                <Layers className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Nodos del Pool de Cuentas Conectadas en OmniRouter</span>
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                {INITIAL_OMNIROUTER_STATUS.pools.map(pool => (
+                  <div key={pool.id} className="p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-800/80 transition space-y-3">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-950 text-cyan-300 border border-cyan-800">
+                          {pool.provider}
+                        </span>
+                        <h4 className="text-xs font-bold text-white mt-1.5">{pool.accountAlias}</h4>
+                      </div>
+                      <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950 text-emerald-400 border border-emerald-800">
+                        {pool.status}
+                      </span>
+                    </div>
+
+                    <div className="text-[11px] text-slate-300 space-y-1">
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Cuentas en Pool:</span>
+                        <strong className="text-white">{pool.totalAccountsCount} activas</strong>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Saldo/Cuota:</span>
+                        <strong className="text-cyan-400">{pool.remainingTokensQuota}</strong>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-400">Latencia p99:</span>
+                        <strong className="text-emerald-400 font-mono">{pool.latencyMs} ms</strong>
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-slate-800/80">
+                      <div className="text-[10px] text-slate-400 mb-1">Modelos Servidos:</div>
+                      <div className="flex flex-wrap gap-1">
+                        {pool.supportedModels.map((m, idx) => (
+                          <span key={idx} className="px-1.5 py-0.5 rounded text-[10px] bg-slate-950 border border-slate-800 text-slate-300 font-mono">
+                            {m}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Interactive OmniRouter Prompt Playground */}
+            <div className="bg-slate-900 border border-cyan-900/50 rounded-2xl p-5 shadow-2xl space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Terminal className="w-4 h-4 text-cyan-400" />
+                  <h3 className="text-sm font-bold text-white">Consola de Vibe Coding con IA Infinita</h3>
+                </div>
+                <div className="text-xs text-slate-400">
+                  Tokens consumidos en esta sesión: <strong className="text-cyan-400 font-mono">{omniTokensUsed} tok ($0.00 USD)</strong>
+                </div>
+              </div>
+
+              <form onSubmit={handleRunOmniPrompt} className="space-y-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <select
+                    value={omniSelectedModel}
+                    onChange={e => setOmniSelectedModel(e.target.value)}
+                    className="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500 font-mono shrink-0"
+                  >
+                    <option value="gemini-2.5-flash">Google Gemini 2.5 Flash (Ultrarrápido)</option>
+                    <option value="gemini-2.5-pro">Google Gemini 2.5 Pro (Razonamiento profundo)</option>
+                    <option value="deepseek-chat (V3)">DeepSeek V3 (Arquitectura MoE 671B)</option>
+                    <option value="deepseek-reasoner (R1)">DeepSeek R1 (Lógica y auditoría)</option>
+                    <option value="llama-3.3-70b-versatile">Groq LLaMA 3.3 70B (500 tok/s)</option>
+                  </select>
+
+                  <input
+                    type="text"
+                    value={omniPromptText}
+                    onChange={e => setOmniPromptText(e.target.value)}
+                    placeholder="Escribe lo que quieres que la IA construya o investigue..."
+                    className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500"
+                  />
+
+                  <button
+                    type="submit"
+                    disabled={isOmniGenerating}
+                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-slate-950 font-bold text-xs transition shadow-lg shadow-cyan-950 flex items-center justify-center gap-1.5 shrink-0 disabled:opacity-50"
+                  >
+                    {isOmniGenerating ? (
+                      <>
+                        <span className="w-3 h-3 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+                        <span>Enrutando Pool...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Zap className="w-3.5 h-3.5 fill-current" />
+                        <span>Generar con IA Gratis</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+
+              {omniResponseText && (
+                <div className="p-4 rounded-xl bg-slate-950 border border-cyan-900/60 font-mono text-xs text-cyan-200 whitespace-pre-wrap leading-relaxed">
+                  {omniResponseText}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 6: CONVOCATORIAS & COMUNIDAD */}
+        {activeTab === 'CONVOCATIONS' && (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-rose-950/40 via-slate-900 to-slate-900 border border-rose-900/40 rounded-2xl p-5">
+              <h2 className="text-base font-bold text-white flex items-center gap-2">
+                <Users className="w-5 h-5 text-rose-400" />
+                <span>Convocatorias de Participación Remota (Mínimo 2 horas al día)</span>
+              </h2>
+              <p className="text-xs text-slate-400 mt-1 max-w-3xl leading-relaxed">
+                Buscamos personas de cualquier país con deseos de aprender, colaborar y ganar dinero desde su computadora o teléfono. Todo el soporte de IA y compilación está 100% cubierto por Civer Cloud. Únete a las reuniones quincenales por Zoom o Google Meet y forma parte de la red de software libre que sí paga.
+              </p>
+            </div>
+
+            {/* Convocations Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              {INITIAL_CONVOCATIONS.map(conv => {
+                const isEnrolled = !!enrolledConvocations[conv.id];
+                return (
+                  <div key={conv.id} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between shadow-xl hover:border-rose-900/60 transition">
+                    <div className="space-y-3.5">
+                      <div className="flex items-center justify-between">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-950 text-rose-300 border border-rose-800">
+                          {conv.targetRole}
+                        </span>
+                        <span className="text-[10px] font-bold text-emerald-400 flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3" />
+                          <span>{conv.enrolledCount} / {conv.openSpots} postulan</span>
+                        </span>
+                      </div>
+
+                      <h3 className="text-sm font-bold text-white leading-snug">{conv.title}</h3>
+
+                      <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 text-xs">
+                        <div className="text-slate-400 text-[10px] uppercase font-mono">Compromiso Requerido:</div>
+                        <div className="text-amber-300 font-bold mt-0.5">{conv.requiredTimeCommitment}</div>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <div className="text-[11px] font-bold text-slate-300">Requisitos Mínimos:</div>
+                        {conv.requirements.map((req, idx) => (
+                          <div key={idx} className="flex items-start gap-1.5 text-xs text-slate-400">
+                            <span className="text-rose-400 shrink-0">•</span>
+                            <span>{req}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="space-y-1.5 pt-2 border-t border-slate-800">
+                        <div className="text-[11px] font-bold text-emerald-400">Beneficios y Regalías:</div>
+                        {conv.benefits.map((ben, idx) => (
+                          <div key={idx} className="flex items-start gap-1.5 text-xs text-slate-300">
+                            <span className="text-emerald-400 shrink-0">✓</span>
+                            <span>{ben}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="pt-4 mt-4 border-t border-slate-800">
+                      <button
+                        onClick={() => handleEnrollConvocation(conv.id)}
+                        disabled={isEnrolled}
+                        className={`w-full py-2.5 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 ${
+                          isEnrolled 
+                            ? 'bg-emerald-950 text-emerald-300 border border-emerald-800 cursor-default' 
+                            : 'bg-rose-600 hover:bg-rose-500 text-white shadow-lg shadow-rose-950'
+                        }`}
+                      >
+                        {isEnrolled ? (
+                          <>
+                            <CheckCheck className="w-4 h-4" />
+                            <span>Postulación Enviada (Activo)</span>
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-4 h-4" />
+                            <span>Postularme a esta Convocatoria</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Community Communication Channels */}
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                <Globe className="w-4 h-4 text-sky-400" />
+                <span>Canales de Comunicación del Ecosistema Internacional</span>
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {INITIAL_COMMUNITY_CHANNELS.map(chan => (
+                  <div key={chan.id} className="p-3.5 rounded-xl bg-slate-950 border border-slate-800/90 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-sky-950 text-sky-300 border border-sky-800">
+                          {chan.platform}
+                        </span>
+                        {chan.isLiveNow && (
+                          <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-red-950 text-red-300 border border-red-800 animate-pulse flex items-center gap-1">
+                            <Radio className="w-2.5 h-2.5" />
+                            <span>EN VIVO</span>
+                          </span>
+                        )}
+                      </div>
+                      <h4 className="text-xs font-bold text-white">{chan.name}</h4>
+                      <p className="text-[11px] text-slate-400 mt-1">{chan.description}</p>
+                    </div>
+                    <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-900">
+                      <span className="text-[10px] font-mono text-slate-500">{chan.activeMembersCount} miembros</span>
+                      <a
+                        href={chan.urlOrHandle.startsWith('http') ? chan.urlOrHandle : `https://t.me/${chan.urlOrHandle.replace('@', '')}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-[11px] font-bold text-sky-400 hover:text-sky-300 flex items-center gap-1"
+                      >
+                        <span>{chan.urlOrHandle}</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 7: ORGANIGRAMA DE AGENTES IA (12 DEPARTAMENTOS 24/7) */}
+        {activeTab === 'DEPARTMENTS' && (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-indigo-950/40 via-slate-900 to-slate-900 border border-indigo-900/40 rounded-2xl p-5">
+              <h2 className="text-base font-bold text-white flex items-center gap-2">
+                <Bot className="w-5 h-5 text-indigo-400" />
+                <span>Organigrama Corporativo: 12 Departamentos de Agentes IA Especializados (24/7)</span>
+              </h2>
+              <p className="text-xs text-slate-400 mt-1 max-w-3xl leading-relaxed">
+                Nuestra empresa opera como un enjambre autónomo con 12 departamentos dirigidos por agentes de inteligencia artificial sin descanso. Ellos gestionan la seguridad, la compilación en la nube, la auditoría de contratos, el enrutamiento de IA y la liquidación de pagos para que los usuarios humanos se concentren en crear y ganar.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {INITIAL_DEPARTMENTS.map(dept => (
+                <div key={dept.id} className="p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-indigo-800/80 transition space-y-3">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-950 text-indigo-300 border border-indigo-800">
+                        {dept.code}
+                      </span>
+                      <h3 className="text-xs font-bold text-white mt-1.5">{dept.name}</h3>
+                      <div className="text-[11px] text-cyan-400 font-mono mt-0.5 flex items-center gap-1">
+                        <Bot className="w-3 h-3" />
+                        <span>{dept.leaderAgent}</span>
+                      </div>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-emerald-950 text-emerald-400 border border-emerald-800 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span>{dept.status}</span>
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    {dept.mission}
+                  </p>
+
+                  <div className="p-2 rounded-lg bg-slate-950 border border-slate-800 text-[10px] space-y-1 font-mono">
+                    <div className="text-slate-400">Cómputo Asignado:</div>
+                    <div className="text-amber-300 font-semibold">{dept.computeAllocated}</div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-800/80">
+                    <span>Tareas en 24h: <strong className="text-white font-mono">{dept.tasksCompleted24h}</strong></span>
+                    <span>En cola: <strong className="text-indigo-400 font-mono">{dept.activeJobsCount}</strong></span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}

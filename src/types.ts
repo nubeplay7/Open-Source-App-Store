@@ -1612,3 +1612,79 @@ export interface ContributorWallet {
   payoutMethod: 'LIGHTNING_NETWORK' | 'BANK_SPEI' | 'USDT_CRYPTO' | 'CIVER_CREDITS';
 }
 
+// -------------------------------------------------------------
+// ORGANIGRAMA DEPARTAMENTAL AGÉNTICO (12 DEPARTAMENTOS 24/7)
+// -------------------------------------------------------------
+
+export interface CiverDepartment {
+  id: string;
+  code: string;
+  name: string;
+  leaderAgent: string;
+  skillsAssigned: string[];
+  status: 'ONLINE_24_7' | 'BUSY' | 'SYNCHRONIZING';
+  tasksCompleted24h: number;
+  activeJobsCount: number;
+  mission: string;
+  computeAllocated: string;
+}
+
+// -------------------------------------------------------------
+// CONVOCATORIAS DE TRABAJO Y PARTICIPACIÓN REMOTA
+// -------------------------------------------------------------
+
+export interface WorkConvocation {
+  id: string;
+  title: string;
+  departmentId: string;
+  targetRole: CiverWorkRole;
+  requiredTimeCommitment: string;
+  requirements: string[];
+  benefits: string[];
+  communicationChannels: string[];
+  openSpots: number;
+  enrolledCount: number;
+  status: 'OPEN' | 'CLOSING_SOON' | 'FULL';
+  languages: string[];
+}
+
+// -------------------------------------------------------------
+// ECOSISTEMA DE COMUNICACIÓN COMUNITARIA INTERNACIONAL
+// -------------------------------------------------------------
+
+export interface CommunityChannel {
+  id: string;
+  platform: 'TELEGRAM' | 'ZOOM' | 'GOOGLE_MEET' | 'INTERNAL_FORUM' | 'MATRIX';
+  name: string;
+  urlOrHandle: string;
+  category: 'ANNOUNCEMENTS' | 'DEV_VIBE' | 'QA_TESTERS' | 'DEAL_ROOMS' | 'GENERAL';
+  activeMembersCount: number;
+  description: string;
+  isLiveNow?: boolean;
+}
+
+// -------------------------------------------------------------
+// OMNIROUTER IA INFINITA — POOL MULTI-CUENTA DE PROVEEDORES
+// -------------------------------------------------------------
+
+export interface OmniRouterAccountPool {
+  id: string;
+  provider: 'OPENAI' | 'ANTHROPIC' | 'GEMINI' | 'DEEPSEEK' | 'GROQ' | 'MISTRAL' | 'BASETEN' | 'KAGGLE_GPU';
+  accountAlias: string;
+  totalAccountsCount: number;
+  aggregatedBalanceUsd: number;
+  remainingTokensQuota: string;
+  status: 'HEALTHY' | 'FAILOVER_STANDBY' | 'SATURATED';
+  latencyMs: number;
+  supportedModels: string[];
+  isInfiniteTier: boolean;
+}
+
+export interface OmniRouterStatus {
+  totalAggregatedAccounts: number;
+  totalCombinedCreditUsd: number;
+  totalTokensDispatched24h: number;
+  activeCascadeRouting: boolean;
+  pools: OmniRouterAccountPool[];
+}
+
