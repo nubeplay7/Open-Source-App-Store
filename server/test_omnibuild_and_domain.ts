@@ -126,14 +126,16 @@ async function runTests() {
 
   // TEST SUITE 7: Registro del PRD e Iteración 13 en Changelog Ledger
   console.log('\n--- 7. Auditoría del Ledger de Arquitectura & PRD ---');
-  const latestIteration = SYSTEM_CHANGELOG[SYSTEM_CHANGELOG.length - 1];
-  assert(latestIteration.iterationNumber === 13, `Última iteración registrada es la 13 (actual: ${latestIteration.iterationNumber})`);
-  assert(latestIteration.title.includes('OmniBuild'), 'Título de la iteración 13 referencia OmniBuild');
-  assert(latestIteration.architecturePhases.length === 4, 'Iteración 13 contiene 4 fases de arquitectura');
-  assert(latestIteration.architecturePhases.every(p => p.status === 'COMPLETED'), 'Todas las fases de la iteración 13 están COMPLETED');
-  assert(latestIteration.implementedFeatures.length >= 4, 'Iteración 13 contiene 4 características verificadas');
-  assert(latestIteration.modulesAffected.includes('omniBuildKernelService.ts'), 'modulesAffected incluye omniBuildKernelService.ts');
-  assert(latestIteration.modulesAffected.includes('kaggleCompilerBridgeService.ts'), 'modulesAffected incluye kaggleCompilerBridgeService.ts');
+  const iter13 = SYSTEM_CHANGELOG.find(it => it.iterationNumber === 13);
+  assert(!!iter13, `Iteración 13 está registrada en el changelog (total iteraciones: ${SYSTEM_CHANGELOG.length})`);
+  if (iter13) {
+    assert(iter13.title.includes('OmniBuild'), 'Título de la iteración 13 referencia OmniBuild');
+    assert(iter13.architecturePhases.length === 4, 'Iteración 13 contiene 4 fases de arquitectura');
+    assert(iter13.architecturePhases.every(p => p.status === 'COMPLETED'), 'Todas las fases de la iteración 13 están COMPLETED');
+    assert(iter13.implementedFeatures.length >= 4, 'Iteración 13 contiene 4 características verificadas');
+    assert(iter13.modulesAffected.includes('omniBuildKernelService.ts'), 'modulesAffected incluye omniBuildKernelService.ts');
+    assert(iter13.modulesAffected.includes('kaggleCompilerBridgeService.ts'), 'modulesAffected incluye kaggleCompilerBridgeService.ts');
+  }
 
   // RESUMEN FINAL
   console.log('\n================================================================================');
