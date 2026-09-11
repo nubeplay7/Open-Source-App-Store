@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { AppCatalogItem } from '../types';
 import { ClusterLiveTelemetryBar } from './ClusterLiveTelemetryBar';
+import { DeviceScreenMirrorModal } from './DeviceScreenMirrorModal';
 
 interface ConnectedDevice {
   id: string;
@@ -71,6 +72,7 @@ export const ConnectedDevicesView: React.FC<ConnectedDevicesViewProps> = ({ cata
   const [deployLogs, setDeployLogs] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<'FLEET' | 'DOWNLOAD_CENTER' | 'REMOTE_INSTALL'>('FLEET');
   const [apkSha256, setApkSha256] = useState<string>('72568ce3f49253ff34a4d0666b4cf18e846c2f86be8c4eb2007f12212b32bbad');
+  const [isMirrorModalOpen, setIsMirrorModalOpen] = useState<boolean>(false);
 
   const activeDevice = devices.find(d => d.id === selectedDevice) || devices[0];
 
@@ -273,9 +275,18 @@ export const ConnectedDevicesView: React.FC<ConnectedDevicesViewProps> = ({ cata
                     <p className="text-xs text-slate-400 font-mono">Modelo: {activeDevice.model} • Serial: {activeDevice.id}</p>
                   </div>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-semibold flex items-center gap-1.5">
-                  <Wifi className="w-3 h-3" /> Online & Autorizado
-                </span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={() => setIsMirrorModalOpen(true)}
+                    className="px-3.5 py-1.5 rounded-full bg-gradient-to-r from-indigo-600/30 to-sky-600/30 hover:from-indigo-600/50 hover:to-sky-600/50 text-sky-200 border border-sky-500/40 text-xs font-semibold flex items-center gap-1.5 transition shadow-sm"
+                  >
+                    <Smartphone className="w-3.5 h-3.5 text-sky-400" />
+                    <span>Pantalla en Vivo</span>
+                  </button>
+                  <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-semibold flex items-center gap-1.5">
+                    <Wifi className="w-3 h-3" /> Online & Autorizado
+                  </span>
+                </div>
               </div>
 
               {/* Hardware Telemetry Grid */}
@@ -406,6 +417,14 @@ export const ConnectedDevicesView: React.FC<ConnectedDevicesViewProps> = ({ cata
           </div>
         </div>
       )}
+
+      {/* Modal de Espejo y Telemetría de Pantalla en Vivo */}
+      <DeviceScreenMirrorModal
+        isOpen={isMirrorModalOpen}
+        onClose={() => setIsMirrorModalOpen(false)}
+        deviceId={activeDevice.id}
+        deviceName={activeDevice.name}
+      />
     </div>
   );
 };

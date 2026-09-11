@@ -13,6 +13,7 @@ Este documento contiene la especificación formal y ejecutable de las **50 Habil
 - [Categoría D: Curaduría de Catálogo y Heurística FOSS (Skills 29-36)](#categoría-d-curaduría-de-catálogo-y-heurística-foss)
 - [Categoría E: Developer Workspace e Integraciones (Skills 37-43)](#categoría-e-developer-workspace-e-integraciones)
 - [Categoría F: Experiencia de Usuario, Ergonomía y Accesibilidad (Skills 44-50)](#categoría-f-experiencia-de-usuario-ergonomía-y-accesibilidad)
+- [Categoría G: Infraestructura Empresarial y Pagos Soberanos (Skills 51-55)](#categoría-g-infraestructura-empresarial-y-pagos-soberanos)
 
 ---
 
@@ -524,3 +525,56 @@ Este documento contiene la especificación formal y ejecutable de las **50 Habil
   1. Deshabilitar suavemente acciones que requieran sincronización en vivo (como descargas remotas directas) y permitir su encolamiento local.
   2. Presentar un banner visual discreto que informe al usuario que está navegando sobre la caché local sin interrupción de lectura.
 - **Salida**: Resiliencia total de la aplicación ante fallos de conectividad.
+
+---
+
+## Categoría G: Infraestructura Empresarial y Pagos Soberanos
+
+### 51. `SKILL-ENT-01: LightningBolt11Settler`
+- **Propósito**: Liquidar recompensas de testing y regalías en satoshis instantáneamente mediante Lightning Network (BOLT11 / WebLN).
+- **Disparador**: Solicitud de cobro desde la billetera de Civer Work Marketplace.
+- **Entrada**: Factura BOLT11, LNURL o clave pública de nodo Lightning y monto en USD/Sats.
+- **Ejecución**:
+  1. Validar el formato de la factura BOLT11 y el monto mínimo en satoshis.
+  2. Enrutar el pago a través del nodo soberano de Civer Cloud (`bene.civer.cloud`).
+  3. Extraer el preimage criptográfico SHA-256 como prueba irrefutable de liquidación.
+- **Salida**: Comprobante de pago con Preimage SHA-256 y descuento del balance en la billetera local.
+
+### 52. `SKILL-ENT-02: SpeiBanxicoDisburser`
+- **Propósito**: Despachar transferencias electrónicas instantáneas del Sistema de Pagos Electrónicos Interbancarios (SPEI) hacia cuentas bancarias mexicanas.
+- **Disparador**: Elección de retiro en moneda fiduciaria (MXN) en Civer Work.
+- **Entrada**: CLABE interbancaria de 18 dígitos, nombre del titular y monto a retirar.
+- **Ejecución**:
+  1. Validar la estructura algorítmica de la CLABE e identificar la institución financiera (BBVA, Nu, Banorte, STP).
+  2. Despachar la instrucción a la pasarela bancaria y generar la clave de rastreo Banxico.
+  3. Registrar el folio en el libro mayor inmutable local.
+- **Salida**: Comprobante de transferencia bancaria con clave de rastreo y folio de liquidación.
+
+### 53. `SKILL-ENT-03: RemoteSamsungScreenMirror`
+- **Propósito**: Capturar y transmitir en tiempo real el framebuffer de pantalla del dispositivo físico Samsung Galaxy A06 (`R8YY500R7ZB`) para pruebas de QA.
+- **Disparador**: Clic en "Pantalla en Vivo" en el panel de Mis Dispositivos Conectados.
+- **Entrada**: Comando de captura `screencap -p` despachado vía túnel SSH hacia la ThinkPad T480s (`100.96.218.12`).
+- **Ejecución**:
+  1. Consultar el estado del dispositivo en `system_state.json`.
+  2. Ejecutar la captura o transmitir los fotogramas comprimidos hacia el componente `DeviceScreenMirrorModal.tsx`.
+  3. Permitir el despacho de eventos táctiles (`input tap x y`) y teclas físicas de Android (`BACK`, `HOME`, `POWER`).
+- **Salida**: Visor interactivo en vivo de pantalla de hardware real dentro del navegador web.
+
+### 54. `SKILL-ENT-04: ClusterMailboxPaperclipRouter`
+- **Propósito**: Enrutar mensajes asíncronos y sincronizar tareas entre múltiples conversaciones del IDE Antigravity (Master ASUS + ThinkPad + DiscoveryWeb) en modo enjambre continuo estilo Paperclip.
+- **Disparador**: Emisión de hitos o solicitud de despacho inter-conversación (`tools/cluster_mailbox_router.cjs`).
+- **Entrada**: Conversación emisora (`from`), receptora (`to`), asunto y cuerpo del mensaje.
+- **Ejecución**:
+  1. Leer y actualizar la cola atómica en `C:\Users\asus\.gemini\antigravity\brain\cluster_mailbox.json`.
+  2. Indexar mensajes pendientes y soportar transmisiones de difusión masiva (`broadcast`).
+- **Salida**: Sincronización transparente de contexto y directivas entre agentes autónomos sin intervención humana.
+
+### 55. `SKILL-ENT-05: WindowsTaskSchedulerPersister`
+- **Propósito**: Instalar y supervisar la tarea programada `CiverInfiniteClusterSync` en el Programador de Tareas de Windows para asegurar ejecución desatendida perpetua.
+- **Disparador**: Ejecución de `tools/setup_infinite_service.ps1 -Install`.
+- **Entrada**: Ruta del repositorio local y script supervisor `tools/civer_infinite_sync.ps1`.
+- **Ejecución**:
+  1. Invocar `schtasks.exe /Create` con privilegio elevado (`/RL HIGHEST`) y disparador al iniciar sesión (`/SC ONLOGON`).
+  2. Monitorear el estado de ejecución y reanudar el bucle ante caídas o reinicios.
+- **Salida**: Servicio persistente y soberano de sincronización infinita de clúster.
+

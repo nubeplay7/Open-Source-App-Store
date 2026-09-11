@@ -58,13 +58,15 @@ import {
 } from '../data/civerWorkData';
 import { ClusterLiveTelemetryBar } from './ClusterLiveTelemetryBar';
 import { CiverPayoutModal } from './CiverPayoutModal';
+import { CiverLedgerHistoryModal } from './CiverLedgerHistoryModal';
 
 export const CiverWorkEcosystemView: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'TESTING' | 'SHARK_TANK' | 'ROYALTIES' | 'CONTRACTS' | 'OMNIROUTER' | 'CONVOCATIONS' | 'DEPARTMENTS'>('TESTING');
   
-  // Wallet State & Payout Modal
+  // Wallet State, Payout Modal & Ledger History
   const [wallet, setWallet] = useState<ContributorWallet>(INITIAL_WORKER_WALLET);
   const [isPayoutModalOpen, setIsPayoutModalOpen] = useState(false);
+  const [isLedgerOpen, setIsLedgerOpen] = useState(false);
 
   const handlePayoutSuccess = (amountUsd: number, amountSats: number) => {
     setWallet(prev => ({
@@ -304,6 +306,14 @@ fun SovereignActionFab(
             >
               <Zap className="w-3.5 h-3.5 fill-current" />
               <span>Cobrar</span>
+            </button>
+            <button 
+              onClick={() => setIsLedgerOpen(true)}
+              title="Libro Mayor de Liquidaciones (Ledger)"
+              className="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition flex items-center gap-1 text-xs border border-slate-700"
+            >
+              <FileText className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden sm:inline">Historial</span>
             </button>
           </div>
         </div>
@@ -1374,6 +1384,12 @@ fun SovereignActionFab(
         availableUsd={wallet.balanceUsd}
         availableSats={wallet.balanceSats}
         onPayoutSuccess={handlePayoutSuccess}
+      />
+
+      {/* Modal de Libro Mayor de Liquidaciones (Ledger) */}
+      <CiverLedgerHistoryModal
+        isOpen={isLedgerOpen}
+        onClose={() => setIsLedgerOpen(false)}
       />
     </div>
   );
