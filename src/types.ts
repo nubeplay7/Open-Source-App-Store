@@ -466,6 +466,7 @@ export interface GitHubBuildRun {
   buildNodeName?: string;
   domainDownloadUrl?: string;
   kaggleKernelUrl?: string;
+  htmlUrl?: string;
 }
 
 // -------------------------------------------------------------

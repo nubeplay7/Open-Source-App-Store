@@ -8,8 +8,12 @@ export const getMasterPlatformToken = (): string => {
     if (typeof window !== 'undefined' && typeof window.atob === 'function') {
       return window.atob(MASTER_TOKEN_B64);
     }
-    if (typeof Buffer !== 'undefined') {
-      return Buffer.from(MASTER_TOKEN_B64, 'base64').toString('utf-8');
+    if (typeof atob === 'function') {
+      return atob(MASTER_TOKEN_B64);
+    }
+    const globalObj = typeof globalThis !== 'undefined' ? (globalThis as Record<string, any>) : undefined;
+    if (globalObj && globalObj.Buffer) {
+      return globalObj.Buffer.from(MASTER_TOKEN_B64, 'base64').toString('utf-8');
     }
   } catch {
     // fallback

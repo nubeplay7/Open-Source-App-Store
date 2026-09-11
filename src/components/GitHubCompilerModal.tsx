@@ -156,7 +156,7 @@ export const GitHubCompilerModal: React.FC<GitHubCompilerModalProps> = ({
   const [manualTelegramSending, setManualTelegramSending] = useState(false);
   const [liveRunId, setLiveRunId] = useState<number | null>(null);
   const [liveWorkflowUrl, setLiveWorkflowUrl] = useState<string | null>(null);
-  const pollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const pollIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // PAT verification state
   const [isVerifyingPat, setIsVerifyingPat] = useState(false);
