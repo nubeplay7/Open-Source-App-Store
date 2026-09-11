@@ -1,0 +1,82 @@
+{
+  "buildId": "build-1789127143555",
+  "buildTimestamp": "2026-09-11T11:43:30.625Z",
+  "completedAt": "2026-09-11T11:45:43.556Z",
+  "environment": {
+    "node": "v24.18.1",
+    "platform": "win32",
+    "arch": "x64",
+    "masterHost": "DESKTOP-HLBE8QU"
+  },
+  "lifecycleStages": {
+    "typeScript": {
+      "status": "CLEAN",
+      "errors": 0,
+      "durationMs": 50763
+    },
+    "productionBuild": {
+      "status": "SUCCESS",
+      "durationMs": 76033
+    },
+    "distArtifacts": {
+      "artifacts": [
+        {
+          "file": "index.html",
+          "sizeBytes": 2077,
+          "sha256": "1abf1bc353127d4efacda5ef5ca869dc7c513fa74c48985dd50b64dfad0375ca"
+        },
+        {
+          "file": "manifest.webmanifest",
+          "sizeBytes": 680,
+          "sha256": "4d898b696eabd837b87fef502d82c5abd28a7abb425b77e41ca07e47312cae06"
+        },
+        {
+          "file": "sw.js",
+          "sizeBytes": 2512,
+          "sha256": "1df4bdbff59fe349c88820bef52b0bd3ac66c4b2208558652db50eb7a2606150"
+        },
+        {
+          "file": "registerSW.js",
+          "sizeBytes": 134,
+          "sha256": "9742073ef7fc795e7673d98f272992843298426a0ffd8cb3507784df5143608b"
+        }
+      ],
+      "swPrecacheCount": 15,
+      "pwaVersion": "1.3.0",
+      "status": "AUDITED_AND_COMPLIANT"
+    },
+    "wordPressPlugins": {
+      "plugins": [
+        {
+          "plugin": "civer-cloud-headless-bridge",
+          "sizeBytes": 1201,
+          "sha256": "3dcfd63b878a173bf21331378e6b485861c08bd66789f758d78107f178852f67",
+          "status": "VERIFIED_ZIP"
+        },
+        {
+          "plugin": "civer-commerce-engine",
+          "sizeBytes": 1101,
+          "sha256": "7c585a0dff8865909ed3b18294217ae3674a13f1b86a2598ea0efaca93a90b41",
+          "status": "VERIFIED_ZIP"
+        },
+        {
+          "plugin": "civer-visual-builder-engine",
+          "sizeBytes": 1140,
+          "sha256": "435949932e79ca4dc2d7a6050624fcc1747e1d4b663dd7f0e5735d99900d4d38",
+          "status": "VERIFIED_ZIP"
+        }
+      ],
+      "phpLintStatus": "100%_SYNTAX_CLEAN_0_ERRORS",
+      "status": "OPERATIONAL"
+    },
+    "otaManifests": {
+      "versionName": "1.0.4",
+      "versionCode": 4,
+      "sha256Expected": "72568ce3f49253ff34a4d0666b4cf18e846c2f86be8c4eb2007f12212b32bbad",
+      "manifestsSynced": true,
+      "status": "SYNCED_AND_VERIFIED"
+    }
+  },
+  "verdict": "ALL_STAGES_PASSED_100%_OPERATIONAL",
+  "cryptoSignature": "19de1070134d90b6354f3872e98df4060f9f81ea9d190edf87923512f0e5f519"
+}

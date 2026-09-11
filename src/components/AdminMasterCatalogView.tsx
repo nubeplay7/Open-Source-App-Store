@@ -36,7 +36,8 @@ import {
   FileSpreadsheet,
   Building2,
   Activity,
-  Zap
+  Zap,
+  Key
 } from 'lucide-react';
 import { AppCatalogItem, AppCatalogCategory } from '../types';
 import { BinaryDeltaPatcherService } from '../services/binaryDeltaPatcherService';
@@ -47,6 +48,7 @@ import {
 } from '../services/mobileRepoScraperService';
 import { AdminEnterpriseHub } from './AdminEnterpriseHub';
 import { AppCrawlerScreensGalleryModal } from './AppCrawlerScreensGalleryModal';
+import { KeystoreVaultModal } from './KeystoreVaultModal';
 
 interface AdminMasterCatalogViewProps {
   catalog: AppCatalogItem[];
@@ -94,6 +96,10 @@ export const AdminMasterCatalogView: React.FC<AdminMasterCatalogViewProps> = ({
   // Crawler Screen Gallery modal & copy feedback state
   const [selectedAppForCrawlerScreens, setSelectedAppForCrawlerScreens] = useState<AppCatalogItem | null>(null);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+
+  // Keystore Vault & Signature Verifier modal state
+  const [isKeystoreVaultModalOpen, setIsKeystoreVaultModalOpen] = useState(false);
+  const [selectedAppForSignatureVerification, setSelectedAppForSignatureVerification] = useState<AppCatalogItem | null>(null);
 
   // Extended filters
   const [buildNodeFilter, setBuildNodeFilter] = useState<string>('ALL');
@@ -301,6 +307,18 @@ export const AdminMasterCatalogView: React.FC<AdminMasterCatalogViewProps> = ({
               </button>
 
               <button
+                onClick={() => {
+                  setSelectedAppForSignatureVerification(null);
+                  setIsKeystoreVaultModalOpen(true);
+                }}
+                className="px-2.5 py-1.5 bg-amber-950/80 hover:bg-amber-900 text-amber-300 border border-amber-700/60 rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
+                title="Bóveda de Llaves Keystore y Verificador de Firmas APK v1-v4"
+              >
+                <Key className="w-3.5 h-3.5 text-amber-400" />
+                <span className="hidden sm:inline">Bóveda Keystore & Firmas</span>
+              </button>
+
+              <button
                 onClick={onBackToStore}
                 className="px-3 py-1.5 bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-600/50 rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
               >
@@ -377,6 +395,19 @@ export const AdminMasterCatalogView: React.FC<AdminMasterCatalogViewProps> = ({
               <span className="px-1.5 py-0.2 bg-purple-900/60 rounded text-[10px] text-purple-200 font-bold">
                 50 Fases
               </span>
+            </button>
+
+            {/* Quick Trigger Button for Keystore Vault & Signature Verifier */}
+            <button
+              onClick={() => {
+                setSelectedAppForSignatureVerification(null);
+                setIsKeystoreVaultModalOpen(true);
+              }}
+              className="px-3 py-1.5 rounded-lg flex items-center gap-2 transition font-mono whitespace-nowrap bg-amber-950/40 hover:bg-amber-900/60 text-amber-300 border border-amber-700/50 hover:border-amber-500 font-bold ml-auto shadow-sm"
+              title="Abrir Bóveda de Llaves Keystore y Verificador Criptográfico APK v1-v4"
+            >
+              <Key className="w-3.5 h-3.5 text-amber-400" />
+              <span>Bóveda Keystore & Firmas v1-v4</span>
             </button>
           </div>
         </div>
@@ -866,6 +897,18 @@ export const AdminMasterCatalogView: React.FC<AdminMasterCatalogViewProps> = ({
                                 ) : (
                                   <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
                                 )}
+                              </button>
+
+                              {/* Audit & Verify APK Signature (v1-v4) */}
+                              <button
+                                onClick={() => {
+                                  setSelectedAppForSignatureVerification(app);
+                                  setIsKeystoreVaultModalOpen(true);
+                                }}
+                                className="p-1.5 bg-slate-800 hover:bg-amber-950/80 text-amber-400 rounded-lg text-xs transition border border-slate-700 hover:border-amber-600"
+                                title="Auditar y verificar firma digital APK (v1-v4 con apksigner)"
+                              >
+                                <Key className="w-3.5 h-3.5" />
                               </button>
                             </div>
                           </td>
@@ -1516,6 +1559,18 @@ export const AdminMasterCatalogView: React.FC<AdminMasterCatalogViewProps> = ({
           app={selectedAppForCrawlerScreens}
           isOpen={!!selectedAppForCrawlerScreens}
           onClose={() => setSelectedAppForCrawlerScreens(null)}
+        />
+      )}
+
+      {/* ------------------------------------------------------------- */}
+      {/* MODAL GLOBAL DE BÓVEDA KEYSTORE & VERIFICADOR FIRMAS v1-v4     */}
+      {/* ------------------------------------------------------------- */}
+      {isKeystoreVaultModalOpen && (
+        <KeystoreVaultModal
+          isOpen={isKeystoreVaultModalOpen}
+          onClose={() => setIsKeystoreVaultModalOpen(false)}
+          initialAppIdForVerification={selectedAppForSignatureVerification?.id}
+          catalog={catalog}
         />
       )}
     </div>

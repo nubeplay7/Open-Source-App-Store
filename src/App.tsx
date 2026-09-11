@@ -1597,6 +1597,7 @@ export const App: React.FC = () => {
         selectedKeyId={selectedKeyId}
         onSelectKeyId={setSelectedKeyId}
         onOpenWebAuthnHsm={() => setIsWebAuthnHsmOpen(true)}
+        catalog={catalog}
       />
 
       {/* 14b. Panel de Publicación y Auto-Actualización Móvil OTA */}

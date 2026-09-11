@@ -1,0 +1,99 @@
+{
+  "reportId": "heal-1789127182152",
+  "timestamp": "2026-09-11T11:46:13.043Z",
+  "clusterMaster": "DESKTOP-HLBE8QU (ASUS Master Node)",
+  "verdict": "SYSTEM_AUTONOMOUSLY_STABLE_AND_SELF_HEALED",
+  "autoDiagnosis": {
+    "services": {
+      "port3000": {
+        "status": "RECOVERED_ONLINE",
+        "latencyMs": 2500
+      },
+      "phpLagoon": {
+        "status": "OPERATIONAL"
+      },
+      "healingActionsApplied": [
+        {
+          "target": "ASUS_PORT_3000",
+          "action": "EVACUATE_PORT_AND_HEALTH_CHECK",
+          "timestamp": "2026-09-11T11:46:21.806Z",
+          "result": "HEALED"
+        }
+      ]
+    },
+    "omniRouter": {
+      "totalAiProviders": 5,
+      "activeProvider": "deepseek-v3",
+      "cascadeFailoverReady": true,
+      "providers": [
+        {
+          "id": "deepseek-v3",
+          "name": "DeepSeek Chat (V3 - MoE 671B)",
+          "status": "OPTIMAL",
+          "tokensRemainingEstimate": "45,000,000",
+          "p99LatencyMs": 420,
+          "priority": 1
+        },
+        {
+          "id": "deepseek-r1",
+          "name": "DeepSeek Reasoner (R1 - Lógica Pura)",
+          "status": "OPTIMAL",
+          "tokensRemainingEstimate": "28,000,000",
+          "p99LatencyMs": 850,
+          "priority": 2
+        },
+        {
+          "id": "gemini-2.5-flash",
+          "name": "Google Gemini 2.5 Flash",
+          "status": "STANDBY_HOT",
+          "tokensRemainingEstimate": "Unlimited (Free Tier Mesh)",
+          "p99LatencyMs": 310,
+          "priority": 3
+        },
+        {
+          "id": "kaggle-dual-t4",
+          "name": "Kaggle Dual-T4 Cloud Inference Cluster",
+          "status": "ONLINE_ACTIVE",
+          "weeklyHoursRemaining": 360,
+          "p99LatencyMs": 650,
+          "priority": 4
+        },
+        {
+          "id": "baseten-serverless",
+          "name": "Baseten Serverless Cold-Start Endpoints",
+          "status": "STANDBY_WARM",
+          "endpointsActive": 7,
+          "p99LatencyMs": 580,
+          "priority": 5
+        }
+      ]
+    },
+    "swarm": {
+      "deepseekHarness": {
+        "packageName": "@deepseek-ai/dsh-root",
+        "version": "0.1.5",
+        "profileRunner": "civer-harness-profile-headless-runner",
+        "webUiPort": 3080,
+        "status": "FEDERATED_READY"
+      },
+      "openClaw": {
+        "appPackage": "ai.openclaw.agent",
+        "securityContext": "FULL_PRIVILEGE_ADMIN",
+        "sessionPersister": "civer-openclaw-session-immortality-keeper",
+        "systemdRecycler": "civer-openclaw-systemd-graceful-recycler",
+        "status": "ACTIVE_COORDINATING"
+      },
+      "mailboxProcessedMessages": 1,
+      "swarmStatus": "100%_SYNCHRONIZED"
+    },
+    "hardware": {
+      "deviceModel": "Samsung Galaxy A06",
+      "deviceSerial": "R8YY500R7ZB",
+      "bridgeHost": "ThinkPad T480s (100.96.218.12)",
+      "shizukuStatus": "RUNNING",
+      "status": "CONNECTED_READY"
+    }
+  },
+  "recoveryActionsTotal": 1,
+  "cryptoProof": "af97ab998ce514bc82e6bb1c8c1aed0c25df87b9f0e5f51553deaa97beb693af"
+}

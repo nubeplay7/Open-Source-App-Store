@@ -1531,6 +1531,40 @@ export interface VisualScreenDiffReport {
 }
 
 // -------------------------------------------------------------
+// FASE 05: BÓVEDA CRIPTOGRÁFICA Y VERIFICADOR DE FIRMAS APK (V1-V4)
+// -------------------------------------------------------------
+export interface ApkSignatureVerificationResult {
+  id: string;
+  appId: string;
+  appName: string;
+  packageName: string;
+  apkFileName: string;
+  fileSizeMb: number;
+  sha256Digest: string;
+  schemeV1JarSigned: boolean;
+  schemeV2BlockSigned: boolean;
+  schemeV3RotationSigned: boolean;
+  schemeV4TreehashSigned: boolean;
+  certificateSubject: string;
+  certificateIssuer: string;
+  certificateValidityDays: number;
+  certificateFingerprintSha256: string;
+  certificateFingerprintSha1: string;
+  isSignatureValid: boolean;
+  isTrustedAuthor: boolean;
+  minAndroidSdkVersion: number;
+  auditTimestamp: string;
+  verificationLogs: string[];
+}
+
+export interface ApkSigningRequest {
+  targetApkPath: string;
+  keystoreId: string;
+  alias: string;
+  schemes: ('v1' | 'v2' | 'v3' | 'v4')[];
+}
+
+// -------------------------------------------------------------
 // CIVER WORK & SHARK TANK HUB — "TU TRABAJO EN LÍNEA QUE SÍ PAGA"
 // -------------------------------------------------------------
 
