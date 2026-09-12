@@ -320,7 +320,7 @@ export const AndroidAppEcosystemView: React.FC<AndroidAppEcosystemViewProps> = (
   const civerSha256 = '4a816f1c4e9761e89f8160100f919294e803d15b24479e0bf571991d9f0f9c2a';
 
   return (
-    <div className="flex-1 w-full bg-slate-950 text-slate-100 min-h-screen">
+    <div className="flex-1 w-full bg-slate-950 text-slate-100 min-h-full">
       {/* Top Professional Hero Header */}
       <div className="border-b border-slate-800 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 pt-8 pb-6 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

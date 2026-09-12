@@ -186,6 +186,7 @@ interface RepoIndexSyncModalProps {
   onAddAppToCatalog?: (app: AppCatalogItem) => void;
   onOpenBlueprint?: () => void;
   onOpenAcademy?: () => void;
+  catalog?: AppCatalogItem[];
 }
 
 type ModalTab = 'MIRRORS' | 'STREAMING_V2' | 'BATCH_IMPORT' | 'CI_QUEUE' | 'API_GATEWAY_DOCS' | 'MCP_AGENT_WORKSPACE';
@@ -195,7 +196,8 @@ export const RepoIndexSyncModal: React.FC<RepoIndexSyncModalProps> = ({
   onClose,
   onAddAppToCatalog,
   onOpenBlueprint,
-  onOpenAcademy
+  onOpenAcademy,
+  catalog = []
 }) => {
   const [activeTab, setActiveTab] = useState<ModalTab>('MIRRORS');
   const [copiedMcp, setCopiedMcp] = useState(false);
@@ -204,6 +206,10 @@ export const RepoIndexSyncModal: React.FC<RepoIndexSyncModalProps> = ({
   const [syncStep, setSyncStep] = useState<number>(0);
   const [syncLogs, setSyncLogs] = useState<string[]>([]);
   const [selectedMirror, setSelectedMirror] = useState<string>('mirror-1');
+
+  // Streaming V2 state
+  const [streamingProgress, setStreamingProgress] = useState<FdroidWorkerSyncProgress | null>(null);
+  const [deltas, setDeltas] = useState<VersionDeltaReport[]>([]);
 
   // Heuristics & Batch Import State
   const [candidates] = useState<ClonedRepoCandidate[]>(SAMPLE_REPOS_FOR_IMPORT);
@@ -260,7 +266,7 @@ export const RepoIndexSyncModal: React.FC<RepoIndexSyncModalProps> = ({
         source: 'F-Droid Index V2 Worker',
         updatesCount: result.deltas.filter(d => d.hasUpdate).length
       });
-    } catch (err) {
+    } catch (err: any) {
       setStreamingProgress({
         step: 'ERROR',
         percentage: 100,

@@ -1,12 +1,12 @@
 {
   "verdict": "APPROVED_SEMANTIC_RAG_CERTIFIED",
-  "timestamp": "2026-09-11T12:25:11.097Z",
+  "timestamp": "2026-09-12T00:26:41.986Z",
   "macroPhase": "Macro-Fase 16: Federación Semántica RAG Local",
   "indexStats": {
     "totalIndexedApps": 14,
     "vectorDimensions": 44,
-    "indexingLatencyMicroseconds": 10087,
-    "indexingLatencyMs": 10
+    "indexingLatencyMicroseconds": 8670,
+    "indexingLatencyMs": 9
   },
   "sampleQueries": [
     {
@@ -31,5 +31,5 @@
     }
   ],
   "privacyStandard": "ZERO_EXTERNAL_EMBEDDING_API_LEAKS (100% On-Device Vector Math)",
-  "payloadDigestSha256": "ce21dfa3b970f9999d4f671186730beb9d9f222a547f93a2bb93152c738ae338"
+  "payloadDigestSha256": "3ed94c7f18dbe76a83699d6b7d3058dde2d9a759ebab253d5b72dd7b11b2e489"
 }

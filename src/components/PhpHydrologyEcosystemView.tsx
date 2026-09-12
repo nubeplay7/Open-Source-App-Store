@@ -147,7 +147,7 @@ export const PhpHydrologyEcosystemView: React.FC = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-slate-950 text-slate-100 pb-20 select-none">
+    <div className="w-full min-h-full bg-slate-950 text-slate-100 pb-20 select-none">
       
       {/* Top Header */}
       <header className="border-b border-slate-800/80 bg-gradient-to-b from-slate-900/90 to-slate-950/80 backdrop-blur-xl sticky top-0 z-30 px-4 sm:px-6 py-4">

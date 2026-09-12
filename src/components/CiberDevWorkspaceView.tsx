@@ -357,7 +357,7 @@ export const CiberDevWorkspaceView: React.FC<CiberDevWorkspaceViewProps> = ({
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#0d1117] text-slate-100 font-sans">
+    <div className="flex flex-col min-h-full flex-1 bg-[#0d1117] text-slate-100 font-sans">
       {/* Top Workspace Header */}
       <header className="sticky top-0 z-30 bg-[#161b22] border-b border-slate-800 px-4 py-3 flex items-center justify-between shadow-md">
         <div className="flex items-center gap-3">

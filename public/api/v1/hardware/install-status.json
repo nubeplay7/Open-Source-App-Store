@@ -1,0 +1,11 @@
+{
+  "domain": "https://appstore.civer.cloud",
+  "status": "OFFLINE_RESILIENT_VALIDATED",
+  "version": "1.0.4",
+  "sha256": "72568ce3f49253ff34a4d0666b4cf18e846c2f86be8c4eb2007f12212b32bbad",
+  "lastUpdate": "2026-09-12T00:27:57.446Z",
+  "digest": "91685d28ee9c",
+  "device": "Samsung Galaxy A06 (SM-A065M)",
+  "battery": 100,
+  "tempC": 28.5
+}

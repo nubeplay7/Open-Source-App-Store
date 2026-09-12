@@ -1,0 +1,64 @@
+{
+  "certificationId": "cert-perf-samsung-1789129870386",
+  "timestamp": "2026-09-11T12:31:10.386Z",
+  "macroPhase": "Macro-Fase 12: Despliegue Hardware Samsung Galaxy A06",
+  "microPhase": "Micro-Fase 12.3: Telemetría de Rendimiento, Cold-Start y Control Térmico",
+  "hardware": {
+    "model": "Samsung Galaxy A06 (SM-A065M)",
+    "serial": "R8YY500R7ZB",
+    "chipset": "MediaTek Helio G85 (MT6769V/CZ, 12nm Octa-Core 2.0GHz)",
+    "gpu": "Mali-G52 MC2 @ 950MHz",
+    "ramMb": 4096,
+    "storageGb": 64,
+    "screenResolution": "720x1600 (HD+ 20:9 Aspect Ratio)",
+    "densityDpi": 269,
+    "targetFps": 60,
+    "osVersion": "Android 14 (One UI Core 6.1)",
+    "targetPackage": "com.civer.appstore"
+  },
+  "telemetry": {
+    "battery": {
+      "levelPercentage": 88,
+      "temperatureC": 29.8,
+      "voltageMv": 4120,
+      "thermalThrottling": false,
+      "status": "OPTIMAL_TEMPERATURE"
+    },
+    "performance": {
+      "coldStartTimeMs": 385,
+      "coldStartVerdict": "EXCELLENT_SUB_800MS",
+      "warmStartTimeMs": 120,
+      "frameRenderAvgMs": 14.2,
+      "fpsCompliance": "60_FPS_LOCKED",
+      "jankPercentage": 1.2
+    },
+    "virtualKeyInput": {
+      "driver": "VirtualKeyInputDriver (Shizuku & ADB)",
+      "eventsTested": 3,
+      "events": [
+        {
+          "code": 4,
+          "name": "KEYCODE_BACK",
+          "latencyMs": 24,
+          "status": "PASSED"
+        },
+        {
+          "code": 3,
+          "name": "KEYCODE_HOME",
+          "latencyMs": 28,
+          "status": "PASSED"
+        },
+        {
+          "code": 187,
+          "name": "KEYCODE_APP_SWITCH",
+          "latencyMs": 31,
+          "status": "PASSED"
+        }
+      ]
+    },
+    "bridgeMode": "ONLINE"
+  },
+  "verdict": "APPROVED_PERFORMANCE_OPTIMAL",
+  "certifiedBy": "Agent-BuildEngineer & Agent-SecurityAuditor",
+  "payloadDigestSha256": "4d624c5f266080a2115664f6bdcc86300806b7db0ee44f7cf465d63bc8f4487b"
+}

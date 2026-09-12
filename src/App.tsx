@@ -1182,28 +1182,6 @@ export const App: React.FC = () => {
               onOpenAgentAPIExplorer={() => setIsAgentAPIExplorerOpen(true)}
               onOpenCiCdEvidence={() => setIsCiCdEvidenceOpen(true)}
               onOpenAndroidInstall={() => setIsAndroidInstallModalOpen(true)}
-              onOpenKeystoreVault={() => setIsKeystoreVaultOpen(true)}
-              onOpenNearbyTransfer={() => setIsNearbyTransferOpen(true)}
-              onOpenSecurityAudit={() => {
-                setSecurityAuditApp(null);
-                setIsSecurityAuditOpen(true);
-              }}
-              onOpenRepoManager={() => setIsRepoManagerOpen(true)}
-              onOpenDiagnostics={() => setIsDiagnosticsOpen(true)}
-              onOpenBuildsHub={() => setIsBuildsHubModalOpen(true)}
-              onOpenOtaReleases={() => setIsOtaModalOpen(true)}
-              onOpenDesignProfiles={() => setIsDesignProfilesOpen(true)}
-              onOpenFunctionalityProfiles={() => setIsFunctionalityProfilesOpen(true)}
-              onOpenDexDecompiler={() => setIsDexDecompilerOpen(true)}
-              onOpenGitPatch={() => setIsGitPatchOpen(true)}
-              onOpenRuntimeSandbox={() => setIsRuntimeSandboxOpen(true)}
-              onOpenArchitectureGraph={() => setIsArchitectureGraphOpen(true)}
-              onOpenLiveCustomizer={() => setIsLiveCustomizerOpen(true)}
-              onOpenResponsiveHUD={() => setIsResponsiveHUDOpen(true)}
-              onOpenVisualRegression={() => setIsVisualRegressionModalOpen(true)}
-              onOpenFluidityScore={() => setIsFluidityAuditModalOpen(true)}
-              onOpenScreenInventory={() => setIsScreenInventoryModalOpen(true)}
-              onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
             />
 
             {/* Main Tab Content */}
@@ -1322,12 +1300,12 @@ export const App: React.FC = () => {
 
       {/* 6. MIS DISPOSITIVOS & APP NATIVA ANDROID (Fleet & Remote Deployment) */}
       {uiMode === 'connected_devices' && (
-        <main className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto w-full">
+        <section className="flex-1 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto w-full">
           <ConnectedDevicesView
             catalogApps={catalog}
             onSelectApp={handleSelectApp}
           />
-        </main>
+        </section>
       )}
 
       {/* 7. CIVER WORK & SHARK TANK HUB ("Tu trabajo en línea que sí paga") */}
@@ -1339,7 +1317,22 @@ export const App: React.FC = () => {
       {uiMode === 'php_hydrology' && (
         <PhpHydrologyEcosystemView />
       )}
-      </div>
+      </main>
+
+      {/* Floating Smooth Scroll-to-Top Button (UX Improvement from Top Modern App Stores) */}
+      {showScrollTop && (
+        <button
+          onClick={handleScrollToTop}
+          title="Volver al inicio del catálogo (Tecla T)"
+          className="fixed bottom-20 md:bottom-8 right-6 z-40 px-3.5 py-2.5 rounded-full bg-emerald-600/90 hover:bg-emerald-500 text-white font-semibold text-xs shadow-xl shadow-black/60 border border-emerald-400/40 backdrop-blur-md flex items-center gap-2 transition-all duration-300 animate-in fade-in slide-in-from-bottom-3 group hover:scale-105 active:scale-95"
+        >
+          <ArrowUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
+          <span className="hidden sm:inline">Volver arriba</span>
+          <span className="text-[10px] font-mono bg-emerald-950/80 px-1.5 py-0.5 rounded text-emerald-300 border border-emerald-700/60 hidden md:inline">
+            T
+          </span>
+        </button>
+      )}
 
       {/* ======================================================== */}
       {/* GLOBAL MODALS & DRAWERS */}

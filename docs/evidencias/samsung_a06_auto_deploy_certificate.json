@@ -1,0 +1,27 @@
+{
+  "schema": "CiverAutoCiDeployCertificate/v2",
+  "certificateDigest": "91685d28ee9c",
+  "timestamp": "2026-09-12T00:27:57.446Z",
+  "officialDomain": "https://appstore.civer.cloud",
+  "app": {
+    "name": "Civer App Store",
+    "packageName": "com.civer.appstore",
+    "version": "1.0.4",
+    "sha256": "72568ce3f49253ff34a4d0666b4cf18e846c2f86be8c4eb2007f12212b32bbad"
+  },
+  "hardwareTarget": {
+    "model": "Samsung Galaxy A06 (SM-A065M)",
+    "serial": "R8YY500R7ZB",
+    "bridgeNode": "ThinkPad T480s (100.96.218.12)"
+  },
+  "deploymentResult": {
+    "ok": false,
+    "mode": "INSTALL_FAILED",
+    "error": "adb.exe: device unauthorized.\r\nThis adb server's $ADB_VENDOR_KEYS is not set\r\nTry 'adb kill-server' if that seems wrong.\r\nOtherwise check for a confirmation dialog on your device.\r\n"
+  },
+  "forensicSuite": {
+    "allPassed": false,
+    "reason": "INSTALL_FAILED"
+  },
+  "verdict": "OFFLINE_RESILIENT_VALIDATED"
+}

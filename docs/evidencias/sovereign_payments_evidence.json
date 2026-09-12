@@ -1,14 +1,14 @@
 {
   "verdict": "APPROVED_SOVEREIGN_GATEWAY_CERTIFIED",
-  "timestamp": "2026-09-11T12:25:10.688Z",
+  "timestamp": "2026-09-12T00:26:41.033Z",
   "macroPhase": "Macro-Fase 14: Pasarela Soberana WebLN & SPEI",
   "lightning": {
     "amountSats": 25000,
     "feeSats": 0,
     "feePercentage": "0.0%",
-    "paymentHash": "3f6debad82906508c9b804dab0d20361c9eeecde83238fdb1c087268ad54d4c2",
-    "preimageProof": "1b243ee8519d1099eb3ed3f2c933b5544c939ef1e469920f31d00ffa32a23267",
-    "bolt11Invoice": "lnbc25000u1p3f6debad82906508c9b804dab0d20361pp51b243ee8519d1099eb3ed3f2c933b554",
+    "paymentHash": "853fc72b26a95dc779fbe3d1755f24126254dfcdcb5dd06ec03bc1fb6c67dcf3",
+    "preimageProof": "9f037c255808f48d3a2b8d0b8a61743c1488fd360a9cd5d822acde4e19ca888a",
+    "bolt11Invoice": "lnbc25000u1p853fc72b26a95dc779fbe3d1755f2412pp59f037c255808f48d3a2b8d0b8a61743c",
     "googleTaxAvoidedUsd": 4.88
   },
   "spei": {
@@ -19,7 +19,7 @@
         "institution": "BBVA México",
         "clabeMasked": "0121••••••••0107",
         "validBanxicoAlgorithm": true,
-        "trackingFolioBanxico": "BNX1295106878179",
+        "trackingFolioBanxico": "BNX1728010338381",
         "status": "DISBURSED_SETTLED",
         "networkLatencyMs": 412
       },
@@ -27,11 +27,11 @@
         "institution": "Nu México",
         "clabeMasked": "6381••••••••6700",
         "validBanxicoAlgorithm": true,
-        "trackingFolioBanxico": "BNX1295106885501",
+        "trackingFolioBanxico": "BNX1728010337095",
         "status": "DISBURSED_SETTLED",
         "networkLatencyMs": 412
       }
     ]
   },
-  "payloadDigestSha256": "34e6c17184378061d448b3e60879e61e888f81c3971b53a4a392c3ef76aaff15"
+  "payloadDigestSha256": "5cd5a88a05552931f699cbd396dfe4d806088b2707189152d15ee14f7633e3d7"
 }

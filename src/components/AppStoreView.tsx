@@ -107,7 +107,7 @@ export const AppStoreView: React.FC<AppStoreViewProps> = ({
   const myApps = catalog.filter(isAppOwnedByUser);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 pb-24 font-sans select-none">
+    <div className="min-h-full bg-slate-950 text-slate-100 pb-24 font-sans select-none">
       {/* iOS Header */}
       <header className="sticky top-0 z-30 bg-slate-950/80 backdrop-blur-xl border-b border-slate-900/80 px-6 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">

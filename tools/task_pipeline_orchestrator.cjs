@@ -124,6 +124,15 @@ async function main() {
     executionLog.push({ phase: 'Macro-Fase 16', ...step7 });
   }
 
+  // Paso 8: Macro-Fase 17 - Loop Autónomo de Compilación, Despliegue y Pruebas Samsung A06
+  if (targetPhase === 'ALL' || targetPhase === '17') {
+    const step8 = runStep('Macro-Fase 17: Loop Autónomo Compilación/Instalación y Pruebas Samsung A06', () => {
+      const script = path.join(ROOT_DIR, 'tools', 'auto_ci_install_test_loop.cjs');
+      return execSync(`node "${script}"`, { cwd: ROOT_DIR, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+    });
+    executionLog.push({ phase: 'Macro-Fase 17', ...step8 });
+  }
+
   // Actualizar el estado consolidado
   if (fs.existsSync(STATE_FILE)) {
     try {
