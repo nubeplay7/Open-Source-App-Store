@@ -82,6 +82,7 @@ import { DexDecompilerModal } from './components/DexDecompilerModal';
 import { GitDiffAndPatchModal } from './components/GitDiffAndPatchModal';
 import { RuntimeSandboxInspectorModal } from './components/RuntimeSandboxInspectorModal';
 import { NearbyTransferModal } from './components/NearbyTransferModal';
+import { MultiRegionalMirrorModal } from './components/MultiRegionalMirrorModal';
 import { VisualDependencyGraphModal } from './components/VisualDependencyGraphModal';
 import { LiveVisualCustomizerModal } from './components/LiveVisualCustomizerModal';
 import { IntelligentResponsiveHUDModal } from './components/IntelligentResponsiveHUDModal';
@@ -548,6 +549,7 @@ export const App: React.FC = () => {
   });
 
   const [isNearbyTransferOpen, setIsNearbyTransferOpen] = useState(false);
+  const [isRegionalMirrorsOpen, setIsRegionalMirrorsOpen] = useState(false);
   const [isArchitectureGraphOpen, setIsArchitectureGraphOpen] = useState(false);
 
   // Native Silent 1-Click Installer & 30 World-Class Innovations Modals
@@ -886,6 +888,7 @@ export const App: React.FC = () => {
         onOpenGitPatch={() => setIsGitPatchOpen(true)}
         onOpenRuntimeSandbox={() => setIsRuntimeSandboxOpen(true)}
         onOpenNearbyTransfer={() => setIsNearbyTransferOpen(true)}
+        onOpenRegionalMirrors={() => setIsRegionalMirrorsOpen(true)}
         onOpenArchitectureGraph={() => setIsArchitectureGraphOpen(true)}
         onOpenWebAuthnHsm={() => setIsWebAuthnHsmOpen(true)}
         onOpenZeroKnowledgeBackup={() => setIsZeroKnowledgeBackupOpen(true)}
@@ -1834,6 +1837,12 @@ export const App: React.FC = () => {
             type: type === 'warning' ? 'warning' : type === 'error' ? 'error' : type === 'success' ? 'success' : 'info'
           });
         }}
+      />
+
+      {/* 23.1 Espejos Multirregionales & Failover Paritario (Macro-Fase 08) */}
+      <MultiRegionalMirrorModal
+        isOpen={isRegionalMirrorsOpen}
+        onClose={() => setIsRegionalMirrorsOpen(false)}
       />
 
       {/* 24. Mapa Topológico de Arquitectura & Audit Trail */}

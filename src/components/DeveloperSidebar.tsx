@@ -43,7 +43,8 @@ import {
   WifiOff,
   Usb,
   Users,
-  Code2
+  Code2,
+  Globe
 } from 'lucide-react';
 import { StoreUiMode, UserProfile } from '../types';
 import { X } from 'lucide-react';
@@ -71,6 +72,7 @@ interface DeveloperSidebarProps {
   onOpenGitPatch?: () => void;
   onOpenRuntimeSandbox?: () => void;
   onOpenNearbyTransfer?: () => void;
+  onOpenRegionalMirrors?: () => void;
   onOpenArchitectureGraph?: () => void;
   onOpenLiveCustomizer?: () => void;
   onOpenResponsiveHUD?: () => void;
@@ -128,6 +130,7 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
   onOpenGitPatch,
   onOpenRuntimeSandbox,
   onOpenNearbyTransfer,
+  onOpenRegionalMirrors,
   onOpenArchitectureGraph,
   onOpenLiveCustomizer,
   onOpenResponsiveHUD,
@@ -389,6 +392,18 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
                   >
                     <Radio className="w-4 h-4 text-cyan-400" />
                     <span>Nearby Transfer P2P</span>
+                  </button>
+                )}
+                {onOpenRegionalMirrors && (
+                  <button
+                    onClick={() => {
+                      onOpenRegionalMirrors();
+                      if (onCloseMobile) onCloseMobile();
+                    }}
+                    className="w-full rounded-xl p-2.5 text-left text-xs text-slate-300 hover:bg-slate-900 flex items-center gap-3"
+                  >
+                    <Globe className="w-4 h-4 text-emerald-400" />
+                    <span>Espejos Multirregionales & Failover</span>
                   </button>
                 )}
                 {onOpenArchitectureGraph && (
@@ -810,6 +825,25 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
             </div>
           )}
         </button>
+
+        {/* 6.1 Espejos Multirregionales & Failover Paritario (Fase 08) */}
+        {onOpenRegionalMirrors && (
+          <button
+            onClick={onOpenRegionalMirrors}
+            title={isCollapsed ? 'Espejos Multirregionales & Failover Paritario' : undefined}
+            className="w-full rounded-xl p-2.5 text-left transition flex items-center gap-3 text-slate-400 hover:text-slate-100 hover:bg-slate-900/60 group border border-transparent hover:border-slate-800"
+          >
+            <div className="p-1.5 rounded-lg bg-cyan-950/80 border border-cyan-800/60 text-cyan-400 shrink-0 group-hover:scale-105 transition">
+              <Globe className="w-4 h-4" />
+            </div>
+            {!isCollapsed && (
+              <div className="flex-1 truncate">
+                <div className="text-xs font-bold text-slate-200">Espejos Multirregionales</div>
+                <p className="text-[10px] text-slate-400 truncate">Failover & Quórum SHA-256</p>
+              </div>
+            )}
+          </button>
+        )}
 
         {/* 7. Security & Exodus Privacy Auditor */}
         {onOpenSecurityAudit && (
