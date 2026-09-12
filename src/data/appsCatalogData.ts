@@ -122,6 +122,13 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // 3. Obtainium
   {
     id: 'obtainium',
+    buildNodeEnvironment: 'Cluster Node Ubuntu 24.04 LTS',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/dev.imranr.obtainium-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1mL7VebuRt1Csf9gAn6e_jDwW82GzHAC2/view?usp=drivesdk',
+    gdriveFileId: '1mL7VebuRt1Csf9gAn6e_jDwW82GzHAC2',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'Obtainium',
     packageName: 'dev.imranr.obtainium',
     category: 'STORES',
@@ -224,6 +231,13 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // 5. NewPipe
   {
     id: 'newpipe',
+    buildNodeEnvironment: 'Cluster Node Ubuntu 24.04 LTS',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/org.schabi.newpipe-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1CnHe9PzASb8F9rsE_qxw1BpOpKepGTBv/view?usp=drivesdk',
+    gdriveFileId: '1CnHe9PzASb8F9rsE_qxw1BpOpKepGTBv',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'NewPipe',
     packageName: 'org.schabi.newpipe',
     category: 'MULTIMEDIA',
@@ -323,6 +337,13 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // 7. ReVanced Manager
   {
     id: 'revanced-manager',
+    buildNodeEnvironment: 'Cluster Node Ubuntu 24.04 LTS',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/app.revanced.manager.flutter-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1JmC_5HjOZgP-2wj9M1hJcdhMPC9pznkD/view?usp=drivesdk',
+    gdriveFileId: '1JmC_5HjOZgP-2wj9M1hJcdhMPC9pznkD',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'ReVanced Manager',
     packageName: 'app.revanced.manager.flutter',
     category: 'TOOLS',
@@ -367,6 +388,13 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // 8. Mihon (Tachiyomi Successor)
   {
     id: 'mihon',
+    buildNodeEnvironment: 'Cluster Node Ubuntu 24.04 LTS',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/mihon.app-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1VwI3gPXA-1uWH7Ck8icHmxthvZrQDEbd/view?usp=drivesdk',
+    gdriveFileId: '1VwI3gPXA-1uWH7Ck8icHmxthvZrQDEbd',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'Mihon',
     packageName: 'mihon.app',
     category: 'PRODUCTIVITY',
@@ -411,6 +439,13 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // 9. Termux
   {
     id: 'termux',
+    buildNodeEnvironment: 'Cluster Node Ubuntu 24.04 LTS',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/com.termux-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/16yScxJ4btGDEGPycnpLnN6M5eUy44HFF/view?usp=drivesdk',
+    gdriveFileId: '16yScxJ4btGDEGPycnpLnN6M5eUy44HFF',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'Termux',
     packageName: 'com.termux',
     category: 'TOOLS',
@@ -455,6 +490,13 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // 10. Lawnchair 14
   {
     id: 'lawnchair',
+    buildNodeEnvironment: 'Cluster Node Ubuntu 24.04 LTS',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/app.lawnchair-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1cO6p5lnOlfblWqANVQzxxZT8bHwaEQ0u/view?usp=drivesdk',
+    gdriveFileId: '1cO6p5lnOlfblWqANVQzxxZT8bHwaEQ0u',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'Lawnchair 14',
     packageName: 'app.lawnchair',
     category: 'CUSTOMIZATION',
@@ -499,6 +541,13 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // 11. Shelter (Work Profile Privacy Sandbox)
   {
     id: 'shelter',
+    buildNodeEnvironment: 'Cluster Node Ubuntu 24.04 LTS',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/net.typeblog.shelter-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1gYguctlRaRjfgcKVzm6-Q83ytSRGKi61/view?usp=drivesdk',
+    gdriveFileId: '1gYguctlRaRjfgcKVzm6-Q83ytSRGKi61',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'Shelter',
     packageName: 'net.typeblog.shelter',
     category: 'PRIVACY',
@@ -543,6 +592,13 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // 12. KeePassDX
   {
     id: 'keepassdx',
+    buildNodeEnvironment: 'Cluster Node Ubuntu 24.04 LTS',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/com.kunzisoft.keepass.free-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1Wr2HWcgioNwXiDmNT3w09_niJe05oket/view?usp=drivesdk',
+    gdriveFileId: '1Wr2HWcgioNwXiDmNT3w09_niJe05oket',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'KeePassDX Password Vault',
     packageName: 'com.kunzisoft.keepass.free',
     category: 'PRIVACY',
@@ -587,6 +643,13 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // 13. Neo Store
   {
     id: 'neo-store',
+    buildNodeEnvironment: 'Cluster Node Ubuntu 24.04 LTS',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/com.machiav3lli.fdroid-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1S1mi5tYkeadjFbzCB7upG4JkWyuVRc4c/view?usp=drivesdk',
+    gdriveFileId: '1S1mi5tYkeadjFbzCB7upG4JkWyuVRc4c',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'Neo Store',
     packageName: 'com.machiav3lli.fdroid',
     category: 'STORES',
@@ -688,6 +751,13 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // 15. App Manager
   {
     id: 'app-manager',
+    buildNodeEnvironment: 'Cluster Node Ubuntu 24.04 LTS',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/io.github.muntashirakon.AppManager-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1ZlvCKeGctpLWOya134ThDrNoglzvvaK-/view?usp=drivesdk',
+    gdriveFileId: '1ZlvCKeGctpLWOya134ThDrNoglzvvaK-',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'App Manager',
     packageName: 'io.github.muntashirakon.AppManager',
     category: 'TOOLS',
@@ -733,6 +803,13 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // 16. AntennaPod
   {
     id: 'antennapod',
+    buildNodeEnvironment: 'Cluster Node Ubuntu 24.04 LTS',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/de.danoeh.antennapod-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1SR9VOOXHtIjxbjfKzgxlRaxfW5b540Ip/view?usp=drivesdk',
+    gdriveFileId: '1SR9VOOXHtIjxbjfKzgxlRaxfW5b540Ip',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'AntennaPod',
     packageName: 'de.danoeh.antennapod',
     category: 'MULTIMEDIA',
@@ -1120,6 +1197,14 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // OmniRoute AI Gateway (Verificado de YouTube q1hFEja170A)
   {
     id: 'omniroute',
+    buildNodeEnvironment: 'GitHub Actions Cloud Runner (Ubuntu 24.04 LTS)',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/com.diegosouzapw.omniroute-v0.3.0-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1l7zYLhpvJILaftvaTfcDiVEbVVRMUsCd/view?usp=drivesdk',
+    gdriveFileId: '1l7zYLhpvJILaftvaTfcDiVEbVVRMUsCd',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    compiledArtifactSha256: 'a3ca33fa6442b59adc42976c795709eaf5351109000000000000000000000000',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'OmniRoute AI Gateway',
     packageName: 'com.diegosouzapw.omniroute',
     category: 'TOOLS',
@@ -1165,11 +1250,6 @@ export const APPS_CATALOG: AppCatalogItem[] = [
     securityAuditStatus: 'ZERO_TRACKERS',
     healthScore: 98,
     healthGrade: 'A+',
-    buildNodeEnvironment: 'GitHub Actions Cloud Runner (Ubuntu 24.04 LTS)',
-    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/com.diegosouzapw.omniroute-v0.3.0-release.apk',
-    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
-    compiledArtifactSha256: 'a3ca33fa6442b59adc42976c795709eaf5351109000000000000000000000000',
-    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
     crawlerDepthMode: 'INTENSO',
     crawlerScreenCount: 5,
     crawlerScreens: []
@@ -1177,6 +1257,14 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // DeepSeek Harness (Verificado de YouTube pgFjL7Iw9AM)
   {
     id: 'deepseek-harness',
+    buildNodeEnvironment: 'GitHub Actions Cloud Runner (Ubuntu 24.04 LTS)',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/com.deepseek.harness-v0.1.5-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1syfZ7tkqGkuiTCYNOdo1YaW0tj2FZNih/view?usp=drivesdk',
+    gdriveFileId: '1syfZ7tkqGkuiTCYNOdo1YaW0tj2FZNih',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    compiledArtifactSha256: 'c291e7961a515f6d7af9304e7fd1d257929aef26000000000000000000000000',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'DeepSeek Harness (dsh)',
     packageName: 'com.deepseek.harness',
     category: 'TOOLS',
@@ -1222,11 +1310,6 @@ export const APPS_CATALOG: AppCatalogItem[] = [
     securityAuditStatus: 'VERIFIED_CLEAN',
     healthScore: 99,
     healthGrade: 'A+',
-    buildNodeEnvironment: 'GitHub Actions Cloud Runner (Ubuntu 24.04 LTS)',
-    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/com.deepseek.harness-v0.1.5-release.apk',
-    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
-    compiledArtifactSha256: 'c291e7961a515f6d7af9304e7fd1d257929aef26000000000000000000000000',
-    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
     crawlerDepthMode: 'INTENSO',
     crawlerScreenCount: 6,
     crawlerScreens: []
@@ -1234,6 +1317,14 @@ export const APPS_CATALOG: AppCatalogItem[] = [
   // OpenClaw 2.0 (Verificado de YouTube 7tM7XseKJPI)
   {
     id: 'openclaw',
+    buildNodeEnvironment: 'GitHub Actions Cloud Runner (Ubuntu 24.04 LTS)',
+    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/ai.openclaw.agent-v2026.9.3-release.apk',
+    gdriveBackupDownloadUrl: 'https://drive.google.com/file/d/1_OUwpK7XqBY3M9p_hqZh8aD65ulRYuW_/view?usp=drivesdk',
+    gdriveFileId: '1_OUwpK7XqBY3M9p_hqZh8aD65ulRYuW_',
+    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
+    compiledArtifactSha256: '5074b6b6f46918fd7a499efb13bfd3ad030facbb000000000000000000000000',
+    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
+
     name: 'OpenClaw 2.0',
     packageName: 'ai.openclaw.agent',
     category: 'COMMUNICATION',
@@ -1279,15 +1370,10 @@ export const APPS_CATALOG: AppCatalogItem[] = [
     securityAuditStatus: 'ZERO_TRACKERS',
     healthScore: 99,
     healthGrade: 'A+',
-    buildNodeEnvironment: 'GitHub Actions Cloud Runner (Ubuntu 24.04 LTS)',
-    ciCdVerifiedDownloadUrl: 'https://appstore.civer.cloud/downloads/ai.openclaw.agent-v2026.9.3-release.apk',
-    ciCdDownloadStatus: 'VERIFIED_IMMORTAL',
-    compiledArtifactSha256: '5074b6b6f46918fd7a499efb13bfd3ad030facbb000000000000000000000000',
-    androidPhysicalInstallStatus: 'ENLACE_ADB_DISPONIBLE',
     crawlerDepthMode: 'INTENSO',
     crawlerScreenCount: 8,
     crawlerScreens: []
-  }
+  },
 ];
 
 export const CATEGORY_LABELS: Record<string, string> = {

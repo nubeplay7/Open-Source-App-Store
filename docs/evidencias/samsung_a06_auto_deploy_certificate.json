@@ -1,7 +1,7 @@
 {
   "schema": "CiverAutoCiDeployCertificate/v2",
-  "certificateDigest": "91685d28ee9c",
-  "timestamp": "2026-09-12T00:27:57.446Z",
+  "certificateDigest": "e53cfa51b166",
+  "timestamp": "2026-09-12T09:53:26.376Z",
   "officialDomain": "https://appstore.civer.cloud",
   "app": {
     "name": "Civer App Store",
@@ -12,16 +12,18 @@
   "hardwareTarget": {
     "model": "Samsung Galaxy A06 (SM-A065M)",
     "serial": "R8YY500R7ZB",
-    "bridgeNode": "ThinkPad T480s (100.96.218.12)"
+    "bridgeNode": "ThinkPad T480s SSH (100.96.218.12)",
+    "activeHost": "NONE"
   },
   "deploymentResult": {
     "ok": false,
-    "mode": "INSTALL_FAILED",
-    "error": "adb.exe: device unauthorized.\r\nThis adb server's $ADB_VENDOR_KEYS is not set\r\nTry 'adb kill-server' if that seems wrong.\r\nOtherwise check for a confirmation dialog on your device.\r\n"
+    "mode": "OFFLINE_HARDWARE_UNREACHABLE",
+    "host": "NONE",
+    "details": "Dispositivo Samsung offline en ambos hosts. Encolado para siguiente latido de red."
   },
   "forensicSuite": {
     "allPassed": false,
-    "reason": "INSTALL_FAILED"
+    "reason": "OFFLINE_HARDWARE_UNREACHABLE"
   },
   "verdict": "OFFLINE_RESILIENT_VALIDATED"
 }

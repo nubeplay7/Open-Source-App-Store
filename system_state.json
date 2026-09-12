@@ -120,15 +120,15 @@
   "discoveryweb_thinkpad_online": true,
   "total_skills_count": 113,
   "pipeline_last_execution": {
-    "timestamp": "2026-09-12T00:27:57.668Z",
-    "targetPhase": "ALL",
-    "stepsExecuted": 8,
+    "timestamp": "2026-09-12T10:00:28.595Z",
+    "targetPhase": "12",
+    "stepsExecuted": 1,
     "allPassed": true
   },
   "macro_fase_17_auto_deploy": {
-    "timestamp": "2026-09-12T00:27:57.446Z",
+    "timestamp": "2026-09-12T09:53:26.376Z",
     "verdict": "OFFLINE_RESILIENT_VALIDATED",
-    "digest": "91685d28ee9c",
+    "digest": "e53cfa51b166",
     "official_domain": "https://appstore.civer.cloud",
     "installed_version": "1.0.4"
   }

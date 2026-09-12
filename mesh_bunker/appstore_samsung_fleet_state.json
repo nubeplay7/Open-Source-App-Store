@@ -1,0 +1,48 @@
+{
+  "schema": "CiverMeshBunkerFleetState/v1",
+  "project": "Open Source App Store - Civer App Store",
+  "official_domain": "https://appstore.civer.cloud",
+  "last_telemetry_sync": "2026-09-12T10:01:00.000Z",
+  "hardware": {
+    "device_model": "Samsung Galaxy A06 (SM-A065M)",
+    "serial": "R8YY500R7ZB",
+    "product": "a06ub",
+    "screen_resolution": "720x1600",
+    "density_dpi": 269,
+    "battery": {
+      "level": 74,
+      "temperatureC": 34.0,
+      "voltage_mv": 4157,
+      "health": "Good (2)",
+      "status": "Charging"
+    },
+    "dual_host_topology": {
+      "priority_1_local": {
+        "host": "ASUS_LOCAL",
+        "mode": "LOCAL_USB",
+        "adb_path": "C:/tools/platform-tools/adb.exe",
+        "status": "CONFIGURED_ACTIVE"
+      },
+      "priority_2_fallback": {
+        "host": "THINKPAD_SSH",
+        "mode": "REMOTE_SSH",
+        "node_ip": "100.96.218.12",
+        "status": "CONFIGURED_STANDBY"
+      }
+    }
+  },
+  "deployed_application": {
+    "app_name": "Civer App Store",
+    "package_name": "com.example",
+    "version": "1.0.4",
+    "sha256": "72568ce3f49253ff34a4d0666b4cf18e846c2f86be8c4eb2007f12212b32bbad",
+    "official_artifact": "com.civer.appstore-v1.0.4-release.apk",
+    "verification_evidence": "docs/evidencias/visuales_humano/samsung_a06_app_launched.png"
+  },
+  "sovereignty_and_resilience": {
+    "trackers": 0,
+    "gdrive_backup_coverage": "21/21 (100%)",
+    "silent_installer_mode": "SHIZUKU_AND_STREAMED_ADB",
+    "headless_runner": "tools/run_background_task.vbs"
+  }
+}

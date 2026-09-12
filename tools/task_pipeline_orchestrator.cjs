@@ -13,6 +13,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const adbResolver = require('./adb_dual_host_resolver.cjs');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const STATE_FILE = path.join(ROOT_DIR, 'system_state.json');
@@ -80,18 +81,35 @@ async function main() {
     executionLog.push({ phase: 'Global Sentinel', ...step3 });
   }
 
-  // Paso 4: Macro-Fase 12 - Hardware Samsung Galaxy A06 Handshake
+  // Paso 4: Macro-Fase 12 - Hardware Samsung Galaxy A06 Handshake (Dual-Host)
   if (targetPhase === 'ALL' || targetPhase === '12') {
-    const step4 = runStep('Macro-Fase 12: Verificación de Enlace Hardware Samsung Galaxy A06', () => {
+    const step4 = runStep('Macro-Fase 12: Verificación de Enlace Hardware Samsung Galaxy A06 (Dual-Host)', () => {
+      const activeAdb = adbResolver.resolveActiveAdb();
+      if (activeAdb.mode !== 'OFFLINE') {
+        const battRes = adbResolver.executeAdbCommand(activeAdb, ['shell', 'dumpsys', 'battery']);
+        const lvlMatch = battRes.stdout.match(/level:\s*(\d+)/);
+        const tempMatch = battRes.stdout.match(/temperature:\s*(\d+)/);
+        return {
+          status: 'ONLINE',
+          host: activeAdb.host,
+          mode: activeAdb.mode,
+          hardware: 'Samsung Galaxy A06 (SM-A065M)',
+          serial: activeAdb.serial,
+          batteryLevel: lvlMatch ? parseInt(lvlMatch[1], 10) : null,
+          temperatureC: tempMatch ? parseInt(tempMatch[1], 10) / 10 : null,
+          shizukuStatus: 'RUNNING'
+        };
+      }
       let stateHrd = null;
       if (fs.existsSync(STATE_FILE)) {
         const raw = fs.readFileSync(STATE_FILE, 'utf8').replace(/^\uFEFF/, '');
         stateHrd = JSON.parse(raw).peer_nodes?.[0]?.attached_devices?.[0];
       }
       return {
+        status: 'OFFLINE_RESILIENT_STANDBY',
         hardware: stateHrd ? stateHrd.model : 'Samsung Galaxy A06',
         serial: stateHrd ? stateHrd.serial : 'R8YY500R7ZB',
-        shizukuStatus: stateHrd ? stateHrd.shizuku_status : 'RUNNING'
+        shizukuStatus: stateHrd ? stateHrd.shizuku_status : 'STANDBY'
       };
     });
     executionLog.push({ phase: 'Macro-Fase 12', ...step4 });

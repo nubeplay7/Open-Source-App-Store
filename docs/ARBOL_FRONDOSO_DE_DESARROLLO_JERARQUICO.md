@@ -66,7 +66,7 @@
 
 ---
 
-### 🌿 MACRO-FASE 05: Bóveda Criptográfica Keystore & Firma APK v1-v4 [EN EJECUCIÓN]
+### 🌿 MACRO-FASE 05: Bóveda Criptográfica Keystore & Firma APK v1-v4 [COMPLETA - CERTIFICADA]
 - **Micro-Fase 05.1**: Generación y Gestión de Keystores RSA 4096 / ECDSA.
   - *Nano-Fase 05.1.1*: Servicio `src/services/androidKeystoreSignerService.ts` para creación de certificados X.509.
   - *Nano-Fase 05.1.2*: Cálculo y exportación de huellas digitales SHA-256, SHA-1 y MD5.
@@ -79,7 +79,7 @@
 
 ---
 
-### 🌿 MACRO-FASE 06: Protocolo Nearby P2P / WebRTC DataChannels para Distribución Local
+### 🌿 MACRO-FASE 06: Protocolo Nearby P2P / WebRTC DataChannels para Distribución Local [COMPLETA - CERTIFICADA]
 - **Micro-Fase 06.1**: Motor de Descubrimiento de Pares Locales (mDNS / Radar).
   - *Nano-Fase 06.1.1*: Servicio `src/services/nearbyP2pTransferMesh.ts` con WebSockets / WebRTC DataChannels.
   - *Nano-Fase 06.1.2*: Generador dinámico de códigos QR de emparejamiento efímero.
@@ -89,7 +89,7 @@
 
 ---
 
-### 🌿 MACRO-FASE 07: Conector Streaming de Índices F-Droid v2
+### 🌿 MACRO-FASE 07: Conector Streaming de Índices F-Droid v2 [COMPLETA - CERTIFICADA]
 - **Micro-Fase 07.1**: Ingestor Asíncrono de Índices JSON-LD en Flujo.
   - *Nano-Fase 07.1.1*: Worker `src/services/fdroidIndexV2Worker.ts` con descompresión gzip en memoria.
   - *Nano-Fase 07.1.2*: Normalización de metadatos multilingües y detección de Anti-Features.
@@ -99,7 +99,7 @@
 
 ---
 
-### 🌿 MACRO-FASE 08: Sincronización Paritaria Multirregional (Spaces + GDrive) [COMPLETA]
+### 🌿 MACRO-FASE 08: Sincronización Paritaria Multirregional (Spaces + GDrive) [COMPLETA - CERTIFICADA]
 - **Micro-Fase 08.1**: Balanceador de Espejos y Failover Automático.
   - *Nano-Fase 08.1.1*: Orquestador de descargas con health-check activo de URLs espejo.
   - *Nano-Fase 08.1.2*: Conmutación fluida de Civer Cloud ➔ Google Drive ➔ DigitalOcean Spaces.

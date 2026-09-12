@@ -1055,6 +1055,25 @@ export const DeveloperSidebar: React.FC<DeveloperSidebarProps> = ({
           </button>
         )}
 
+        {/* 14.1. Espejos Multirregionales & Failover Paritario */}
+        {onOpenRegionalMirrors && (
+          <button
+            onClick={onOpenRegionalMirrors}
+            title={isCollapsed ? 'Espejos Multirregionales & Failover Paritario' : undefined}
+            className="w-full rounded-xl p-2.5 text-left transition flex items-center gap-3 text-slate-400 hover:text-slate-100 hover:bg-slate-900/60 group border border-transparent hover:border-slate-800"
+          >
+            <div className="p-1.5 rounded-lg bg-emerald-950/80 border border-emerald-700/60 text-emerald-400 shrink-0 group-hover:scale-105 transition">
+              <Globe className="w-4 h-4" />
+            </div>
+            {!isCollapsed && (
+              <div className="flex-1 truncate">
+                <div className="text-xs font-bold text-slate-200">Espejos Multirregionales</div>
+                <p className="text-[10px] text-slate-400 truncate">Spaces + GDrive + Civer</p>
+              </div>
+            )}
+          </button>
+        )}
+
         {/* 15. Grafo de Arquitectura Topológico */}
         {onOpenArchitectureGraph && (
           <button

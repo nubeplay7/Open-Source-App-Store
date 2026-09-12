@@ -7,8 +7,13 @@
     "dev": "vite --host 0.0.0.0 --port 3000",
     "build": "tsc && vite build",
     "lint": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "preview": "vite preview --port 3000",
-    "bot": "tsx server/telegramBotDaemon.ts"
+    "bot": "tsx server/telegramBotDaemon.ts",
+    "test": "node tools/extreme_system_test_suite.cjs",
+    "test:pipeline": "node tools/task_pipeline_orchestrator.cjs",
+    "test:device": "node tools/auto_ci_install_test_loop.cjs",
+    "test:adb": "node -e \"const r = require('./tools/adb_dual_host_resolver.cjs'); console.log(r.resolveActiveAdb());\""
   },
   "dependencies": {
     "@types/canvas-confetti": "^1.9.0",
