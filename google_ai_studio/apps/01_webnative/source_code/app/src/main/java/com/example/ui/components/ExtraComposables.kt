@@ -71,3 +71,12 @@ fun CollapsablePanel(
         content()
     }
 }
+
+
+@Composable
+fun FpsCounterOverlay(
+    modifier: Modifier = Modifier,
+    isHardwareBoostActive: Boolean = false
+) {
+    Box(modifier = modifier)
+}

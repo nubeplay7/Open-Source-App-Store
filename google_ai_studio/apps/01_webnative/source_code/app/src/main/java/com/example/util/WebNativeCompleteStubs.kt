@@ -255,6 +255,8 @@ object DeviceFingerprintUaInterceptor {
 }
 
 object WebResponsiveEngine {
+    fun applyDynamicZoom(webView: Any?, textZoom: Int) {}
+
     fun injectResponsiveViewport(wv: Any?) {}
 }
 
@@ -305,6 +307,7 @@ data class SiteUiPreferences(
     val fluidMediaEnabled: Boolean = true,
     val preventHorizontalOverflow: Boolean = true,
     val showFpsCounter: Boolean = false,
+    val showProgressBar: Boolean = true,
     val customUserAgent: String? = null
 )
 
@@ -312,6 +315,11 @@ object WebStateDataStoreManager {
     fun getSessionState(context: Context, url: String): WebSessionState? = null
     fun getSessionState(url: String): WebSessionState? = null
     fun saveSessionState(context: Context, url: String, state: Any?) {}
+    fun saveSessionState(context: Context, currentUrl: String, scrollX: Int, scrollY: Int, title: String) {}
+    fun restoreSessionStateWithoutReload(webView: Any?, context: Context, scope: CoroutineScope, targetUrl: String) {}
+    fun scheduleDebouncedSave(context: Context, scope: CoroutineScope, currentUrl: String, scrollX: Int, scrollY: Int, title: String) {}
+    fun attachScrollTrackingBridge(webView: Any?, context: Context, scope: CoroutineScope) {}
+}
     fun restoreSessionStateWithoutReload(webView: Any?, context: Context, scope: CoroutineScope, targetUrl: String) {}
     fun scheduleDebouncedSave(context: Context, scope: CoroutineScope, currentUrl: String, scrollX: Int, scrollY: Int, title: String) {}
 }
@@ -328,6 +336,7 @@ object WebViewOptimizationLayer {
 }
 
 object OfflineWebCacheManager {
+    val isOfflineModeFlow = kotlinx.coroutines.flow.MutableStateFlow(false)
     fun interceptForOffline(ctx: Context, request: WebResourceRequest): WebResourceResponse? = null
     fun shouldInterceptRequest(req: Any?): WebResourceResponse? = null
 }
@@ -388,4 +397,11 @@ object WebInspectorManager {
 
 object ScrollStatePreservationBridge {
     fun attachScrollTrackingBridge(webView: Any?, context: Context) {}
+}
+
+object SiteUiPreferencesDataStoreManager {
+    fun getSiteUiPreferences(context: Context, url: String): SiteUiPreferences = SiteUiPreferences()
+    fun getSiteUiPreferencesFlow(context: Context, url: String): kotlinx.coroutines.flow.Flow<SiteUiPreferences?> =
+        kotlinx.coroutines.flow.flowOf(SiteUiPreferences())
+    fun saveSiteUiPreferences(context: Context, prefs: SiteUiPreferences) {}
 }

@@ -365,23 +365,11 @@ object SnaptubeMediaEngine {
     fun getSnaptubeSnifferScript(): String = ""
 }
 
-data class SiteUiPreferences(val isFullscreen: Boolean = false, val isDesktopMode: Boolean = false, val isOledBlack: Boolean = false, val preventCloseOnMultitask: Boolean = true, val shouldAutoRefresh: Boolean = false, val isAdBlockEnabled: Boolean = true, val customUserAgent: String? = null)
-
-object SiteUiPreferencesDataStoreManager {
-    fun getSiteUiPreferences(context: Context, url: String): SiteUiPreferences = SiteUiPreferences()
-    fun getSiteUiPreferencesFlow(context: Context, url: String): kotlinx.coroutines.flow.Flow<SiteUiPreferences?> =
-        kotlinx.coroutines.flow.flowOf(SiteUiPreferences())
-    fun saveSiteUiPreferences(context: Context, prefs: SiteUiPreferences) {}
-}
-
 data class WebSessionState(
     val url: String = ""
 )
 
-object WebStateDataStoreManager {
-    fun getSessionState(context: Context, url: String): WebSessionState? = null
-    fun getSessionState(url: String): WebSessionState? = null
-    fun saveSessionState(context: Context, url: String, state: Any?) {}
+
 }
     fun scheduleDebouncedSave(context: Context, url: String, webView: Any?) {}
     fun attachScrollTrackingBridge(webView: Any?, context: Context) {}
