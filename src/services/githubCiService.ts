@@ -247,7 +247,7 @@ export async function triggerRealGitHubBuild(params: TriggerRealBuildParams): Pr
       gradle_task: params.gradleTask || 'assembleRelease',
       build_type: params.buildType || 'release',
       telegram_chat_id: params.telegramChatId || '7541607519',
-      telegram_bot_token: params.telegramBotToken || '8757193329:AAHOJtoR4E37xvl2_RP80STqutAqtbATqY4'
+      telegram_bot_token: params.telegramBotToken || 'REDACTED_USE_ENV_OR_SECRET'
     };
 
     if (useUniversal) {

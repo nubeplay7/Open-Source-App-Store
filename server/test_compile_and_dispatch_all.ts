@@ -9,7 +9,7 @@ import { APPS_CATALOG } from '../src/data/appsCatalogData';
 import { sourceUploadService } from '../src/services/sourceUploadService';
 import { triggerRealGitHubBuild } from '../src/services/githubCiService';
 
-const TELEGRAM_BOT_TOKEN = '8757193329:AAHOJtoR4E37xvl2_RP80STqutAqtbATqY4';
+const TELEGRAM_BOT_TOKEN = 'REDACTED_USE_ENV_OR_SECRET';
 const GITHUB_PAT = process.env.GITHUB_PAT || '';
 
 async function runTestSuite() {

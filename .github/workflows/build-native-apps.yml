@@ -1,0 +1,98 @@
+name: Civer Native Apps - Cloud Build (matrix)
+
+# Compila en la nube las apps Android nativas de google_ai_studio/apps (Regla 5: cero compilación local).
+on:
+  workflow_dispatch:
+    inputs:
+      apps:
+        description: 'Apps separadas por coma (01_webnative,04_foss_store_matrix,07_parallel_space,09_omnicomm,10_omnistore_hub) o "all"'
+        required: false
+        default: '10_omnistore_hub'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - id: m
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+          catalog = {
+            "01_webnative": "8.11.1",
+            "04_foss_store_matrix": "9.3.1",
+            "07_parallel_space": "9.3.1",
+            "09_omnicomm": "9.3.1",
+            "10_omnistore_hub": "9.3.1",
+          }
+          sel = "${{ inputs.apps }}".strip()
+          names = list(catalog) if sel in ("all", "") else [s.strip() for s in sel.split(",") if s.strip()]
+          bad = [n for n in names if n not in catalog]
+          if bad:
+              raise SystemExit("Apps desconocidas: %s" % bad)
+          print("matrix=" + json.dumps({"include": [{"app": n, "gradle": catalog[n]} for n in names]}))
+          PY
+
+  build:
+    needs: plan
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    name: build ${{ matrix.app }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      # El runner de Ubuntu ya incluye Android SDK en $ANDROID_HOME; solo se aceptan licencias.
+      - name: Aceptar licencias del Android SDK preinstalado
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: ${{ matrix.gradle }}
+
+      - name: Preparar wrapper y keystore de debug
+        working-directory: google_ai_studio/apps/${{ matrix.app }}/source_code
+        run: |
+          set -e
+          [ -f gradlew ] || gradle wrapper --gradle-version ${{ matrix.gradle }}
+          chmod +x gradlew
+          [ -f debug.keystore ] || keytool -genkeypair -v -keystore debug.keystore -storepass android -keypass android \
+            -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+
+      - name: Compilar assembleDebug
+        working-directory: google_ai_studio/apps/${{ matrix.app }}/source_code
+        run: ./gradlew assembleDebug --no-daemon --stacktrace -Dorg.gradle.jvmargs="-Xmx4g"
+
+      - name: Certificar APK (sha256, tamaño, aapt badging)
+        id: cert
+        working-directory: google_ai_studio/apps/${{ matrix.app }}/source_code
+        run: |
+          set -e
+          APK=$(find app/build/outputs/apk/debug -name '*.apk' | head -n1)
+          [ -n "$APK" ] || { echo "SIN APK: build falso positivo bloqueado"; exit 1; }
+          mkdir -p "$GITHUB_WORKSPACE/out"
+          cp "$APK" "$GITHUB_WORKSPACE/out/${{ matrix.app }}-debug.apk"
+          cd "$GITHUB_WORKSPACE/out"
+          sha256sum "${{ matrix.app }}-debug.apk" | tee "${{ matrix.app }}-debug.apk.sha256"
+          AAPT=$(ls $ANDROID_HOME/build-tools/*/aapt | tail -n1)
+          "$AAPT" dump badging "${{ matrix.app }}-debug.apk" | grep -E "^package:|sdkVersion|targetSdkVersion" | tee "${{ matrix.app }}-badging.txt"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.app }}-apk
+          path: out/*
+          retention-days: 30
+          if-no-files-found: error

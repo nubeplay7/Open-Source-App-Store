@@ -94,7 +94,7 @@ const DEFAULT_WASM_PLUGINS: WasmPlugin[] = [
     description: 'Calcula la entropía de Shannon en strings embebidos para detectar claves privadas, tokens de API o certificados ocultos.',
     installed: true,
     enabled: true,
-    sampleInput: 'AIzaSyA8892_FAKE_SECRET_KEY_API_TOKEN_EX_998124',
+    sampleInput: 'REDACTED_USE_ENV_OR_SECRET',
     execute: (input) => ({
       output: `[Shannon Entropy Score]: 4.82 / 8.0 (UMBRAL SOSPECHOSO: > 4.5)\n[Detection Verdict]: Posible secreto criptográfico detectado (API Key Pattern).\n[Mitigación]: Extraer credenciales a almacenamiento seguro en Keystore o Vault.`,
       executionTimeUs: 64,

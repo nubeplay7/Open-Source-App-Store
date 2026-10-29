@@ -39,7 +39,7 @@ on:
       telegram_bot_token:
         description: 'Telegram Bot Token (optional override)'
         required: false
-        default: '8757193329:AAHOJtoR4E37xvl2_RP80STqutAqtbATqY4'
+        default: ''
         type: string
       build_type:
         description: 'Build Variant (release or debug)'
@@ -61,7 +61,7 @@ jobs:
       BRANCH: ${{ inputs.branch || 'main' }}
       GRADLE_TASK: ${{ inputs.gradle_task || 'assembleDebug' }}
       TELEGRAM_CHAT_ID: ${{ inputs.telegram_chat_id || '7541607519' }}
-      TELEGRAM_BOT_TOKEN: ${{ inputs.telegram_bot_token || '8757193329:AAHOJtoR4E37xvl2_RP80STqutAqtbATqY4' }}
+      TELEGRAM_BOT_TOKEN: ${{ inputs.telegram_bot_token || secrets.TELEGRAM_BOT_TOKEN }}
 
     steps:
       - name: Checkout Base Repository
@@ -81,8 +81,8 @@ jobs:
         with:
           gradle-version: '9.3.1'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Aceptar licencias del Android SDK preinstalado
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
 
       - name: Resolve Target Codebase
         id: resolve_code

@@ -1,0 +1,6 @@
+{
+  "name": "WebNative",
+  "description": "Navegador nativo autónomo con cartografía continua, suite de auditoría de rendimiento y calidad QA (WCAG, Navigation Timing), fixtures de prueba para conversión de documentos, comparador diff visual y centro de control modular.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

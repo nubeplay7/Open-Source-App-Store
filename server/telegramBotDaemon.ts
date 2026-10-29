@@ -1,6 +1,6 @@
 /**
  * Telegram Bot Autonomous Daemon (@EnviodeApkCompiladaBot)
- * Token: 8757193329:AAHOJtoR4E37xvl2_RP80STqutAqtbATqY4
+ * Token: REDACTED_USE_ENV_OR_SECRET
  * 
  * Execution: npm run bot
  * 

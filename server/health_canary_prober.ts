@@ -150,7 +150,7 @@ export async function runFullCanaryProbes(): Promise<CanaryProbeResult[]> {
 
   // 6. Sonda del Bot de Notificación y Entrega de Telegram
   const tStartTg = Date.now();
-  const botToken = '8757193329:AAHOJtoR4E37xvl2_RP80STqutAqtbATqY4';
+  const botToken = 'REDACTED_USE_ENV_OR_SECRET';
   try {
     const res = await fetch(`https://api.telegram.org/bot${botToken}/getMe`);
     const data = await res.json();

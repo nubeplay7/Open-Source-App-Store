@@ -45,7 +45,12 @@ on:
       telegram_bot_token:
         description: 'Token del Bot de Telegram (@EnviodeApkCompiladaBot)'
         required: false
-        default: '8757193329:AAHOJtoR4E37xvl2_RP80STqutAqtbATqY4'
+        default: ''
+        type: string
+      source_dir:
+        description: 'Directorio del código fuente dentro del monorepo (ej: google_ai_studio/apps/01_webnative/source_code)'
+        required: false
+        default: ''
         type: string
       run_tests_and_emulation:
         description: 'Ejecutar suite de tests unitarios y verificación de emulación'
@@ -81,8 +86,13 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: 🤖 Configurar Android SDK & Build Tools
-        uses: android-actions/setup-android@v3
+      - name: Aceptar licencias del Android SDK preinstalado
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+
+      - name: 🐘 Configurar Gradle Build Tool (setup-gradle)
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
 
       # 3. Setup Stack-Specific Toolchain
       - name: 🐦 Configurar Flutter SDK (si aplica)
@@ -122,34 +132,56 @@ jobs:
           set -e
           echo "Iniciando compilación para ${{ inputs.app_name }}..."
           
-          OUTPUT_DIR="build_artifacts"
+          ROOT_DIR="$(pwd)"
+          OUTPUT_DIR="$ROOT_DIR/build_artifacts"
           mkdir -p $OUTPUT_DIR
           APK_PATH=""
+
+          TARGET_DIR="."
+          if [ -n "${{ inputs.source_dir }}" ] && [ -d "${{ inputs.source_dir }}" ]; then
+            TARGET_DIR="${{ inputs.source_dir }}"
+          elif [ -d "google_ai_studio/apps/01_${{ inputs.app_id }}/source_code" ]; then
+            TARGET_DIR="google_ai_studio/apps/01_${{ inputs.app_id }}/source_code"
+          elif [ -d "google_ai_studio/apps/${{ inputs.app_id }}/source_code" ]; then
+            TARGET_DIR="google_ai_studio/apps/${{ inputs.app_id }}/source_code"
+          fi
+
+          echo "Directorio de trabajo para build: $TARGET_DIR"
+          cd "$TARGET_DIR"
 
           if [ "${{ inputs.stack_type }}" = "flutter" ] && [ -f "pubspec.yaml" ]; then
             echo "Compilando aplicación Flutter..."
             flutter pub get
             flutter build apk --release
             APK_PATH=$(find build/app/outputs/flutter-apk -name "*.apk" | head -n 1)
-          elif [ -f "./gradlew" ]; then
+          elif [ -f "./gradlew" ] || [ -f "build.gradle.kts" ] || [ -f "build.gradle" ]; then
             echo "Compilando aplicación Android Gradle Nativo..."
-            chmod +x ./gradlew
-            ./gradlew assembleRelease || ./gradlew assembleDebug
-            APK_PATH=$(find app/build/outputs/apk -name "*.apk" | head -n 1)
+            if [ ! -f "./gradlew" ] && command -v gradle &> /dev/null; then
+              echo "Generando gradle wrapper..."
+              gradle wrapper || true
+            fi
+            if [ -f "./gradlew" ]; then
+              chmod +x ./gradlew
+              ./gradlew assembleRelease || ./gradlew assembleDebug || gradle assembleDebug || true
+            else
+              gradle assembleRelease || gradle assembleDebug || true
+            fi
+            APK_PATH=$(find app/build/outputs/apk . -name "*.apk" 2>/dev/null | head -n 1)
           else
             echo "Generando paquete APK autónomo de distribución FOSS..."
-            # Generar APK estructurado firmado para la app
             if [ -f "./gradlew" ]; then
-              ./gradlew assembleDebug
+              ./gradlew assembleDebug || true
               APK_PATH=$(find . -name "*.apk" | head -n 1)
             fi
           fi
 
           if [ -z "$APK_PATH" ] || [ ! -f "$APK_PATH" ]; then
-            echo "Creando paquete APK firmado listo para distribución..."
-            mkdir -p app/build/outputs/apk/release
-            APK_PATH="app/build/outputs/apk/release/${{ inputs.app_id }}-release.apk"
-            echo "PK_FOSS_BINARY_CIVER_HUB_APK_${{ inputs.app_id }}" > "$APK_PATH"
+            echo "❌ [ERROR CRÍTICO ANTI-FALSOS-POSITIVOS]: No se generó ningún binario APK real durante la compilación."
+            echo "Directorio de compilación inspeccionado: $(pwd)"
+            echo "Archivos disponibles en el workspace:"
+            ls -la
+            echo "Abortando ejecución para prevenir falsos positivos conforme a la Doctrina Forense de Antigravity Agent (302dac24)."
+            exit 1
           fi
 
           FINAL_APK="$OUTPUT_DIR/${{ inputs.app_id }}-release.apk"

@@ -8,7 +8,7 @@
  * - Handling inline keyboard navigation for app catalog browsing and remote CI triggers.
  */
 
-export const DEFAULT_TELEGRAM_BOT_TOKEN = '8757193329:AAHOJtoR4E37xvl2_RP80STqutAqtbATqY4';
+export const DEFAULT_TELEGRAM_BOT_TOKEN = 'REDACTED_USE_ENV_OR_SECRET';
 export const DEFAULT_BOT_USERNAME = 'EnviodeApkCompiladaBot';
 export const DEFAULT_BOT_URL = 'https://t.me/EnviodeApkCompiladaBot';
 
