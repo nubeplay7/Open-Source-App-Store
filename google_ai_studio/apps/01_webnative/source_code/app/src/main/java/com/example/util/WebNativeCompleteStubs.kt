@@ -321,7 +321,8 @@ object NetworkThrottler {
     fun interceptRequest(request: WebResourceRequest): WebResourceResponse? = null
 }
 
-object WebViewOptimizationLayer {\n    fun setForceHardwareAccelerationEnabled(context: Context, enabled: Boolean) {}
+object WebViewOptimizationLayer {
+    fun setForceHardwareAccelerationEnabled(context: Context, enabled: Boolean) {}
     fun applyOptimizations(webView: Any?, context: Context, container: Any?, isAppHardwareBoost: Boolean, isEphemeral: Boolean) {}
     fun configureWebSettingsResponsiveness(settings: WebSettings, ctx: Context) {}
 }
