@@ -316,9 +316,33 @@ data class SnaptubeDownloadTask(
 )
 
 object SnaptubeMediaEngine {
+    val detectedMediaFlow: StateFlow<SnaptubeMedia?> = MutableStateFlow<SnaptubeMedia?>(null).asStateFlow()
     val activeDownloadsFlow: StateFlow<List<SnaptubeDownloadTask>> = MutableStateFlow<List<SnaptubeDownloadTask>>(emptyList()).asStateFlow()
     fun updateDownloadStatus(id: Long, status: SnaptubeDownloadStatus, progress: Int) {}
     fun autoTagDownloadedAudios(context: Context): Int = 0
+    fun SnaptubeBridge(context: Context): Any = Any()
+    fun getSnaptubeSnifferScript(): String = ""
+}
+
+data class SiteUiPreferences(
+    val shouldAutoRefresh: Boolean = false,
+    val isAdBlockEnabled: Boolean = true,
+    val isDesktopMode: Boolean = false,
+    val isOledBlack: Boolean = false
+)
+
+object SiteUiPreferencesDataStoreManager {
+    fun getSiteUiPreferences(context: Context, url: String): SiteUiPreferences = SiteUiPreferences()
+    fun getSiteUiPreferencesFlow(context: Context, url: String): kotlinx.coroutines.flow.Flow<SiteUiPreferences?> =
+        kotlinx.coroutines.flow.flowOf(SiteUiPreferences())
+    fun saveSiteUiPreferences(context: Context, prefs: SiteUiPreferences) {}
+}
+
+enum class AutoClickerMode { SINGLE, REPEAT, MULTI_TARGET }
+
+object AutoClickerEngine {
+    fun isRunning(): Boolean = false
+    fun showController(webView: Any, mode: AutoClickerMode = AutoClickerMode.MULTI_TARGET) {}
 }
 
 object SnaptubeAudioTagger {}

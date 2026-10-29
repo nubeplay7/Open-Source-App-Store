@@ -58,16 +58,34 @@ fun FirestoreSyncCard() {
 }
 
 @Composable
+fun BookmarksQuickAccessDialog(
+    currentUrl: String = "",
+    currentTitle: String = "",
+    onNavigateUrl: (String) -> Unit = {},
+    onDismiss: () -> Unit = {}
+) {
+    Box(modifier = Modifier)
+}
+
+@Composable
 fun InternalMediaPlayerDialog(onDismiss: () -> Unit = {}) {
     Box(modifier = Modifier)
 }
 
 @Composable
-fun UnifiedAdBlockControlCenterDialog(onDismiss: () -> Unit = {}) {
+fun UnifiedAdBlockControlCenterDialog(
+    currentUrl: String = "",
+    onDismiss: () -> Unit = {}
+) {
     Box(modifier = Modifier)
 }
 
 @Composable
-fun SandboxAppsManagerDialog(onDismiss: () -> Unit = {}, onOpenApp: ((Any?, String) -> Unit)? = null) {
+fun SandboxAppsManagerDialog(
+    currentUrl: String = "",
+    currentTitle: String = "",
+    onLaunchApp: (String, Any?) -> Unit = { _, _ -> },
+    onDismiss: () -> Unit = {}
+) {
     Box(modifier = Modifier)
 }
