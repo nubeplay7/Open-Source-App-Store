@@ -97,10 +97,8 @@ data class SelfTestSuiteReport(val passed: Boolean = true, val summary: String =
 
 
 
-}
 
 
-}
 
 data class DashboardBlock(
     val id: String = "",
@@ -155,14 +153,12 @@ object WebMacroScheduler {
     fun scheduleAlarm(context: Context, macro: Any?) {}
     fun formatDateTime(time: Long): String = "00:00"
 }
-}
 
 object ConcurrentAutomationClusterEngine {
     fun initialize(context: Context) {}
     fun stopAllBots() {}
     fun pauseAllBots() {}
     fun resumeAllBots() {}
-}
 }
 
 object LiteModeManager {
@@ -244,7 +240,6 @@ object ImmortalKeepAliveService {
     fun startImmortalLock(context: Context, appName: String, targetUrl: String) {}
     fun stopImmortalLock(context: Context) {}
 }
-}
 
 // --- AdBlock Data Model & Config ---
 enum class AdBlockStealthMode { BALANCED, AGGRESSIVE, QUANTUM_STEALTH, HARDCORE_TITAN }
@@ -286,7 +281,6 @@ object AdBlockConfigManager {
 }
 
 
-}
 
 // QA & Performance Engine Types
 data class WebPerformanceMetrics(
@@ -397,12 +391,10 @@ object WebStateDataStoreManager {
     fun getScrollTrackingInjectionScript(): String = ""
     fun restoreScrollPosition(webView: Any?, context: Context, url: String) {}
     fun saveSessionState(context: Context, state: Any?) {}
-}
 
 object SessionKeepAliveEngine {
     val statuses: StateFlow<Map<String, KeepAliveStatus>> = MutableStateFlow<Map<String, KeepAliveStatus>>(emptyMap()).asStateFlow()
     fun performGlobalSessionRefresh(context: Context) {}
-}
 }
 
 enum class AutoClickerMode { SINGLE, REPEAT, MULTI_TARGET }
@@ -449,7 +441,6 @@ object AutoClickerEngine {
     fun removeTargetById(id: Int) {}
 }
     fun addClickTarget(target: AutoClickTarget) {}
-}
 
 object WebMacroAutomationEngine {
     val isRecording: StateFlow<Boolean> = MutableStateFlow(false).asStateFlow()
@@ -514,7 +505,6 @@ object NativeAppCloneManager {
 object AppCloneDataSyncManager {
     fun restoreSnapshot(context: Context, snapshotId: String, zipPath: String) {}
     fun enqueueDataSync(context: Context, snapshotId: String, zipPath: String, packageName: String, autoLaunch: Boolean = true, restoreRoot: Boolean = true) {}
-}
 }
 
 object MasterSystemDiagnosticsEngine {
