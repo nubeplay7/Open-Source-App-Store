@@ -71,15 +71,6 @@ fun SiteUiCustomizationDialog(
 }
 
 @Composable
-fun SitePermissionsDialog(
-    currentUrl: String = "",
-    onDismiss: () -> Unit = {},
-    onReloadRequested: () -> Unit = {}
-) {
-    Box(modifier = Modifier)
-}
-
-@Composable
 fun AdvancedAppPinningDialog(
     initialUrl: String = "",
     initialTitle: String = "",

@@ -89,3 +89,36 @@ fun SandboxAppsManagerDialog(
 ) {
     Box(modifier = Modifier)
 }
+
+@Composable
+fun WebPullToRefreshLayout(
+    enabled: Boolean = true,
+    isRefreshing: Boolean = false,
+    onRefresh: () -> Unit = {},
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit = {}
+) {
+    Box(modifier = modifier) {
+        content()
+    }
+}
+
+@Composable
+fun UrlNavigationOmnibar(
+    currentUrl: String = "",
+    pageTitle: String = "",
+    onNavigate: (String) -> Unit = {},
+    onPinShortcut: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier)
+}
+
+@Composable
+fun WebMacroRecordingOverlay(
+    webView: Any? = null,
+    onOpenSaveDialog: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier)
+}
