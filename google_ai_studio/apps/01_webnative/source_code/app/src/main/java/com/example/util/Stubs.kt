@@ -1,4 +1,4 @@
-﻿package com.example.util
+package com.example.util
 
 import android.content.Context
 import android.content.Intent
@@ -14,9 +14,9 @@ object InitializationGuard {
     enum class InstanceLaunchMode { SINGLE_INSTANCE, STANDARD }
     data class StartupResult(
         val isValid: Boolean = true,
-        val targetUrl: String? = null,
-        val appName: String? = null,
-        val containerId: String? = null
+        val targetUrl: String = "",
+        val appName: String = "",
+        val containerId: String = ""
     )
     
     fun validateLaunchIntent(context: Context, intent: Intent?): StartupResult = StartupResult()
@@ -33,6 +33,7 @@ object DynamicThemeManager {
 
 object ContainerManager {
     fun initialize(context: Context) {}
+    fun switchContainer(context: Context, containerId: String) {}
 }
 
 object AutomatedCleanupService {
@@ -40,7 +41,20 @@ object AutomatedCleanupService {
 }
 
 object AgentBridgeServer {
-    fun startServer(context: Context) {}
+    const val DEFAULT_PORT = 8080
+    val serverRunningFlow: StateFlow<Boolean> = MutableStateFlow(false).asStateFlow()
+    val totalRequestsCountFlow: StateFlow<Int> = MutableStateFlow(0).asStateFlow()
+    val activeChannelsCountFlow: StateFlow<Int> = MutableStateFlow(0).asStateFlow()
+
+    fun startServer(context: Context, port: Int = DEFAULT_PORT) {}
+    fun stopServer(context: Context) {}
+    fun getDeviceLocalIpAddress(context: Context): String = "127.0.0.1"
+    fun getUniversalConnectionUrl(ip: String, port: Int): String = "http://" + ip + ":" + port
+}
+
+object McpAgentSkillsRegistry {
+    val skills = emptyList<Any>()
+    fun getRegisteredSkills(): List<Any> = emptyList()
 }
 
 object AgentCloudRelayClient {
@@ -79,7 +93,7 @@ object LiteModeManager {
 }
 
 object AgentHandshakeManager {
-    data class HandshakeResult(val success: Boolean = true, val message: String =  OK)
+    data class HandshakeResult(val success: Boolean = true, val message: String = "OK")
     fun verifyHandshake(context: Context, pin: String, origin: String): HandshakeResult = HandshakeResult()
 }
 

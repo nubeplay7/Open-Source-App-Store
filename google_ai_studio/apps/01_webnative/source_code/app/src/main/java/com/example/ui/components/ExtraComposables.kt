@@ -1,4 +1,4 @@
-﻿package com.example.ui.components
+package com.example.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Box
@@ -25,14 +25,15 @@ fun SidebarNavigation(
 
 @Composable
 fun PersistentTopHeader(
-    onOpenSearch: () -> Unit,
-    onOpenLayoutCustomizer: () -> Unit,
-    onOpenOtaDialog: () -> Unit,
-    onOpenAppearanceDialog: () -> Unit,
-    onOpenCreateAppDialog: () -> Unit,
-    onRefreshState: () -> Unit,
-    onClearCache: () -> Unit,
-    isSidebarMode: Boolean
+    onOpenSearch: () -> Unit = {},
+    onOpenLayoutCustomizer: () -> Unit = {},
+    onOpenOtaDialog: () -> Unit = {},
+    onOpenAppearanceDialog: () -> Unit = {},
+    onOpenCreateAppDialog: () -> Unit = {},
+    onRefreshState: () -> Unit = {},
+    onClearCache: () -> Unit = {},
+    isSidebarMode: Boolean = false,
+    onToggleSidebarMode: () -> Unit = {}
 ) {
     Box(modifier = Modifier)
 }
