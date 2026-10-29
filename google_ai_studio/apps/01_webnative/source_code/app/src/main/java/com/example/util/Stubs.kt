@@ -2,6 +2,9 @@
 
 import android.content.Context
 import android.content.Intent
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 object GlobalCrashWatchdog {
     fun init(context: Context) {}
@@ -56,7 +59,17 @@ object ConcurrentAutomationClusterEngine {
 }
 
 object LiteModeManager {
+    data class LiteModeSettings(
+        val isLiteModeEnabled: Boolean = false,
+        val disableContinuousOtaInLiteMode: Boolean = false
+    )
+    private val _settingsFlow = MutableStateFlow(LiteModeSettings())
+    val settingsFlow: StateFlow<LiteModeSettings> = _settingsFlow.asStateFlow()
+
     fun initialize(context: Context) {}
+    fun onSystemTrimMemory(context: Context, level: Int) {}
+    fun triggerEmergencyMemoryTrim(context: Context) {}
+    fun isModuleActive(moduleId: Any): Boolean = true
 }
 
 object AgentHandshakeManager {
@@ -66,20 +79,25 @@ object AgentHandshakeManager {
 
 object VolumeShortcutManager {
     fun init(context: Context) {}
+    fun handleKeyEvent(context: Context, event: android.view.KeyEvent): Boolean = false
 }
 
 object TaskThrottlingController {
     fun init(context: Context) {}
+    fun setAppForegroundState(isForeground: Boolean) {}
 }
 
 object AdaptivePowerPolicyGovernor {
     fun init(context: Context) {}
+    fun applyPolicy(context: Context, activity: Any) {}
 }
 
 object IntelligentDiskCacheBudgetEngine {
     fun init(context: Context) {}
+    fun evaluateAndEnforceBudget(context: Context) {}
 }
 
 object TabHibernationManager {
     fun init(context: Context) {}
+    fun checkAndHibernateInactiveTabs(context: Context, activeForegroundTabId: String) {}
 }
