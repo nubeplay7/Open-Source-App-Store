@@ -1,4 +1,8 @@
 package com.example.util
+import java.io.ByteArrayInputStream
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebResourceRequest
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -217,24 +221,16 @@ object RemoteWebViewController {
 }
 
 // 6. TurboWebView Subsystem Stubs
-object WebInspectorManager {
-    fun registerActiveWebView(wv: Any?) {}
-    fun unregisterActiveWebView(wv: Any?) {}
-    fun inspectElementAt(x: Float, y: Float) {}
-}
+// Previous WebInspectorManager removed
 
 object ContainerHardwareJunction {
     fun registerWebView(wv: Any?) {}
     fun unregisterWebView(wv: Any?) {}
 }
 
-object NetworkThrottler {
-    fun applyThrottling(wv: Any?) {}
-}
+// Previous NetworkThrottler removed
 
-object WebViewOptimizationLayer {
-    fun applyOptimizations(webView: Any?, context: Context, container: Any?, isAppHardwareBoost: Boolean, isEphemeral: Boolean) {}
-}
+// Previous WebViewOptimizationLayer removed
 
 class WebNativeJSBridge(
     val context: Context,
@@ -262,26 +258,15 @@ object WebResponsiveEngine {
     fun injectResponsiveViewport(wv: Any?) {}
 }
 
-object OfflineWebCacheManager {
-    fun shouldInterceptRequest(req: Any?): WebResourceResponse? = null
-}
+// Previous OfflineWebCacheManager removed
 
-object ContainerAdBlockPolicy {
-    fun shouldBlockRequest(req: Any?): Boolean = false
-}
+// Previous ContainerAdBlockPolicy removed
 
-object ApiContractMockHub {
-    fun shouldMockResponse(req: Any?): WebResourceResponse? = null
-}
+// Previous ApiContractMockHub removed
 
-object LiteMediaOptimizer {
-    fun shouldOptimizeMedia(req: Any?): Boolean = false
-    fun optimizeResponse(req: Any?): WebResourceResponse? = null
-}
+// Previous LiteMediaOptimizer removed
 
-object ContainerNetworkManager {
-    fun shouldRerouteRequest(req: Any?): Boolean = false
-}
+// Previous ContainerNetworkManager removed
 
 object ContainerProxyManager {}
 object ContainerDohLeakShieldManager {}
@@ -296,3 +281,110 @@ object ChromeExtensionRuntime {
     val installedExtensions = MutableStateFlow<List<Any>>(emptyList()).asStateFlow()
 }
 object JsConsoleMemoryProfiler {}
+
+
+// --- DEFINICIONES TIPADAS FINALES (CIVER ZERO CONFLICT) ---
+
+data class HandshakeResult(val message: String = "OK", val success: Boolean = true)
+
+object AgentHandshakeManager {
+    fun verifyHandshake(context: Context, pin: String, origin: String): HandshakeResult = HandshakeResult()
+    fun getUniversalConnectionUrl(ip: String, port: Int = 8080): String = "http://$ip:$port"
+}
+
+data class SiteUiPreferences(
+    val isFullscreen: Boolean = false,
+    val isDesktopMode: Boolean = false,
+    val isOledBlack: Boolean = false,
+    val preventCloseOnMultitask: Boolean = true,
+    val shouldAutoRefresh: Boolean = false,
+    val isAdBlockEnabled: Boolean = true,
+    val isHardwareAccelerated: Boolean = true,
+    val textZoom: Int = 100,
+    val forceResponsiveViewport: Boolean = true,
+    val fluidMediaEnabled: Boolean = true,
+    val preventHorizontalOverflow: Boolean = true,
+    val showFpsCounter: Boolean = false,
+    val customUserAgent: String? = null
+)
+
+object WebStateDataStoreManager {
+    fun getSessionState(context: Context, url: String): WebSessionState? = null
+    fun getSessionState(url: String): WebSessionState? = null
+    fun saveSessionState(context: Context, url: String, state: Any?) {}
+    fun restoreSessionStateWithoutReload(webView: Any?, context: Context, scope: CoroutineScope, targetUrl: String) {}
+    fun scheduleDebouncedSave(context: Context, scope: CoroutineScope, currentUrl: String, scrollX: Int, scrollY: Int, title: String) {}
+}
+
+object NetworkThrottler {
+    fun applyThrottling(wv: Any?) {}
+    fun interceptRequest(request: WebResourceRequest): WebResourceResponse? = null
+}
+
+object WebViewOptimizationLayer {\n    fun setForceHardwareAccelerationEnabled(context: Context, enabled: Boolean) {}
+    fun applyOptimizations(webView: Any?, context: Context, container: Any?, isAppHardwareBoost: Boolean, isEphemeral: Boolean) {}
+    fun configureWebSettingsResponsiveness(settings: WebSettings, ctx: Context) {}
+}
+
+object OfflineWebCacheManager {
+    fun interceptForOffline(ctx: Context, request: WebResourceRequest): WebResourceResponse? = null
+    fun shouldInterceptRequest(req: Any?): WebResourceResponse? = null
+}
+
+object ContainerAdBlockPolicy {
+    fun isUrlBlocked(url: String, container: Any?): Boolean = false
+    fun shouldBlockRequest(req: Any?): Boolean = false
+}
+
+object ApiContractMockHub {
+    fun checkAndIntercept(request: WebResourceRequest): WebResourceResponse? = null
+    fun shouldMockResponse(req: Any?): WebResourceResponse? = null
+}
+
+object LiteMediaOptimizer {
+    fun shouldBlockOrStubMedia(url: String, settings: Any?): Boolean = false
+    fun getEmptyMediaResponse(): WebResourceResponse = WebResourceResponse("text/plain", "UTF-8", ByteArrayInputStream(ByteArray(0)))
+}
+
+object ContainerNetworkManager {
+    fun interceptRequest(request: WebResourceRequest, container: Any?): WebResourceResponse? = null
+}
+
+object GoogleWorkspaceContainerBridge {
+    fun getBridgeShieldingScript(): String = ""
+    fun syncGoogleCookiesToContainer(ctx: Context, url: String, container: Any?) {}
+}
+
+object ClientHintsManager {
+    fun getNavigatorClientHintsSyncScript(): String = ""
+    fun injectTrap(wv: Any?) {}
+}
+
+object CanvasFingerprintProtector {
+    fun getFingerprint(container: Any?): String = ""
+    fun getStealthInjectionScript(): String = ""
+}
+
+object ProxyMeshRoutingManager {
+    fun getProxyConfig(container: Any?): Any? = null
+    fun getGeolocationAndNetworkSpoofScript(container: Any?): String = ""
+}
+
+object WebInspectorManager {
+    fun recordNetworkRequest(
+        context: Context,
+        method: String,
+        url: String,
+        statusCode: Int = 200,
+        headers: String = "",
+        requestBody: String = "",
+        responseBody: String = "",
+        durationMs: Long = 0,
+        isBlocked: Boolean = false,
+        resourceType: String = "XHR"
+    ) {}
+}
+
+object ScrollStatePreservationBridge {
+    fun attachScrollTrackingBridge(webView: Any?, context: Context) {}
+}

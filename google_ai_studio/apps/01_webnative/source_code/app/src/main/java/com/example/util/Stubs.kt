@@ -442,7 +442,7 @@ object AutoClickerEngine {
 object WebMacroAutomationEngine {
     val isRecording: StateFlow<Boolean> = MutableStateFlow(false).asStateFlow()
     val isPlaying: StateFlow<Boolean> = MutableStateFlow(false).asStateFlow()
-    val isPaused: Boolean = false
+    val isPaused: StateFlow<Boolean> = MutableStateFlow(false).asStateFlow()
     val recordedSteps: StateFlow<List<com.example.data.model.WebMacroStep>> = MutableStateFlow<List<com.example.data.model.WebMacroStep>>(emptyList()).asStateFlow()
 
     const val JAVASCRIPT_INTERFACE_NAME = "WebMacroBridge"
@@ -525,61 +525,4 @@ object SandboxCredentialsManager {
     val credentialsFlow: StateFlow<Map<String, SandboxCredential>> = MutableStateFlow<Map<String, SandboxCredential>>(emptyMap()).asStateFlow()
     fun buildAutoLoginScript(email: String, pass: String): String = ""
     fun loadCredentials(context: Context): Map<String, SandboxCredential> = emptyMap()
-}
-
-
-// --- INTERCEPTORES TIPADOS PARA TURBO WEBVIEW ---
-data class HandshakeResult(val message: String = "OK", val success: Boolean = true)
-
-object AgentHandshakeManager {
-    fun verifyHandshake(context: Context, pin: String, origin: String): HandshakeResult = HandshakeResult()
-}
-
-object OfflineWebCacheManager {
-    fun interceptForOffline(ctx: Context, request: WebResourceRequest): WebResourceResponse? = null
-}
-
-object ContainerAdBlockPolicy {
-    fun isUrlBlocked(url: String, container: Any?): Boolean = false
-}
-
-object ApiContractMockHub {
-    fun checkAndIntercept(request: WebResourceRequest): WebResourceResponse? = null
-}
-
-object LiteMediaOptimizer {
-    fun shouldBlockOrStubMedia(url: String, settings: Any?): Boolean = false
-    fun getEmptyMediaResponse(): WebResourceResponse = WebResourceResponse("text/plain", "UTF-8", ByteArrayInputStream(ByteArray(0)))
-}
-
-object ContainerNetworkManager {
-    fun interceptRequest(request: WebResourceRequest, container: Any?): WebResourceResponse? = null
-}
-
-object NetworkThrottler {
-    fun interceptRequest(request: WebResourceRequest): WebResourceResponse? = null
-}
-
-object GoogleWorkspaceContainerBridge {
-    fun getBridgeShieldingScript(): String = ""
-    fun syncGoogleCookiesToContainer(ctx: Context, url: String, container: Any?) {}
-}
-
-object ClientHintsManager {
-    fun getNavigatorClientHintsSyncScript(): String = ""
-    fun injectTrap(wv: Any?) {}
-}
-
-object CanvasFingerprintProtector {
-    fun getFingerprint(container: Any?): String = ""
-    fun getStealthInjectionScript(): String = ""
-}
-
-object ProxyMeshRoutingManager {
-    fun getProxyConfig(container: Any?): Any? = null
-    fun getGeolocationAndNetworkSpoofScript(container: Any?): String = ""
-}
-
-object WebViewOptimizationLayer {
-    fun configureWebSettingsResponsiveness(settings: WebSettings, ctx: Context) {}
 }
