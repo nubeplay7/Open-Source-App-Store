@@ -65,7 +65,7 @@ fun SiteUiCustomizationDialog(
     currentUrl: String = "",
     appName: String = "",
     onDismiss: () -> Unit = {},
-    onPreferencesSaved: () -> Unit = {}
+    onPreferencesSaved: (com.example.util.SiteUiPreferences) -> Unit = {}
 ) {
     Box(modifier = Modifier)
 }

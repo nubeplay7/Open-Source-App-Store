@@ -85,31 +85,21 @@ object AgentBridgeServer {
 }
 
 object McpAgentSkillsRegistry {
-    val skills = emptyList<Any>()
-    fun getRegisteredSkills(): List<Any> = emptyList()
-    fun executeTool(context: Context, name: String, args: org.json.JSONObject): org.json.JSONObject = org.json.JSONObject()
+    fun executeTool(context: Context, name: String, args: JSONObject): JSONObject = JSONObject()
+    fun getToolCount(): Int = 24
+    fun getAllToolsSchema(): JSONArray = JSONArray()
 }
 
-object AgentOutgoingWebhookManager {
-    val configuredUrlsFlow: StateFlow<List<String>> = MutableStateFlow<List<String>>(emptyList()).asStateFlow()
-}
+
 
 data class SelfTestSuiteReport(val passed: Boolean = true, val summary: String = "OK")
 
-object AgentSystemSelfTest {
-    fun runAllSelfTests(context: Context): SelfTestSuiteReport = SelfTestSuiteReport()
+
+
+
 }
 
-object RemoteWebViewController {
-    fun init(context: Context) {}
-}
 
-object AgentCloudRelayClient {
-    val relayActiveFlow: StateFlow<Boolean> = MutableStateFlow(false).asStateFlow()
-    val relayUrlFlow: StateFlow<String> = MutableStateFlow("").asStateFlow()
-    val lastHeartbeatStatusFlow: StateFlow<String> = MutableStateFlow("").asStateFlow()
-    val transactionsFlow: StateFlow<List<Any>> = MutableStateFlow<List<Any>>(emptyList()).asStateFlow()
-    fun init(context: Context) {}
 }
 
 data class DashboardBlock(
@@ -156,11 +146,23 @@ object ExtensionManager {
 }
 
 object WebMacroScheduler {
+    const val ACTION_TRIGGER_MACRO = "com.example.ACTION_TRIGGER_MACRO"
+    const val EXTRA_MACRO_ID = "com.example.EXTRA_MACRO_ID"
+    const val TYPE_DELAY_COUNTDOWN = "TYPE_DELAY_COUNTDOWN"
+
     fun rescheduleAllActiveMacros(context: Context) {}
+    fun calculateNextTriggerTime(macro: Any? = null): Long = System.currentTimeMillis() + 3600000L
+    fun scheduleAlarm(context: Context, macro: Any?) {}
+    fun formatDateTime(time: Long): String = "00:00"
+}
 }
 
 object ConcurrentAutomationClusterEngine {
     fun initialize(context: Context) {}
+    fun stopAllBots() {}
+    fun pauseAllBots() {}
+    fun resumeAllBots() {}
+}
 }
 
 object LiteModeManager {
@@ -181,8 +183,14 @@ object LiteModeManager {
 }
 
 object AgentHandshakeManager {
-    data class HandshakeResult(val success: Boolean = true, val message: String = "OK")
-    fun verifyHandshake(context: Context, pin: String, origin: String): HandshakeResult = HandshakeResult()
+    val pairingPinFlow: StateFlow<String> = MutableStateFlow("123456").asStateFlow()
+    val handshakeSecretFlow: StateFlow<String> = MutableStateFlow("secret").asStateFlow()
+
+    fun validateHandshake(pin: String): Boolean = true
+    fun getHandshakeSecret(): String = "secret"
+    fun getPairingPin(): String = "123456"
+    fun getUniversalConnectionUrl(ip: String, port: Int): String = "http://$ip:$port"
+    fun regenerateCredentials(context: Context) {}
 }
 
 object VolumeShortcutManager {
@@ -222,6 +230,7 @@ object ShortcutManagerService {
         onComplete?.invoke(true)
         return true
     }
+    fun pinCustomUrlShortcut(context: Context, name: String, url: String, iconEmoji: String): Boolean = true
     fun generateCustomIconBitmap(name: String, iconValue: String, iconType: String, accentColor: Long): Bitmap {
         return Bitmap.createBitmap(48, 48, Bitmap.Config.ARGB_8888)
     }
@@ -232,7 +241,9 @@ object TurboCacheManager {
 }
 
 object ImmortalKeepAliveService {
-    fun startImmortalLock(context: Context, name: String?, url: String?) {}
+    fun startImmortalLock(context: Context, appName: String, targetUrl: String) {}
+    fun stopImmortalLock(context: Context) {}
+}
 }
 
 // --- AdBlock Data Model & Config ---
@@ -274,8 +285,7 @@ object AdBlockConfigManager {
     }
 }
 
-object WebViewOptimizationLayer {
-    fun setForceHardwareAccelerationEnabled(context: Context, enabled: Boolean) {}
+
 }
 
 // QA & Performance Engine Types
@@ -362,20 +372,7 @@ object SnaptubeMediaEngine {
     fun getSnaptubeSnifferScript(): String = ""
 }
 
-data class SiteUiPreferences(
-    val shouldAutoRefresh: Boolean = false,
-    val isAdBlockEnabled: Boolean = true,
-    val isDesktopMode: Boolean = false,
-    val isOledBlack: Boolean = false,
-    val customUserAgent: String? = null,
-    val isHardwareAccelerated: Boolean? = null,
-    val textZoom: Int = 100,
-    val forceResponsiveViewport: Boolean = true,
-    val fluidMediaEnabled: Boolean = true,
-    val preventHorizontalOverflow: Boolean = true,
-    val showFpsCounter: Boolean = false,
-    val showProgressBar: Boolean = true
-)
+data class SiteUiPreferences(val isFullscreen: Boolean = false, val isDesktopMode: Boolean = false, val isOledBlack: Boolean = false, val preventCloseOnMultitask: Boolean = true)
 
 object SiteUiPreferencesDataStoreManager {
     fun getSiteUiPreferences(context: Context, url: String): SiteUiPreferences = SiteUiPreferences()
@@ -389,8 +386,12 @@ data class WebSessionState(
 )
 
 object WebStateDataStoreManager {
-    fun getSessionState(context: Context, url: String): WebSessionState? = null
-    fun restoreSessionStateWithoutReload(context: Context, url: String, webView: Any?) {}
+    fun saveSessionState(url: String, state: WebSessionState) {}
+    fun getSessionState(url: String): WebSessionState? = null
+    fun restoreSessionStateWithoutReload(webView: Any?, context: Context, scope: CoroutineScope, targetUrl: String) {}
+    fun scheduleDebouncedSave(context: Context, scope: CoroutineScope, currentUrl: String, scrollX: Int, scrollY: Int, title: String) {}
+    fun attachScrollTrackingBridge(webView: Any?, context: Context, scope: CoroutineScope) {}
+}
     fun scheduleDebouncedSave(context: Context, url: String, webView: Any?) {}
     fun attachScrollTrackingBridge(webView: Any?, context: Context) {}
     fun getScrollTrackingInjectionScript(): String = ""
@@ -399,7 +400,9 @@ object WebStateDataStoreManager {
 }
 
 object SessionKeepAliveEngine {
+    val statuses: StateFlow<Map<String, KeepAliveStatus>> = MutableStateFlow<Map<String, KeepAliveStatus>>(emptyMap()).asStateFlow()
     fun performGlobalSessionRefresh(context: Context) {}
+}
 }
 
 enum class AutoClickerMode { SINGLE, REPEAT, MULTI_TARGET }
@@ -413,30 +416,59 @@ data class AutoClickTarget(
 )
 
 object AutoClickerEngine {
+    val isControllerVisible = MutableStateFlow(false).asStateFlow()
+    val isPlaying = MutableStateFlow(false).asStateFlow()
+    val isCollapsed = MutableStateFlow(false).asStateFlow()
+    val areMarkersVisible = MutableStateFlow(false).asStateFlow()
+    val mode = MutableStateFlow(AutoClickerMode.SINGLE).asStateFlow()
+    val clickTargets = MutableStateFlow<List<AutoClickTarget>>(emptyList()).asStateFlow()
+    val swipeTargets = MutableStateFlow<List<AutoSwipeTarget>>(emptyList()).asStateFlow()
+    val currentCycle = MutableStateFlow(0).asStateFlow()
+    val activeRipples = MutableStateFlow<List<Any>>(emptyList()).asStateFlow()
+    val activeTargetIndex = MutableStateFlow(0).asStateFlow()
+
     fun isRunning(): Boolean = false
     fun showController(webView: Any, mode: AutoClickerMode = AutoClickerMode.MULTI_TARGET) {}
+    fun addClickTarget(context: Context) {}
+    fun addClickTarget(target: AutoClickTarget) {}
+    fun addSwipeTarget(context: Context) {}
+    fun toggleCollapsed() {}
+    fun startOrResume(context: Context, webView: Any? = null) {}
+    fun pauseAllBots(context: Context? = null) {}
+    fun resumeAllBots(context: Context? = null) {}
+    fun stopAllBots(context: Context? = null) {}
+    fun togglePause() {}
+    fun removeLastTarget() {}
+    fun toggleMarkersVisibility() {}
+    fun hideController() {}
+    fun updateClickTargetPosition(id: Int, x: Float, y: Float) {}
+    fun updateClickTargetDetails(id: Int, delay: Long, hold: Long) {}
+    fun updateSwipeStart(id: Int, x: Float, y: Float) {}
+    fun updateSwipeEnd(id: Int, x: Float, y: Float) {}
+    fun updateSwipeTargetDetails(id: Int, duration: Long, delay: Long) {}
+    fun removeTargetById(id: Int) {}
+}
     fun addClickTarget(target: AutoClickTarget) {}
 }
 
 object WebMacroAutomationEngine {
     val isRecording: StateFlow<Boolean> = MutableStateFlow(false).asStateFlow()
     val isPlaying: StateFlow<Boolean> = MutableStateFlow(false).asStateFlow()
+    val isPaused: Boolean = false
     val recordedSteps: StateFlow<List<com.example.data.model.WebMacroStep>> = MutableStateFlow<List<com.example.data.model.WebMacroStep>>(emptyList()).asStateFlow()
+
+    const val JAVASCRIPT_INTERFACE_NAME = "WebMacroBridge"
+    class WebMacroBridge(val context: Context)
 
     fun startRecording(webView: Any?, context: Context) {}
     fun stopRecording(context: Context): List<com.example.data.model.WebMacroStep> = emptyList()
     fun executeMacro(webView: Any?, context: Context, macro: com.example.data.model.WebMacroEntity, overrideRepeatCount: Int = 1) {}
+    fun executeMacroHeadless(context: Context, macro: Any?) {}
     fun stopPlayback() {}
-    fun stopAllBots(context: Context) {}
-    fun pauseAllBots(context: Context) {}
-    fun resumeAllBots(context: Context) {}
-    fun calculateNextTriggerTime(type: Any, time: Long): Long = System.currentTimeMillis() + 3600000L
-    fun scheduleAlarm(context: Context, macroId: Long, triggerTime: Long) {}
-    fun formatDateTime(time: Long): String = "00:00"
-
-    const val ACTION_TRIGGER_MACRO = "ACTION_TRIGGER_MACRO"
-    const val EXTRA_MACRO_ID = "EXTRA_MACRO_ID"
-    const val TYPE_DELAY_COUNTDOWN = "TYPE_DELAY_COUNTDOWN"
+    fun togglePause() {}
+    fun stopAllBots(context: Context? = null) {}
+    fun pauseAllBots(context: Context? = null) {}
+    fun resumeAllBots(context: Context? = null) {}
 }
 
 object FirestoreContainerSyncEngine {
@@ -471,19 +503,25 @@ data class SystemDiagnosticSummary(
     val logSizeBytes: Long = 0
 )
 
-data class ClonedSnapshot(val appName: String = "", val snapshotId: String = "", val zipPath: String = "")
+data class ClonedSnapshot(val appName: String = "", val packageName: String = "", val snapshotId: String = "", val zipPath: String = "")
 
 object NativeAppCloneManager {
     val clonedSnapshots: StateFlow<List<ClonedSnapshot>> = MutableStateFlow<List<ClonedSnapshot>>(emptyList()).asStateFlow()
+    fun initialize(context: Context) {}
     fun getSnapshotByPackage(pkg: String): ClonedSnapshot? = null
 }
 
 object AppCloneDataSyncManager {
     fun restoreSnapshot(context: Context, snapshotId: String, zipPath: String) {}
+    fun enqueueDataSync(context: Context, snapshotId: String, zipPath: String, packageName: String, autoLaunch: Boolean = true, restoreRoot: Boolean = true) {}
+}
 }
 
 object MasterSystemDiagnosticsEngine {
-    fun generateJsonDiagnosticDump(context: Context): org.json.JSONObject = org.json.JSONObject()
+    fun generateJsonDiagnosticDump(context: Context): JSONObject = JSONObject()
+    fun generateMasterMarkdownReport(context: Context): String = "Master Diagnostic Report OK"
+    fun copyMasterReportToClipboard(context: Context) {}
+    fun exportAndShareFullDiagnosticBundle(context: Context) {}
 }
 
 object FullSystemForensicExtractor {
@@ -497,5 +535,7 @@ object MediaDownloadAllowedDomainsManager {
 }
 
 object SandboxCredentialsManager {
+    val credentialsFlow: StateFlow<Map<String, SandboxCredential>> = MutableStateFlow<Map<String, SandboxCredential>>(emptyMap()).asStateFlow()
     fun buildAutoLoginScript(email: String, pass: String): String = ""
+    fun loadCredentials(context: Context): Map<String, SandboxCredential> = emptyMap()
 }

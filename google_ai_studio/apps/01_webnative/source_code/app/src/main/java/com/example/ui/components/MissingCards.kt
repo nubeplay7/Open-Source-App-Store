@@ -122,3 +122,18 @@ fun WebMacroRecordingOverlay(
 ) {
     Box(modifier = modifier)
 }
+
+@Composable
+fun GoogleProfileWidget(modifier: Modifier = Modifier) {
+    Box(modifier = modifier)
+}
+
+@Composable
+fun IsolatedCustomizerWebViewPreview(settings: Any?) {
+    Box(modifier = Modifier)
+}
+
+@Composable
+fun LiteModeAndModularizationHub() {
+    Box(modifier = Modifier)
+}
