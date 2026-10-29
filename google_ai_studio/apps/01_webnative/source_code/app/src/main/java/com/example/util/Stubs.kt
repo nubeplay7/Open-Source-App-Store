@@ -1,3 +1,11 @@
+import java.io.ByteArrayInputStream
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
+import kotlinx.coroutines.CoroutineScope
+import org.json.JSONArray
+import org.json.JSONObject
 package com.example.util
 
 import android.content.Context
@@ -178,16 +186,7 @@ object LiteModeManager {
     fun isModuleActive(moduleId: Any): Boolean = true
 }
 
-object AgentHandshakeManager {
-    val pairingPinFlow: StateFlow<String> = MutableStateFlow("123456").asStateFlow()
-    val handshakeSecretFlow: StateFlow<String> = MutableStateFlow("secret").asStateFlow()
-
-    fun validateHandshake(pin: String): Boolean = true
-    fun getHandshakeSecret(): String = "secret"
-    fun getPairingPin(): String = "123456"
-    fun getUniversalConnectionUrl(ip: String, port: Int): String = "http://$ip:$port"
-    fun regenerateCredentials(context: Context) {}
-}
+// Replaced by typed AgentHandshakeManager
 
 object VolumeShortcutManager {
     fun init(context: Context) {}
@@ -366,7 +365,7 @@ object SnaptubeMediaEngine {
     fun getSnaptubeSnifferScript(): String = ""
 }
 
-data class SiteUiPreferences(val isFullscreen: Boolean = false, val isDesktopMode: Boolean = false, val isOledBlack: Boolean = false, val preventCloseOnMultitask: Boolean = true)
+data class SiteUiPreferences(val isFullscreen: Boolean = false, val isDesktopMode: Boolean = false, val isOledBlack: Boolean = false, val preventCloseOnMultitask: Boolean = true, val shouldAutoRefresh: Boolean = false, val isAdBlockEnabled: Boolean = true, val customUserAgent: String? = null)
 
 object SiteUiPreferencesDataStoreManager {
     fun getSiteUiPreferences(context: Context, url: String): SiteUiPreferences = SiteUiPreferences()
@@ -380,11 +379,9 @@ data class WebSessionState(
 )
 
 object WebStateDataStoreManager {
-    fun saveSessionState(url: String, state: WebSessionState) {}
+    fun getSessionState(context: Context, url: String): WebSessionState? = null
     fun getSessionState(url: String): WebSessionState? = null
-    fun restoreSessionStateWithoutReload(webView: Any?, context: Context, scope: CoroutineScope, targetUrl: String) {}
-    fun scheduleDebouncedSave(context: Context, scope: CoroutineScope, currentUrl: String, scrollX: Int, scrollY: Int, title: String) {}
-    fun attachScrollTrackingBridge(webView: Any?, context: Context, scope: CoroutineScope) {}
+    fun saveSessionState(context: Context, url: String, state: Any?) {}
 }
     fun scheduleDebouncedSave(context: Context, url: String, webView: Any?) {}
     fun attachScrollTrackingBridge(webView: Any?, context: Context) {}
@@ -528,4 +525,61 @@ object SandboxCredentialsManager {
     val credentialsFlow: StateFlow<Map<String, SandboxCredential>> = MutableStateFlow<Map<String, SandboxCredential>>(emptyMap()).asStateFlow()
     fun buildAutoLoginScript(email: String, pass: String): String = ""
     fun loadCredentials(context: Context): Map<String, SandboxCredential> = emptyMap()
+}
+
+
+// --- INTERCEPTORES TIPADOS PARA TURBO WEBVIEW ---
+data class HandshakeResult(val message: String = "OK", val success: Boolean = true)
+
+object AgentHandshakeManager {
+    fun verifyHandshake(context: Context, pin: String, origin: String): HandshakeResult = HandshakeResult()
+}
+
+object OfflineWebCacheManager {
+    fun interceptForOffline(ctx: Context, request: WebResourceRequest): WebResourceResponse? = null
+}
+
+object ContainerAdBlockPolicy {
+    fun isUrlBlocked(url: String, container: Any?): Boolean = false
+}
+
+object ApiContractMockHub {
+    fun checkAndIntercept(request: WebResourceRequest): WebResourceResponse? = null
+}
+
+object LiteMediaOptimizer {
+    fun shouldBlockOrStubMedia(url: String, settings: Any?): Boolean = false
+    fun getEmptyMediaResponse(): WebResourceResponse = WebResourceResponse("text/plain", "UTF-8", ByteArrayInputStream(ByteArray(0)))
+}
+
+object ContainerNetworkManager {
+    fun interceptRequest(request: WebResourceRequest, container: Any?): WebResourceResponse? = null
+}
+
+object NetworkThrottler {
+    fun interceptRequest(request: WebResourceRequest): WebResourceResponse? = null
+}
+
+object GoogleWorkspaceContainerBridge {
+    fun getBridgeShieldingScript(): String = ""
+    fun syncGoogleCookiesToContainer(ctx: Context, url: String, container: Any?) {}
+}
+
+object ClientHintsManager {
+    fun getNavigatorClientHintsSyncScript(): String = ""
+    fun injectTrap(wv: Any?) {}
+}
+
+object CanvasFingerprintProtector {
+    fun getFingerprint(container: Any?): String = ""
+    fun getStealthInjectionScript(): String = ""
+}
+
+object ProxyMeshRoutingManager {
+    fun getProxyConfig(container: Any?): Any? = null
+    fun getGeolocationAndNetworkSpoofScript(container: Any?): String = ""
+}
+
+object WebViewOptimizationLayer {
+    fun configureWebSettingsResponsiveness(settings: WebSettings, ctx: Context) {}
 }

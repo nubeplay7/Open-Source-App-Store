@@ -106,11 +106,7 @@ object AutomationPresetManager {
 enum class AdbScriptCategory { PERFORMANCE, BATTERY, DISPLAY, NETWORK, LOGS, SECURITY }
 enum class ScriptRiskLevel { SAFE, MODERATE, ADVANCED, HIGH_RISK }
 
-data class HardwareAccelerationInfo(
-    val isGpuEnabled: Boolean = true,
-    val rendererName: String = "Vulkan",
-    val glVersion: String = "OpenGL ES 3.2"
-)
+// HardwareAccelerationInfo declared in ADBManager.kt
 
 data class AdbScript(
     val id: String = "",
