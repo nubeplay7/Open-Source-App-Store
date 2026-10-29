@@ -370,13 +370,6 @@ data class WebSessionState(
 )
 
 
-}
-    fun scheduleDebouncedSave(context: Context, url: String, webView: Any?) {}
-    fun attachScrollTrackingBridge(webView: Any?, context: Context) {}
-    fun getScrollTrackingInjectionScript(): String = ""
-    fun restoreScrollPosition(webView: Any?, context: Context, url: String) {}
-    fun saveSessionState(context: Context, state: Any?) {}
-
 object SessionKeepAliveEngine {
     val statuses: StateFlow<Map<String, KeepAliveStatus>> = MutableStateFlow<Map<String, KeepAliveStatus>>(emptyMap()).asStateFlow()
     fun performGlobalSessionRefresh(context: Context) {}

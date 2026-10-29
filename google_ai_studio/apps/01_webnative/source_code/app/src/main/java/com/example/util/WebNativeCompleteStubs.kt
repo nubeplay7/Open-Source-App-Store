@@ -320,10 +320,6 @@ object WebStateDataStoreManager {
     fun scheduleDebouncedSave(context: Context, scope: CoroutineScope, currentUrl: String, scrollX: Int, scrollY: Int, title: String) {}
     fun attachScrollTrackingBridge(webView: Any?, context: Context, scope: CoroutineScope) {}
 }
-    fun restoreSessionStateWithoutReload(webView: Any?, context: Context, scope: CoroutineScope, targetUrl: String) {}
-    fun scheduleDebouncedSave(context: Context, scope: CoroutineScope, currentUrl: String, scrollX: Int, scrollY: Int, title: String) {}
-}
-
 object NetworkThrottler {
     fun applyThrottling(wv: Any?) {}
     fun interceptRequest(request: WebResourceRequest): WebResourceResponse? = null
