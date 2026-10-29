@@ -1,8 +1,12 @@
 package com.example.ui.components
 
 import androidx.compose.runtime.Composable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun SidebarNavigation(
@@ -46,3 +50,24 @@ fun CpuHeatmapDiagnosticOverlay() {}
 
 @Composable
 fun WidgetLayoutEditorDialog(onDismissRequest: () -> Unit) {}
+
+@Composable
+fun CollapsablePanel(
+    panelId: String,
+    title: String,
+    subtitle: String? = null,
+    icon: ImageVector? = null,
+    iconTint: Color = Color.White,
+    badgeText: String? = null,
+    badgeColor: Color = Color.Transparent,
+    badgeTextColor: Color = Color.White,
+    isReorderable: Boolean = false,
+    onMoveUp: (() -> Unit)? = null,
+    onMoveDown: (() -> Unit)? = null,
+    onHideBlock: (() -> Unit)? = null,
+    content: @Composable () -> Unit
+) {
+    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+        content()
+    }
+}

@@ -45,6 +45,9 @@ object DynamicThemeManager {
     private val _currentPalette = MutableStateFlow<DynamicThemePalette?>(null)
     val currentPalette: StateFlow<DynamicThemePalette?> = _currentPalette.asStateFlow()
 
+    private val _isDynamicThemeEnabled = MutableStateFlow(false)
+    val isDynamicThemeEnabled: StateFlow<Boolean> = _isDynamicThemeEnabled.asStateFlow()
+
     fun initialize(context: Context) {}
 }
 
@@ -78,8 +81,39 @@ object AgentCloudRelayClient {
     fun init(context: Context) {}
 }
 
+data class DashboardBlock(
+    val id: String = "",
+    val title: String = "",
+    val subtitle: String = "",
+    val isVisible: Boolean = true
+)
+
+data class CustomMenuFolder(
+    val id: String = "",
+    val name: String = "",
+    val blockIds: List<String> = emptyList()
+)
+
 object LayoutCustomizerManager {
+    private val _blocksFlow = MutableStateFlow<List<DashboardBlock>>(
+        listOf(
+            DashboardBlock("block_extensions_snaptube", "Extensiones & Snaptube", "Herramientas de descarga"),
+            DashboardBlock("block_adblock_stealth", "AdBlock Stealth", "Bloqueador de rastreadores"),
+            DashboardBlock("block_sandbox_snapshots", "Sandbox Snapshots", "Respaldos de contenedor")
+        )
+    )
+    val blocksFlow: StateFlow<List<DashboardBlock>> = _blocksFlow.asStateFlow()
+
+    private val _customMenusFlow = MutableStateFlow<List<CustomMenuFolder>>(emptyList())
+    val customMenusFlow: StateFlow<List<CustomMenuFolder>> = _customMenusFlow.asStateFlow()
+
+    private val _isCompactDensityFlow = MutableStateFlow(false)
+    val isCompactDensityFlow: StateFlow<Boolean> = _isCompactDensityFlow.asStateFlow()
+
     fun initialize(context: Context) {}
+    fun moveBlockUp(context: Context, blockId: String) {}
+    fun moveBlockDown(context: Context, blockId: String) {}
+    fun setBlockVisibility(context: Context, blockId: String, visible: Boolean) {}
 }
 
 object ExtensionManager {
@@ -171,7 +205,7 @@ data class AdBlockConfiguration(
     val customBlockedDomains: List<String> = emptyList(),
     val networkDomainBlockingEnabled: Boolean = true,
     val networkKeywordBlockingEnabled: Boolean = true,
-    val customRegexFilterRules: List<String> = emptyList(),
+    val customRegexFilterRules: String = "",
     val antiAdblockDefeaterEnabled: Boolean = true,
     val shadowDomPiercingEnabled: Boolean = true,
     val antiDebuggerNeutralizerEnabled: Boolean = true,
