@@ -3,6 +3,7 @@ package com.example.util
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,7 +30,21 @@ object UserProfileManager {
     fun initialize(context: Context) {}
 }
 
+data class DynamicThemePalette(
+    val primary: Color = Color(0xFF6200EE),
+    val onPrimary: Color = Color.White,
+    val primaryContainer: Color = Color(0xFFBB86FC),
+    val onPrimaryContainer: Color = Color.Black,
+    val secondary: Color = Color(0xFF03DAC6),
+    val background: Color = Color(0xFF121212),
+    val surface: Color = Color(0xFF1E1E1E),
+    val border: Color = Color(0xFF2C2C2C)
+)
+
 object DynamicThemeManager {
+    private val _currentPalette = MutableStateFlow<DynamicThemePalette?>(null)
+    val currentPalette: StateFlow<DynamicThemePalette?> = _currentPalette.asStateFlow()
+
     fun initialize(context: Context) {}
 }
 
@@ -136,7 +151,7 @@ object ShortcutManagerService {
         onComplete?.invoke(true)
         return true
     }
-    fun generateCustomIconBitmap(name: String, iconValue: String, iconType: String, accentColor: String): Bitmap {
+    fun generateCustomIconBitmap(name: String, iconValue: String, iconType: String, accentColor: Long): Bitmap {
         return Bitmap.createBitmap(48, 48, Bitmap.Config.ARGB_8888)
     }
 }
@@ -149,28 +164,37 @@ object ImmortalKeepAliveService {
     fun startImmortalLock(context: Context, name: String?, url: String?) {}
 }
 
-// Extension properties for AdBlockConfiguration
-var AdBlockConfiguration.antiDebuggerNeutralizerEnabled: Boolean
-    get() = false
-    set(_) {}
-var AdBlockConfiguration.webrtcLeakProtectionEnabled: Boolean
-    get() = false
-    set(_) {}
-var AdBlockConfiguration.popunderCrusherEnabled: Boolean
-    get() = false
-    set(_) {}
-var AdBlockConfiguration.cookieConsentAnnihilatorEnabled: Boolean
-    get() = false
-    set(_) {}
-var AdBlockConfiguration.fingerprintNoiseGeneratorEnabled: Boolean
-    get() = false
-    set(_) {}
-var AdBlockConfiguration.workerTelemetryInterceptorEnabled: Boolean
-    get() = false
-    set(_) {}
-var AdBlockConfiguration.wasmInterceptorEnabled: Boolean
-    get() = false
-    set(_) {}
+// --- AdBlock Data Model & Config ---
+data class AdBlockConfiguration(
+    val globalAdBlockEnabled: Boolean = true,
+    val siteWhitelist: List<String> = emptyList(),
+    val customBlockedDomains: List<String> = emptyList(),
+    val networkDomainBlockingEnabled: Boolean = true,
+    val networkKeywordBlockingEnabled: Boolean = true,
+    val customRegexFilterRules: List<String> = emptyList(),
+    val antiAdblockDefeaterEnabled: Boolean = true,
+    val shadowDomPiercingEnabled: Boolean = true,
+    val antiDebuggerNeutralizerEnabled: Boolean = true,
+    val webrtcLeakProtectionEnabled: Boolean = true,
+    val popunderCrusherEnabled: Boolean = true,
+    val cookieConsentAnnihilatorEnabled: Boolean = true,
+    val fingerprintNoiseGeneratorEnabled: Boolean = true,
+    val workerTelemetryInterceptorEnabled: Boolean = true,
+    val wasmInterceptorEnabled: Boolean = true
+)
+
+enum class AdBlockStealthMode { STANDARD, AGGRESSIVE, ULTRA, CUSTOM }
+
+object AdBlockConfigManager {
+    private val _configFlow = MutableStateFlow(AdBlockConfiguration())
+    val configFlow: StateFlow<AdBlockConfiguration> = _configFlow.asStateFlow()
+
+    fun recordBlockedEvent(context: Context, isTracker: Boolean) {}
+    fun applyPreset(context: Context, mode: AdBlockStealthMode) {}
+    fun saveConfig(context: Context, config: AdBlockConfiguration) {
+        _configFlow.value = config
+    }
+}
 
 object WebViewOptimizationLayer {
     fun setForceHardwareAccelerationEnabled(context: Context, enabled: Boolean) {}
