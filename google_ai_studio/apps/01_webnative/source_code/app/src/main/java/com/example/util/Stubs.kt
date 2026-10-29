@@ -2,9 +2,11 @@ package com.example.util
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import com.example.data.model.WebAppEntity
 
 object GlobalCrashWatchdog {
     fun init(context: Context) {}
@@ -105,6 +107,7 @@ object VolumeShortcutManager {
 object TaskThrottlingController {
     fun init(context: Context) {}
     fun setAppForegroundState(isForeground: Boolean) {}
+    fun getOtaPollingIntervalMs(): Long = 3600000L
 }
 
 object AdaptivePowerPolicyGovernor {
@@ -123,7 +126,19 @@ object TabHibernationManager {
 }
 
 object ShortcutManagerService {
+    const val ACTION_LAUNCH_WEB_APP = "com.aistudio.webnative.ACTION_LAUNCH"
+    const val EXTRA_WEB_APP_ID = "extra_web_app_id"
+    const val EXTRA_WEB_URL = "extra_web_url"
+    const val EXTRA_WEB_NAME = "extra_web_name"
+
     fun initialize(context: Context) {}
+    fun pinWebAppShortcut(context: Context, app: WebAppEntity, customIconBitmap: Bitmap? = null, containerId: String? = null, onComplete: ((Boolean) -> Unit)? = null): Boolean {
+        onComplete?.invoke(true)
+        return true
+    }
+    fun generateCustomIconBitmap(name: String, iconValue: String, iconType: String, accentColor: String): Bitmap {
+        return Bitmap.createBitmap(48, 48, Bitmap.Config.ARGB_8888)
+    }
 }
 
 object TurboCacheManager {
@@ -132,4 +147,86 @@ object TurboCacheManager {
 
 object ImmortalKeepAliveService {
     fun startImmortalLock(context: Context, name: String?, url: String?) {}
+}
+
+// Extension properties for AdBlockConfiguration
+var AdBlockConfiguration.antiDebuggerNeutralizerEnabled: Boolean
+    get() = false
+    set(_) {}
+var AdBlockConfiguration.webrtcLeakProtectionEnabled: Boolean
+    get() = false
+    set(_) {}
+var AdBlockConfiguration.popunderCrusherEnabled: Boolean
+    get() = false
+    set(_) {}
+var AdBlockConfiguration.cookieConsentAnnihilatorEnabled: Boolean
+    get() = false
+    set(_) {}
+var AdBlockConfiguration.fingerprintNoiseGeneratorEnabled: Boolean
+    get() = false
+    set(_) {}
+var AdBlockConfiguration.workerTelemetryInterceptorEnabled: Boolean
+    get() = false
+    set(_) {}
+var AdBlockConfiguration.wasmInterceptorEnabled: Boolean
+    get() = false
+    set(_) {}
+
+object WebViewOptimizationLayer {
+    fun setForceHardwareAccelerationEnabled(context: Context, enabled: Boolean) {}
+}
+
+// QA & Performance Engine Types
+data class WebPerformanceMetrics(
+    val totalLoadTimeMs: Long = 0,
+    val timeToFirstByteMs: Long = 0,
+    val domInteractiveMs: Long = 0,
+    val domCompleteMs: Long = 0,
+    val transferredResourcesCount: Int = 0
+)
+
+data class AccessibilityAuditResult(
+    val scorePercent: Int = 100
+)
+
+data class NetworkAssetHealth(
+    val isClean: Boolean = true
+)
+
+data class QaCheckItem(
+    val name: String,
+    val category: String,
+    val passed: Boolean,
+    val detail: String
+)
+
+data class SiteQualityAuditReport(
+    val pageUrl: String = "",
+    val pageTitle: String = "",
+    val domain: String = "",
+    val overallQualityScore: Int = 100,
+    val grade: String = "A+",
+    val performance: WebPerformanceMetrics = WebPerformanceMetrics(),
+    val accessibility: AccessibilityAuditResult = AccessibilityAuditResult(),
+    val networkHealth: NetworkAssetHealth = NetworkAssetHealth(),
+    val itemizedChecks: List<QaCheckItem> = emptyList()
+)
+
+object WebPerformanceQaEngine {
+    fun parseAuditResult(json: String, url: String, title: String): SiteQualityAuditReport {
+        return SiteQualityAuditReport(
+            pageUrl = url,
+            pageTitle = title,
+            domain = "example.com",
+            overallQualityScore = 95,
+            grade = "A+",
+            performance = WebPerformanceMetrics(totalLoadTimeMs = 350),
+            itemizedChecks = listOf(QaCheckItem("HTTPS", "SECURITY", true, "TLS 1.3"))
+        )
+    }
+}
+
+object QaReportExporter {
+    fun generateMarkdownReport(report: SiteQualityAuditReport): String = "# 📊 Reporte de Auditoría QA\nScore: " + report.overallQualityScore
+    fun generateJsonReport(report: SiteQualityAuditReport): String = "{\"overallScore\": " + report.overallQualityScore + "}"
 }
