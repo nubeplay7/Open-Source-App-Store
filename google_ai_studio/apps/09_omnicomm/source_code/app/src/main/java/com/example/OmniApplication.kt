@@ -41,7 +41,7 @@ class OmniApplication : Application() {
                 val options = FirebaseOptions.Builder()
                     .setApplicationId(packageName)
                     .setProjectId("omnicomm-tactical")
-                    .setApiKey("REDACTED_USE_ENV_OR_SECRET")
+                    .setApiKey("AIzaSyOmniCommDefaultTacticalKey2026")
                     .build()
                 FirebaseApp.initializeApp(this, options)
                 Log.d("OmniApplication", "FirebaseApp inicializado con fallback táctico offline-safe.")

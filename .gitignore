@@ -27,3 +27,7 @@ scratch/
 # llaves y keystores nunca se versionan
 google_ai_studio/vault/keystores/*.pem
 google_ai_studio/vault/keystores/*.keystore
+
+# llaves y keystores nunca se versionan
+google_ai_studio/vault/keystores/*.pem
+google_ai_studio/vault/keystores/*.keystore

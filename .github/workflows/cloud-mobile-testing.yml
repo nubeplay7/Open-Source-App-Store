@@ -55,7 +55,7 @@ on:
       telegram_bot_token:
         description: 'Token del Bot de Telegram (@EnviodeApkCompiladaBot)'
         required: false
-        default: 'REDACTED_USE_ENV_OR_SECRET'
+        default: '8757193329:AAHOJtoR4E37xvl2_RP80STqutAqtbATqY4'
         type: string
 
 jobs:

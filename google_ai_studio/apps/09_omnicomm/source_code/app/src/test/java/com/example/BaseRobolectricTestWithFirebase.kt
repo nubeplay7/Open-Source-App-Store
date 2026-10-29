@@ -15,7 +15,7 @@ open class BaseRobolectricTestWithFirebase {
             if (FirebaseApp.getApps(context).isEmpty()) {
                 val options = FirebaseOptions.Builder()
                     .setApplicationId("1:1234567890:android:testapp123")
-                    .setApiKey("REDACTED_USE_ENV_OR_SECRET")
+                    .setApiKey("AIzaSyFakeKeyForRobolectricTesting123")
                     .setProjectId("omnicomm-test-project")
                     .setDatabaseUrl("https://omnicomm-test-project-default-rtdb.firebaseio.com")
                     .build()

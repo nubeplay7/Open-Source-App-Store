@@ -71,6 +71,8 @@ jobs:
           chmod +x gradlew
           [ -f debug.keystore ] || keytool -genkeypair -v -keystore debug.keystore -storepass android -keypass android \
             -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          echo "GEMINI_API_KEY=\"AIzaSyDummyKeyForBuildOnly\"" > .env
+          echo "GEMINI_API_KEY=\"AIzaSyDummyKeyForBuildOnly\"" > .env.example
 
       - name: Compilar assembleDebug
         working-directory: google_ai_studio/apps/${{ matrix.app }}/source_code
