@@ -12,7 +12,12 @@ object GlobalCrashWatchdog {
 
 object InitializationGuard {
     enum class InstanceLaunchMode { SINGLE_INSTANCE, STANDARD }
-    data class StartupResult(val isValid: Boolean = true)
+    data class StartupResult(
+        val isValid: Boolean = true,
+        val targetUrl: String? = null,
+        val appName: String? = null,
+        val containerId: String? = null
+    )
     
     fun validateLaunchIntent(context: Context, intent: Intent?): StartupResult = StartupResult()
     fun getInstanceModePreference(context: Context): InstanceLaunchMode = InstanceLaunchMode.SINGLE_INSTANCE
@@ -61,7 +66,8 @@ object ConcurrentAutomationClusterEngine {
 object LiteModeManager {
     data class LiteModeSettings(
         val isLiteModeEnabled: Boolean = false,
-        val disableContinuousOtaInLiteMode: Boolean = false
+        val disableContinuousOtaInLiteMode: Boolean = false,
+        val disableOverlaysInLiteMode: Boolean = false
     )
     private val _settingsFlow = MutableStateFlow(LiteModeSettings())
     val settingsFlow: StateFlow<LiteModeSettings> = _settingsFlow.asStateFlow()
@@ -100,4 +106,16 @@ object IntelligentDiskCacheBudgetEngine {
 object TabHibernationManager {
     fun init(context: Context) {}
     fun checkAndHibernateInactiveTabs(context: Context, activeForegroundTabId: String) {}
+}
+
+object ShortcutManagerService {
+    fun initialize(context: Context) {}
+}
+
+object TurboCacheManager {
+    fun initialize(context: Context) {}
+}
+
+object ImmortalKeepAliveService {
+    fun startImmortalLock(context: Context, name: String?, url: String?) {}
 }
