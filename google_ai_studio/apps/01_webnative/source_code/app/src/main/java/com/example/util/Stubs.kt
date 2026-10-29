@@ -85,13 +85,17 @@ data class DashboardBlock(
     val id: String = "",
     val title: String = "",
     val subtitle: String = "",
-    val isVisible: Boolean = true
+    val isVisible: Boolean = true,
+    val assignedMenuId: String? = null,
+    val defaultTab: String = "TURBO_STUDIO"
 )
 
 data class CustomMenuFolder(
     val id: String = "",
     val name: String = "",
-    val blockIds: List<String> = emptyList()
+    val blockIds: List<String> = emptyList(),
+    val colorHex: Long = 0xFF6200EE,
+    val iconEmoji: String = "📁"
 )
 
 object LayoutCustomizerManager {
@@ -133,7 +137,9 @@ object LiteModeManager {
         val isLiteModeEnabled: Boolean = false,
         val disableContinuousOtaInLiteMode: Boolean = false,
         val disableOverlaysInLiteMode: Boolean = false
-    )
+    ) {
+        fun isModuleActive(moduleId: Any): Boolean = true
+    }
     private val _settingsFlow = MutableStateFlow(LiteModeSettings())
     val settingsFlow: StateFlow<LiteModeSettings> = _settingsFlow.asStateFlow()
 
@@ -287,4 +293,40 @@ object WebPerformanceQaEngine {
 object QaReportExporter {
     fun generateMarkdownReport(report: SiteQualityAuditReport): String = "# 📊 Reporte de Auditoría QA\nScore: " + report.overallQualityScore
     fun generateJsonReport(report: SiteQualityAuditReport): String = "{\"overallScore\": " + report.overallQualityScore + "}"
+}
+
+// Snaptube & Media Helper Stubs
+data class SnaptubeMediaFormat(
+    val id: String = "hd",
+    val quality: String = "1080p",
+    val url: String = ""
+)
+
+data class SnaptubeMedia(
+    val mediaId: String = "media_1",
+    val title: String = "Video",
+    val formats: List<SnaptubeMediaFormat> = listOf(SnaptubeMediaFormat())
+)
+
+enum class SnaptubeDownloadStatus { DOWNLOADING, COMPLETED, FAILED }
+
+data class SnaptubeDownloadTask(
+    val downloadId: Long = 0,
+    val status: SnaptubeDownloadStatus = SnaptubeDownloadStatus.DOWNLOADING
+)
+
+object SnaptubeMediaEngine {
+    val activeDownloadsFlow: StateFlow<List<SnaptubeDownloadTask>> = MutableStateFlow<List<SnaptubeDownloadTask>>(emptyList()).asStateFlow()
+    fun updateDownloadStatus(id: Long, status: SnaptubeDownloadStatus, progress: Int) {}
+    fun autoTagDownloadedAudios(context: Context): Int = 0
+}
+
+object SnaptubeAudioTagger {}
+
+object MediaDownloadAllowedDomainsManager {
+    fun shouldShowDownloadButton(url: String): Boolean = true
+}
+
+object SandboxCredentialsManager {
+    fun buildAutoLoginScript(email: String, pass: String): String = ""
 }
