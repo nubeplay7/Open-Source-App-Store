@@ -1,3 +1,5 @@
+package com.example.util
+
 import java.io.ByteArrayInputStream
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -6,8 +8,6 @@ import android.webkit.WebResourceResponse
 import kotlinx.coroutines.CoroutineScope
 import org.json.JSONArray
 import org.json.JSONObject
-package com.example.util
-
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
