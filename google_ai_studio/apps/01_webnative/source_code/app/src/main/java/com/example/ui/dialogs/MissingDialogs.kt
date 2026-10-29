@@ -20,6 +20,28 @@ fun SnaptubeMediaDialog(media: Any?, onDismissRequest: () -> Unit) {
 }
 
 @Composable
-fun SandboxPasswordManagerDialog(onDismiss: () -> Unit, onLaunchAutoLogin: (Any?, String, String) -> Unit) {
+fun WebMacroAutomationDialog(onDismiss: () -> Unit) {
     Box(modifier = Modifier)
 }
+
+@Composable
+fun VisualBlueprintStudioDialog(onDismiss: () -> Unit) {
+    Box(modifier = Modifier)
+}
+
+@Composable
+fun FeatureRegistryHubDialog(onDismiss: () -> Unit) {
+    Box(modifier = Modifier)
+}
+
+@Composable
+fun AdBlockSettingsDialog(onDismissRequest: () -> Unit) {
+    Box(modifier = Modifier)
+}
+
+@Composable
+fun ExtensionStoreDialog(onDismissRequest: () -> Unit, onOpenUrlInBrowser: (String) -> Unit) {
+    Box(modifier = Modifier)
+}
+
+enum class WebMacroDialogTab { DEFAULT }

@@ -10,7 +10,7 @@ fun ExtensionManagementCard(onNavigateUrl: (String) -> Unit) {
 }
 
 @Composable
-fun GoogleAccountCard() {
+fun GoogleAccountCard(onOpenUrl: ((String, String) -> Unit)? = null) {
     Box(modifier = Modifier)
 }
 
@@ -20,7 +20,10 @@ fun FullAutomationStudioCard() {
 }
 
 @Composable
-fun SystemResourceMonitorCard() {
+fun SystemResourceMonitorCard(
+    onRequestBatteryBypass: (() -> Unit)? = null,
+    onClearCache: (() -> Unit)? = null
+) {
     Box(modifier = Modifier)
 }
 
@@ -40,7 +43,7 @@ fun SystemAuditPanelCard() {
 }
 
 @Composable
-fun ContainerAppHubSection() {
+fun ContainerAppHubSection(searchQuery: String = "") {
     Box(modifier = Modifier)
 }
 
@@ -51,5 +54,20 @@ fun GlobalContainerOptimizationCard() {
 
 @Composable
 fun FirestoreSyncCard() {
+    Box(modifier = Modifier)
+}
+
+@Composable
+fun InternalMediaPlayerDialog(onDismiss: () -> Unit = {}) {
+    Box(modifier = Modifier)
+}
+
+@Composable
+fun UnifiedAdBlockControlCenterDialog(onDismiss: () -> Unit = {}) {
+    Box(modifier = Modifier)
+}
+
+@Composable
+fun SandboxAppsManagerDialog(onDismiss: () -> Unit = {}, onOpenApp: ((Any?, String) -> Unit)? = null) {
     Box(modifier = Modifier)
 }

@@ -13,3 +13,11 @@ fun SandboxHardwareAuditSection() {
 fun SandboxSnapshotsSection() {
     Box(modifier = Modifier)
 }
+
+@Composable
+fun SandboxPasswordManagerDialog(
+    onDismiss: () -> Unit,
+    onLaunchAutoLogin: (Any?, String, String) -> Unit
+) {
+    Box(modifier = Modifier)
+}
