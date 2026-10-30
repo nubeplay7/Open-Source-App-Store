@@ -15,9 +15,18 @@ const cp = require('child_process');
 
 const REPO = 'nubeplay7/Open-Source-App-Store';
 const ADB_DEVICE = '192.168.1.133:5555';
+const ADB_BIN = 'C:\\tools\\platform-tools\\adb.exe';
 
 // Definición de las 5 aplicaciones de Google AI Studio y su metadata
 const APPS_METADATA = {
+  '05_appmatrix_controller': {
+    packageName: 'com.aistudio.appmatrix.controller',
+    name: 'AppMatrix Controller'
+  },
+  '03_civer_assistant_applet': {
+    packageName: 'com.aistudio.assistant.applet',
+    name: 'Civer Assistant Applet'
+  },
   '10_omnistore_hub': {
     packageName: 'com.aistudio.omnistore.kptz',
     name: 'OmniStore Hub'
@@ -137,10 +146,10 @@ async function main() {
   }
   console.log(`      Workflow encontrado: ${wf.name} (ID: ${wf.id})`);
 
-  // 2. Despachar compilación
-  console.log(`[2/7] Despachando compilación cloud para: ${targetApp}...`);
+  const targetBranch = process.argv[3] || 'ci/native-apps';
+  console.log(`[2/7] Despachando compilación cloud para: ${targetApp} en rama '${targetBranch}'...`);
   const dispatchRes = await githubRequest(token, 'POST', `/repos/${REPO}/actions/workflows/${wf.id}/dispatches`, {
-    ref: 'main',
+    ref: targetBranch,
     inputs: { apps: targetApp }
   });
 
@@ -230,15 +239,15 @@ async function main() {
   // 6. Conexión ADB y subida a hardware real
   console.log(`[6/7] Conectando y desplegando en hardware Vivo V2341 (${ADB_DEVICE})...`);
   try {
-    cp.execSync(`adb connect ${ADB_DEVICE}`, { encoding: 'utf8' });
+    cp.execSync(`"${ADB_BIN}" connect ${ADB_DEVICE}`, { encoding: 'utf8' });
   } catch (e) {}
 
   const remoteApk = `/data/local/tmp/${targetApp}.apk`;
   console.log(`      Subiendo APK a dispositivo: ${remoteApk}...`);
-  cp.execSync(`adb -s ${ADB_DEVICE} push "${apkPath}" "${remoteApk}"`, { encoding: 'utf8' });
+  cp.execSync(`"${ADB_BIN}" -s ${ADB_DEVICE} push "${apkPath}" "${remoteApk}"`, { encoding: 'utf8' });
 
   console.log(`      Instalando APK silenciosamente (pm install -r -d)...`);
-  const installRes = cp.execSync(`adb -s ${ADB_DEVICE} shell pm install -r -d "${remoteApk}"`, { encoding: 'utf8' });
+  const installRes = cp.execSync(`"${ADB_BIN}" -s ${ADB_DEVICE} shell pm install -r -d "${remoteApk}"`, { encoding: 'utf8' });
   console.log(`      Resultado de instalación: ${installRes.trim()}`);
 
   // 7. Lanzamiento de la aplicación y captura visual forense
@@ -248,7 +257,7 @@ async function main() {
 
   if (pkg) {
     try {
-      cp.execSync(`adb -s ${ADB_DEVICE} shell monkey -p ${pkg} -c android.intent.category.LAUNCHER 1`, { encoding: 'utf8' });
+      cp.execSync(`"${ADB_BIN}" -s ${ADB_DEVICE} shell monkey -p ${pkg} -c android.intent.category.LAUNCHER 1`, { encoding: 'utf8' });
       console.log(`      Actividad lanzada para ${pkg}`);
     } catch (e) {
       console.log(`      Aviso de lanzamiento monkey: ${e.message}`);
@@ -265,8 +274,8 @@ async function main() {
   fs.mkdirSync(humanImgDir, { recursive: true });
   const humanImg = path.join(humanImgDir, `vivo_${targetApp}_live.png`);
 
-  cp.execSync(`adb -s ${ADB_DEVICE} shell screencap -p "${remoteImg}"`);
-  cp.execSync(`adb -s ${ADB_DEVICE} pull "${remoteImg}" "${localImg}"`);
+  cp.execSync(`"${ADB_BIN}" -s ${ADB_DEVICE} shell screencap -p "${remoteImg}"`);
+  cp.execSync(`"${ADB_BIN}" -s ${ADB_DEVICE} pull "${remoteImg}" "${localImg}"`);
   fs.copyFileSync(localImg, humanImg);
 
   console.log(`\n==================================================`);

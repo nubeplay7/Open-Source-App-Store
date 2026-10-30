@@ -29,6 +29,8 @@ jobs:
             "07_parallel_space": "9.3.1",
             "09_omnicomm": "9.3.1",
             "10_omnistore_hub": "9.3.1",
+            "05_appmatrix_controller": "9.3.1",
+            "03_civer_assistant_applet": "9.3.1",
           }
           sel = "${{ inputs.apps }}".strip()
           names = list(catalog) if sel in ("all", "") else [s.strip() for s in sel.split(",") if s.strip()]
@@ -71,6 +73,7 @@ jobs:
           chmod +x gradlew
           [ -f debug.keystore ] || keytool -genkeypair -v -keystore debug.keystore -storepass android -keypass android \
             -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          # Asegurar que .env y .env.example tengan claves dummy seguras para evitar "illegal start of expression" en BuildConfig
           echo "GEMINI_API_KEY=\"AIzaSyDummyKeyForBuildOnly\"" > .env
           echo "GEMINI_API_KEY=\"AIzaSyDummyKeyForBuildOnly\"" > .env.example
 
