@@ -11,13 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Text
-import com.example.data.model.WebAppEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.json.JSONArray
 import org.json.JSONObject
+
+data class WebAppEntity(val id: String = "", val name: String = "", val url: String = "")
+data class WebSessionState(val url: String = "", val scrollX: Int = 0, val scrollY: Int = 0, val title: String = "")
 
 // 1. Sandbox Session Status & KeepAlive
 enum class SandboxSessionStatus { ACTIVE, EXPIRED, LOCKED, NONE }
