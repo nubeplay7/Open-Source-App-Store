@@ -29,6 +29,9 @@ jobs:
             "07_parallel_space": "9.3.1",
             "09_omnicomm": "9.3.1",
             "10_omnistore_hub": "9.3.1",
+            "11_synccluster": "9.3.1",
+            "08_agentworkflow_orchestrator": "9.3.1",
+            "02_voxverse": "9.3.1",
             "05_appmatrix_controller": "9.3.1",
             "03_civer_assistant_applet": "9.3.1",
           }

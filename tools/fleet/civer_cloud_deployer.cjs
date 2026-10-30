@@ -19,6 +19,18 @@ const ADB_BIN = 'C:\\tools\\platform-tools\\adb.exe';
 
 // Definición de las 5 aplicaciones de Google AI Studio y su metadata
 const APPS_METADATA = {
+  '11_synccluster': {
+    packageName: 'com.aistudio.synccluster.mesh',
+    name: 'SyncCluster'
+  },
+  '08_agentworkflow_orchestrator': {
+    packageName: 'com.aistudio.agentworkflow.orchestrator',
+    name: 'AgentWorkflow Orchestrator'
+  },
+  '02_voxverse': {
+    packageName: 'com.aistudio.voxverse.synth',
+    name: 'VoxVerse'
+  },
   '05_appmatrix_controller': {
     packageName: 'com.aistudio.appmatrix.controller',
     name: 'AppMatrix Controller'
